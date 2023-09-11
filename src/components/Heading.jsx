@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import '../styles/components-styles/heading.css';
 
 
 function Heading(){
@@ -12,13 +13,14 @@ function Heading(){
               <i className="fi fi-rr-search search-icon"></i>
               </div>
             </form>
-          </div>
-          <div className="notifications">
-          <i className="fi fi-rr-bell"></i>
+            <div className="notifications">
+              <i className="fi fi-rr-bell"></i>
           </div>
           <div className="login-container">
 
           </div>
+          </div>
+          
         </div>
     )
 }

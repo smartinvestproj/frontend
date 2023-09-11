@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
+import '../styles/components-styles/sidebar.css'
 import Heading from './Heading.jsx';
 
 function Sidebar(){
@@ -16,7 +17,7 @@ function Sidebar(){
         <div className='sidebar-img'>
           <img className='sidebar-img' src={logo} alt="logo" />
         </div>
-        <div className='totalInvestment-box-container pulse'>
+        <div className='totalInvestment-box-container'>
           <div>
             <h3 className='totalInvestment-box-name'>Total Investment</h3>
           </div>
