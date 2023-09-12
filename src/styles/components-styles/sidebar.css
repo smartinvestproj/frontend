@@ -1,7 +1,9 @@
 .sidebar {
-    width: 250px;
-    padding: 20px;
-  }
+  width: 250px;
+  padding: 20px;
+  max-height: 200px;
+  background-color: var(--background-color);
+}
   
   .sidebar ul {
     margin-top: 50px;
@@ -15,7 +17,7 @@
   .sidebar li {
     margin-bottom: 10px;
     cursor: pointer;
-    color: #b8a13e98;
+    color: var(--gold-color);
     display: flex;
     margin-top: 15px;
   }
@@ -45,7 +47,7 @@
     grid-template-areas: 
       "name"
       "values";
-    background-color: #5a5858;
+    background-color: var(--text-placeholder);
     height: 75px;
     width: 150px;
     border-radius: 20px;
@@ -53,33 +55,7 @@
     padding: 0 20px;
     box-shadow: 1px 3px 6px rgb(0, 0, 0);
   }
-  
-  .elastic-spin {
-    animation: elastic-spin 2s infinite ease;
-  }
-  @keyframes elastic-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(720deg); }
-  }
-  
-  .pulse:hover {
-    animation: pulse 2s infinite ease-in-out alternate;
-  }
-  @keyframes pulse {
-    from { transform: scale(0.9); }
-    to { transform: scale(1.1); }
-  }
-  
-  .hithere:hover {
-    animation: hithere 2s ease infinite;
-  }
-  @keyframes hithere {
-    20% { transform: scale(1.1); }
-    40%, 60% { transform: rotate(-20deg) scale(1.1); }
-    50% { transform: rotate(20deg) scale(1.1); }
-    50% { transform: rotate(0deg) scale(1.1); }
-    100% { transform: scale(1); }
-  }
+
   
   .main{
     display: flex;
@@ -96,11 +72,23 @@
     font-size: 25px;
     grid-area: values;
     display: flex;
+    font-family: var(--numbers-font);
   }
   
   .totalInvest-box-percentage {
     font-size: 12px;
-    color: rgba(25, 189, 74, 0.603);
+    font-family: var(--numbers-font);
+    color: var(--green-color);
     font-weight: bold;
   }
+
+  a{
+    color: var(--gold-color);
+    font-size: 15px;
+    text-decoration: none;
+  }
   
+  .menu{
+    display: flex;
+    align-items: center;
+  }

@@ -11,6 +11,12 @@ function Sidebar(){
         setTheme(theme === 'light' ? 'dark' : 'light');
       };
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+      setOpen(!open);
+    };
+
     return(
         <div className={`dashboard ${theme}`}>
       <nav className={`sidebar`}>
@@ -27,9 +33,24 @@ function Sidebar(){
           </div>
         </div>
         <ul>
-          <li className='pulse'><i className="fi fi-rr-apps"></i>Dashboard</li>
-          <li className='pulse'><i className="fi fi-rr-wallet"></i>Portfolio</li>
-          <li className='pulse'><i className="fi fi-rr-document"></i>News</li>
+          <li className=''><i className="fi fi-rr-apps"></i>Dashboard</li>
+          <li onClick={handleOpen} className='dropdown'><i className="fi fi-rr-wallet"></i>Portfolio
+          {open ? (
+        <ul className="menu">
+          <li className="menu-item">
+            <a href="#">Portfolio Overview</a>
+          </li>
+          <li className="menu-item">
+            <a href="#">Stock management</a>
+          </li>
+          <li className="menu-item">
+            <a href="#">Reports</a>
+          </li>
+        </ul>
+      ) : null}
+          </li>
+          <li className=''><i className="fi fi-rr-document"></i>News</li>
+          <li className=''><i className=""></i>Watchlist</li>
         </ul>
         <div className='settings-sidebar'>
           <ul className='settings-sidebar hithere'>
@@ -38,9 +59,7 @@ function Sidebar(){
         </div>
         <button onClick={toggleTheme}>Light/Dark Mode</button>
       </nav>
-      <main className='main'>
-        <Heading/>
-      </main>
+      <Heading/>
     </div>
     );
 }
