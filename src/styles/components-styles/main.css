@@ -1,0 +1,28 @@
+.main 
+{
+    grid-area: main;
+    display: flex;
+    align-items: left;
+    margin-top: 50px;
+    position: relative;
+    padding-left: 150px;
+}
+
+.main h1 
+{
+    font: var(--primary-font);
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.main h1::after
+{
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 5%;
+    height: 2px;
+    background-color: gold;
+    margin-left: 130px;
+}

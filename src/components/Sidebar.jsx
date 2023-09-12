@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import '../styles/components-styles/sidebar.css'
-import Heading from './Heading.jsx';
 
 function Sidebar(){
 
@@ -27,20 +26,18 @@ function Sidebar(){
           </div>
         </div>
         <ul>
-          <li className='pulse'><i className="fi fi-rr-apps"></i>Dashboard</li>
-          <li className='pulse'><i className="fi fi-rr-wallet"></i>Portfolio</li>
-          <li className='pulse'><i className="fi fi-rr-document"></i>News</li>
+          <li><i className="fi fi-rr-apps"></i>Dashboard</li>
+          <li><i className="fi fi-rr-wallet"></i>Portfolio</li>
+          <li><i className="fi fi-rr-document"></i>News</li>
+          <li><i className="fi fi-rr-heart"></i>Watchlist</li>
         </ul>
         <div className='settings-sidebar'>
-          <ul className='settings-sidebar hithere'>
-            <li><i className="fi fi-rr-settings elastic-spin"></i>Settings</li>
+          <ul className='settings-sidebar'>
+            <li><i className="fi fi-rr-settings"></i>Settings</li>
           </ul>
         </div>
         <button onClick={toggleTheme}>Light/Dark Mode</button>
       </nav>
-      <main className='main'>
-        <Heading/>
-      </main>
     </div>
     );
 }

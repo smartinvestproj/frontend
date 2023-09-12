@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Dashboard from './pages/dashboard.jsx'
+import Portfolio from './pages/portfolio.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Dashboard/>
+    <Portfolio/>
   </React.StrictMode>
 )

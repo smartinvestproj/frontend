@@ -1,4 +1,3 @@
-
 .search-form{
     margin-left: 150px;
     margin-top: 60px;
@@ -48,4 +47,5 @@
   
   .notifications{
     display: flex;
+    margin-left: 20px;
   }
