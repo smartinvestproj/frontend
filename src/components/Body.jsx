@@ -12,10 +12,10 @@ function Body() {
       datasets: [
         {
           label: "",
-          data: [12, 19, 10, 5, 7, 5, 7, 10, 12, 15, 6, 3],
+          data: [12, 19, 10, 5, 7, 4, 7, 10, 12, 15, 6, 3],
           backgroundColor: ["rgb(217,83,79)"],
           borderColor: ["rgb(217,83,79)"],
-          borderWidth: 1,
+          borderWidth: 2,
         },
       ],
     };
@@ -47,6 +47,12 @@ function Body() {
         display: false, // Define a legenda como invisível
         },
     },
+    elements: {
+      point: {
+        radius: 0,
+        pointStyle: 'rect',
+      }
+    }
     };
 
     const ctx = chartRef.current; // Obtenha a referência atual do elemento canvas
@@ -91,7 +97,9 @@ function Body() {
         <button onClick={() => updatePeriod("3 months")}>3 months</button>
         <button onClick={() => updatePeriod("6 months")}>6 months</button>
         <button onClick={() => updatePeriod("1 year")}>1 year</button>
-        <button onClick={() => updatePeriod("All")} className="all">All</button>
+        <button onClick={() => updatePeriod("All")} className="all">
+          <i className="fi fi-rr-chart-line-up" style={{ marginRight: '5px' }}></i> All
+        </button>
       </div>
         <canvas ref={chartRef} id="overviewChart" width="400" height="150"></canvas>
       </div>
