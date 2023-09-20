@@ -11,10 +11,10 @@ function Body() {
       labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
       datasets: [
         {
-          label: "Ganhos",
+          label: "",
           data: [12, 19, 10, 5, 7, 5, 7, 10, 12, 15, 6, 3],
-          backgroundColor: ["rgb(255, 0, 0)"],
-          borderColor: ["rgb(255, 0, 0)"],
+          backgroundColor: ["rgb(217,83,79)"],
+          borderColor: ["rgb(217,83,79)"],
           borderWidth: 1,
         },
       ],
@@ -27,7 +27,7 @@ function Body() {
         y: {
           beginAtZero: true,
           grid: {
-            color: "#C6A653", // Define a cor do quadriculado horizontal
+            color: "rgba(198, 166, 83, 0.2)", // Define a cor do quadriculado horizontal
           },
           ticks: {
             color: "white", // Define a cor das labels dos meses
@@ -35,13 +35,18 @@ function Body() {
         },
         x: {
           grid: {
-            color: "#C6A653", // Define a cor do quadriculado horizontal
+            color: "rgba(198, 166, 83, 0.2)", // Define a cor do quadriculado horizontal
           },
           ticks: {
             color: "white", // Define a cor das labels dos meses
           },
         },
       },
+      plugins: {
+        legend: {
+        display: false, // Define a legenda como invisível
+        },
+    },
     };
 
     const ctx = chartRef.current; // Obtenha a referência atual do elemento canvas
@@ -86,7 +91,7 @@ function Body() {
         <button onClick={() => updatePeriod("3 months")}>3 months</button>
         <button onClick={() => updatePeriod("6 months")}>6 months</button>
         <button onClick={() => updatePeriod("1 year")}>1 year</button>
-        <button onClick={() => updatePeriod("All")}>All</button>
+        <button onClick={() => updatePeriod("All")} className="all">All</button>
       </div>
         <canvas ref={chartRef} id="overviewChart" width="400" height="150"></canvas>
       </div>
