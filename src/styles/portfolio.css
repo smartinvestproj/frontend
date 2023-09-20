@@ -1,0 +1,37 @@
+:root {
+    font-family: var(--primary-font);
+    color-scheme: light dark;
+    --gold-color : #C6A653;
+    --background-color: #242424;
+    --boxes-color: #333333;
+    --red-color: #D9534F;
+    --green-color: #22B573;
+    --text-placeholder: #B3B3B3;
+    --shadow-box-color: #1a1a1a;
+    --primary-font: 'Raleway';
+    --secondary-font: 'Montserrat' ;
+    --numbers-font: 'Montserrat';
+    background-color: var(--background-color);
+  }
+
+.container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "sidebar heading"
+      "sidebar main";
+  }
+  
+  .content {
+    grid-area: heading;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+  }

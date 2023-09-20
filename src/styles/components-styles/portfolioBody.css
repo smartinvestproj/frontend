@@ -1,0 +1,84 @@
+.main {
+    grid-area: main;
+    display: flex;
+    align-items: left;
+    margin-top: 50px;
+    position: relative;
+    padding-left: 150px;
+  }
+  
+  .main h1 {
+    font: var(--primary-font);
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .line {
+    height: 2px;
+    background-color: #C6A653;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 50px;
+  }
+  
+  .line2 {
+    height: 2px;
+    background-color: #C6A653;
+    width: 95%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+  }
+  
+  .graph
+  {
+    background-color: #333333;
+    border-radius: 20px;
+  }
+  
+  #overviewChart
+  {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+  
+  .updateButtons
+  {
+    display: flex;
+    gap: 110px;
+    margin-left: 50px;
+  }
+  
+  .updateButtons button {
+    border: none;
+    border-radius: 8px;
+    padding: 4px 9px;
+  }
+  
+  .updateButtons button.all {
+    background-image: url("../../assets/graph.png");
+  }
+  
+  .money
+  {
+    text-align: right;
+    margin-right: 45px;
+    margin-bottom: 30px;
+  }
+  
+  .profit {
+    width: 40px;
+    height: 20px;
+    background-color: #D9534F;
+    border-radius: 2px;
+    margin-left: 970px;
+    margin-top: -45px;
+  }
+  
+  .profit p
+  {
+    font-size: 12px;
+    text-align: center;
+  }

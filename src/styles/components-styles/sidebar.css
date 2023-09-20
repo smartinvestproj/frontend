@@ -2,25 +2,30 @@
   width: 250px;
   padding: 20px;
   max-height: 200px;
-  background-color: var(--background-color);
 }
   
-  .sidebar ul {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    padding: 0; 
-    font-size: 25px;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
+.sidebar-ul {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0; 
+  font-size: 25px;
+}
+
+.collapse-portfolio{
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.sidebar li {
+    margin-bottom: 20px;
     cursor: pointer;
     color: var(--gold-color);
     display: flex;
-    margin-top: 15px;
-  }
+    margin-top: 10px;
+    font-size: 20px;
+}
   
   .sidebar li i{
     margin-right: 20px;
@@ -39,7 +44,8 @@
   }
   
   .settings-sidebar{
-    margin-top: 300px;
+    position: absolute;
+    margin-top: 100px;
   }
   
   .totalInvestment-box-container {
@@ -47,23 +53,18 @@
     grid-template-areas: 
       "name"
       "values";
-    background-color: var(--text-placeholder);
+    background-color: var(--boxes-color);
     height: 75px;
     width: 150px;
     border-radius: 20px;
     align-items: center;
     padding: 0 20px;
-    box-shadow: 1px 3px 6px rgb(0, 0, 0);
+    box-shadow: 7px 7px 5px var(--shadow-box-color);
   }
 
-  
-  .main{
-    display: flex;
-    justify-content: center;
-  }
   .totalInvestment-box-name {
     grid-area: name;
-    font-size: 10px;
+    font-size: 12px;
     margin: 0;
     margin-top: 5px;
   }
@@ -87,8 +88,13 @@
     font-size: 15px;
     text-decoration: none;
   }
-  
-  .menu{
-    display: flex;
-    align-items: center;
-  }
+
+.settings-sidebar-li{
+  font-size: 20px;
+}
+
+.collapse-arrow {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 2px;
+}
