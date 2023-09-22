@@ -1,0 +1,61 @@
+.add-stock-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 50px;
+}
+
+.add-stock-header h2 {
+    font-weight: lighter;
+    font-size: 2rem;
+}
+
+.add-stock-plus {
+    font-size: 3rem;
+    position: relative;
+    padding-left: 60%;
+}
+
+.stock-table input {
+    background: none;
+    border: none;
+}
+
+.stock-table {
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
+
+.stock-table td {
+    height: 45px;
+}
+
+.stock-table input {
+    border-bottom: 2px var(--gold-color) solid;
+}
+
+.stock-table td:nth-child(even) {
+    width: 30%;
+}
+
+.add-button-div {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.add-button {
+    border: 2px var(--gold-color) solid;
+    background: none;
+    height: 5vh;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+}
+
+.add-button:hover {
+    cursor: pointer;
+}

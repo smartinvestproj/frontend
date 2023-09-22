@@ -38,7 +38,7 @@ return(
             <li>
               <Link to="portfolio">Portfolio</Link>
             </li>
-            <li><a href="#">Stock management</a></li>
+            <li><a href="stockManagement">Stock management</a></li>
             <li><a href="#">Reports</a></li>
           </div>
         )}
