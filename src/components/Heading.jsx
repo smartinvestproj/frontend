@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import '../styles/components-styles/heading.css';
 import user from '../assets/user.png';
+import SearchBar from "./SearchBar";
 
 function Heading(){
     
@@ -8,10 +9,7 @@ function Heading(){
         <div>
           <div className="search-form">
             <form action="POST">
-              <div className="search-container">
-              <input className="search-input" type="text" placeholder="Search"/>
-              <i className="fi fi-rr-search search-icon"></i>
-              </div>
+              <SearchBar />
             </form>
             <div className="login-container">
               <div className="notifications">
