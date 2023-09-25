@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/portfolio.css";
 import Sidebar from "../components/Sidebar.jsx";
-import Body from "../components/Body";
+import PortfolioPage from "../components/PortfolioPage";
 import Heading from "../components/Heading";
 
 function Portfolio() {
@@ -10,7 +10,7 @@ function Portfolio() {
       <Sidebar />
       <div className="content">
         <Heading />
-        <Body />
+        <PortfolioPage />
       </div>
     </div>
   );

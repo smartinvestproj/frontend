@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/components-styles/body.css";
+import "../styles/components-styles/PortfolioPage.css";
 import Chart from "chart.js/auto";
 
-function Body() {
+function PortfolioPage() {
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("1 day"); // Estado para controlar o período
 
@@ -107,4 +107,4 @@ function Body() {
   );
 }
 
-export default Body;
+export default PortfolioPage;
