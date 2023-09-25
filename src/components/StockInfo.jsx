@@ -1,7 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function StockInfo(props) {
-  const { name, tinyName, date, money, quantity, country, broker, price } = props;
+  const {
+    name,
+    tinyName,
+    date,
+    money,
+    quantity: initialQuantity,
+    country,
+    broker,
+    price,
+  } = props;
+
+  // Initialize quantity as a state variable
+  const [quantity, setQuantity] = useState(parseInt(initialQuantity, 10) || 0);
+  
+  const handleBuyStock = () => {
+    // Increase the quantity by 1 when "Buy Stock" is clicked
+    setQuantity(prevQuantity => prevQuantity + 1);
+  };
+
+  const handleSellStock = () => {
+    // Decrease the quantity by 1 when "Sell Stock" is clicked
+    if (quantity > 0) {
+      setQuantity(prevQuantity => prevQuantity - 1);
+    }
+  };
 
   return (
 
@@ -43,9 +67,9 @@ function StockInfo(props) {
 
       <div className="buttons-container">
         <div className="buttons">
-          <button><span></span>Sell Stock</button>
+          <button onClick={handleSellStock}><span></span>Sell Stock</button>
           <hr></hr>
-          <button><span></span>Buy Stock</button>
+          <button onClick={handleBuyStock}><span></span>Buy Stock</button>
         </div>
       </div>
 

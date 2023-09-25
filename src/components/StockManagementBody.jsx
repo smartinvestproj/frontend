@@ -9,10 +9,10 @@ import '../styles/components-styles/StockInfo.css';
 function StockManagement() {
   // Sample stock data
   const initialStock = [
-    { id: 1, name: 'META', tinyName: 'META', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "1,6790", country: "USA", broker: "XTB" },
-    { id: 2, name: 'ADS', tinyName: 'Adidas', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "1,6790", country: "USA", broker: "XTB" },
-    { id: 3, name: 'AAPL', tinyName: 'Apple', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "1,6790", country: "USA", broker: "XTB" },
-    { id: 4, name: 'AMZN', tinyName: 'Amazon', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "1,6790", country: "USA", broker: "XTB" },
+    { id: 1, name: 'META', tinyName: 'META', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "16790", country: "USA", broker: "XTB" },
+    { id: 2, name: 'ADS', tinyName: 'Adidas', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "16790", country: "USA", broker: "XTB" },
+    { id: 3, name: 'AAPL', tinyName: 'Apple', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "16790", country: "USA", broker: "XTB" },
+    { id: 4, name: 'AMZN', tinyName: 'Amazon', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "16790", country: "USA", broker: "XTB" },
   ];
 
   const [stock, setStock] = useState(initialStock);
@@ -168,7 +168,7 @@ function StockManagement() {
           />
 
         ) : (
-          <AddStock />
+          <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen}/>
         )}
       </ModalComponent>
 

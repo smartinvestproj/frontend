@@ -59,3 +59,7 @@
 .add-button:hover {
     cursor: pointer;
 }
+
+.stock-table hr{
+    border-color: var(--gold-color);
+}
