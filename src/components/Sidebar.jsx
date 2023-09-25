@@ -36,7 +36,7 @@ return(
       {isCollapsed ? null : (
           <div className='collapse-portfolio'>
             <li>
-              <Link to="portfolio">Portfolio</Link>
+              <Link to="/portfolio">Portfolio</Link>
             </li>
             <li><a href="#">Stock management</a></li>
             <li><a href="#">Reports</a></li>
