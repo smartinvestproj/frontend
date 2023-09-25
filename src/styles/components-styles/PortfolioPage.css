@@ -74,10 +74,18 @@
   }
 }
 
+.myPortfolio
+{
+  align-self: flex-start;
+  margin-bottom: -70px;
+  margin-left: 20px;
+  visibility: hidden;
+}
 
 .money {
   margin-bottom: 15px;
   align-self: flex-end;
+  margin-right: 20px;
 }
 
 .profit {

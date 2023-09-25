@@ -83,6 +83,9 @@ function PortfolioPage() {
       <h1>Portfolio Overview</h1>
       <div className="line"></div>
       <div className="graph">
+        <div className="myPortfolio">
+          <h1>My Portfolio</h1>
+        </div>
         <div className="money">
           <h1>€2346,67</h1>
           <div className="profit">
