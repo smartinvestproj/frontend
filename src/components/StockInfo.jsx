@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import editing from '../assets/editing.png';
+import arrow from '../assets/right-arrow.png';
 
 function StockInfo(props) {
   const {
@@ -63,13 +65,13 @@ function StockInfo(props) {
         </tbody>
       </table>
 
-      <td className='edit'>Edit <span className='arrow-down red editIcon'>icon</span></td>
+      <td className='edit'>Edit<img className="editIcon" src={editing} alt="" /></td>
 
       <div className="buttons-container">
         <div className="buttons">
-          <button onClick={handleSellStock}><span></span>Sell Stock</button>
+          <button onClick={handleSellStock}><span className='arrow-red-span'><img className='arrow-red' src={arrow} alt="" /></span>Sell Stock</button>
           <hr></hr>
-          <button onClick={handleBuyStock}><span></span>Buy Stock</button>
+          <button onClick={handleBuyStock}><span className='arrow-green-span'><img className='arrow-green' src={arrow} alt="" /></span>Buy Stock</button>
         </div>
       </div>
 
