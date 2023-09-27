@@ -2,23 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/components-styles/PortfolioPage.css";
 import Chart from "chart.js/auto";
 
+
+
+const data = {
+  labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+  datasets: [
+    {
+      label: "",
+      data: [12, 19, 10, 5, 7, 4, 7, 10, 12, 15, 6, 3],
+      backgroundColor: ["rgb(217,83,79)"],
+      borderColor: ["rgb(217,83,79)"],
+      borderWidth: 2,
+    },
+  ],
+};
+
 function PortfolioPage() {
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("1 day"); // Estado para controlar o período
 
+
   useEffect(() => {
-    const data = {
-      labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-      datasets: [
-        {
-          label: "",
-          data: [12, 19, 10, 5, 7, 4, 7, 10, 12, 15, 6, 3],
-          backgroundColor: ["rgb(217,83,79)"],
-          borderColor: ["rgb(217,83,79)"],
-          borderWidth: 2,
-        },
-      ],
-    };
+    
 
     // Opções do gráfico (exemplo)
     const options = {
@@ -75,7 +80,7 @@ function PortfolioPage() {
 
   // Função para atualizar o período do gráfico
   const updatePeriod = (newPeriod) => {
-    setPeriod(newPeriod);
+    // setPeriod(newPeriod);
 
     // Modify the dataset and labels when "1 day" is selected
     let newData = null;
@@ -229,6 +234,8 @@ function PortfolioPage() {
     });
 
     ctx.chart = newChart;
+
+    
   };
 
   return (
