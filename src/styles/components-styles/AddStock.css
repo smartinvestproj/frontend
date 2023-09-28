@@ -63,3 +63,7 @@
 .stock-table hr{
     border-color: var(--gold-color);
 }
+
+.add-stock-hr{
+    border-color: var(--gold-color);
+}

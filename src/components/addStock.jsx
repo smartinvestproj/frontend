@@ -75,7 +75,7 @@ function AddStock({ stock, setStock }) {
         <h2>Add Stock</h2>
         <div className="add-stock-plus">+</div>
       </div>
-      <hr />
+      <hr className='add-stock-hr'/>
       <div>
         <form className="modal-form" action="" onSubmit={handleSubmit}>
           <table className='stock-table'>
