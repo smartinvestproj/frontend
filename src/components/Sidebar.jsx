@@ -10,8 +10,6 @@ function Sidebar(){
     setIsCollapsed(!isCollapsed);
   };
 
-  
-  
 
 return(
       <div className='sidebar'>
@@ -29,21 +27,13 @@ return(
     </div>
     <div className='sidebar-ul'>
     <Link to="/" className='sidebar-li'><li><i className="fi fi-rr-apps"></i>Dashboard</li></Link>
-      <li onClick={toggleCollapse}><i className="fi fi-rr-wallet"></i>Portfolio
-        <div className={`collapse-arrow ${isCollapsed ? 'collapsed' : ''}`}>
-          <i className={`${isCollapsed ? 'fi fi-rr-angle-small-right' : 'fi fi-rr-angle-small-down'}`}></i>
-        </div></li>
-      {isCollapsed ? null : (
-          <div className='collapse-portfolio'>
             <li>
-              <Link to="/portfolio">Portfolio</Link>
+            <Link to="/portfolio"><i className="fi fi-rr-wallet"></i>Portfolio</Link>
             </li>
-            <li><a href="#">Stock management</a></li>
+            <li>
+              <Link to="/stockManagement"><a href="#">Stock management</a></Link>
+              </li>
             <li><a href="#">Reports</a></li>
-          </div>
-        )}
-    <li><i className="fi fi-rr-document"></i>News</li>
-    <li><i className="fi fi-rr-heart"></i>Watchlist</li>
     </div>
       <div className='settings-sidebar hithere'>
         <li><a className='settings-sidebar-li' href="#"><i className="fi fi-rr-settings elastic-spin"></i>Settings</a></li>

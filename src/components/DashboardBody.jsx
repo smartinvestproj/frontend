@@ -10,6 +10,7 @@ function DashboardBody(){
         scrl.current.scrollLeft += shift;
     };
 
+    
     return(
         <>
         <div className="dashboardBody-container">

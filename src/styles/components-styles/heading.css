@@ -1,75 +1,11 @@
-.search-form{
-    margin-left: 30px;
-    margin-top: 60px;
-    display: flex;
-    align-items: center;
-  }
-  
-.search-container{
-  position: relative;
-}
-.search-input{
-  padding-right: 40px;
-  border: 0px solid var(--gold-color);
-  border-radius: 20px;
-  font-size: 16px;
-  padding: 5px;
-  width: 600px;
-  text-indent: 25px;
-  height: 25px;
-}
-
-.search-input::placeholder{
-  position: absolute;
-  left: 5%;
-  text-indent: 2px;
-  color: var(--text-placeholder);
-}
-
-.search-input:focus{
-  border-color: var(--gold-color);
-  box-shadow: 1px 1px 5px rgba(51, 51, 51, 0.5); 
-  text-indent: 28px;
-}
-
-.search-input:disabled{
-  background-color: #f2f2f2;
-  cursor: crosshair;
-  text-indent: 25px;
-}
-
-.search-icon{
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  color: var(--text-placeholder);
-}
-
-.notifications{
+.notifications {
   display: inline-block;
   position: relative;
   color: var(--gold-color);
   font-size: 30px;
-  margin-top: 10px;
 }
 
-.notification-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: var(--red-color);
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 12px;
-  font-weight: bolder;
-  line-height: 20px;
-}
-
-.divider{
+.divider {
   margin-left: 30px;
   font-size: 40px;
   font-weight: 900;
@@ -77,26 +13,22 @@
   color: var(--gold-color);
 }
 
-.login-container{
+.login-container-heading {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-left: 500px;
+  margin-left: 350px;
 }
 
 .user-circle {
   border-color: var(--gold-color);
   border-radius: 50%;
   width: 50px;
-  height: 50px; 
+  height: 50px;
   object-fit: cover;
 }
 
-
-.login-container h2{
+.login-container h2 {
   color: var(--gold-color);
   margin-left: 20px;
-}
-
-.user-name{
-  width: 280px;
 }
