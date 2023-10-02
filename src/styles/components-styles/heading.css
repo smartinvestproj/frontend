@@ -5,19 +5,12 @@
   font-size: 30px;
 }
 
-.divider {
-  margin-left: 30px;
-  font-size: 40px;
-  font-weight: 900;
-  margin-top: 5px;
-  color: var(--gold-color);
-}
-
 .login-container-heading {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 350px;
+  width: 400px;
 }
 
 .user-circle {
@@ -28,7 +21,8 @@
   object-fit: cover;
 }
 
-.login-container h2 {
+.login-container-heading h2 {
   color: var(--gold-color);
   margin-left: 20px;
+  width: 300px;
 }

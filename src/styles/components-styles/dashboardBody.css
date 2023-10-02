@@ -14,6 +14,7 @@
     margin-top: -80px;
     margin-left: -120px;
 }
+
 .dashboardBody-mystocks-container{
     background-color: var(--boxes-color);
     height: 150px;
@@ -42,7 +43,12 @@
     overflow-x: scroll;
     scroll-behavior: smooth;
 }
-
+::-webkit-scrollbar {
+    height: 3px;              /* height of horizontal scrollbar ← You're missing this */
+    width: 0px;               /* width of vertical scrollbar */
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+  }
 .my-stocks-item::after{
     left: 0; right: 0;
     top: 0; bottom: 0;
@@ -78,6 +84,3 @@
     transform: translateY(2%);
 }
 
-::-webkit-scrollbar {
-    visibility: hidden;
-  }

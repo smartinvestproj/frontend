@@ -37,6 +37,7 @@
 
 .divide-stock{
   font-size: 65px;
+  height: 10px;
   color: var(--gold-color);
   margin-left: 100px;
   margin-right: -55px;

@@ -26,14 +26,16 @@ return(
       </div>
     </div>
     <div className='sidebar-ul'>
-    <Link to="/" className='sidebar-li'><li><i className="fi fi-rr-apps"></i>Dashboard</li></Link>
-            <li>
-            <Link to="/portfolio"><i className="fi fi-rr-wallet"></i>Portfolio</Link>
-            </li>
-            <li>
-              <Link to="/stockManagement"><a href="#">Stock management</a></Link>
-              </li>
-            <li><a href="#">Reports</a></li>
+      <Link to="/"><li><i className="fi fi-rr-apps"></i>Dashboard</li></Link>
+      <li>
+        <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
+      </li>
+      <li>
+          <Link to="/stockManagement" className='sidebar-li'><i class="fi fi-rr-money-check-edit"></i>Stock management</Link>
+      </li>
+      <li>
+          <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>
+      </li>
     </div>
       <div className='settings-sidebar hithere'>
         <li><a className='settings-sidebar-li' href="#"><i className="fi fi-rr-settings elastic-spin"></i>Settings</a></li>

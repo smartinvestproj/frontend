@@ -27,6 +27,14 @@
     margin-top: 10px;
     font-size: 20px;
 }
+
+.sidebar-li{
+    cursor: pointer;
+    color: var(--gold-color);
+    display: flex;
+    margin-top: 10px;
+    font-size: 20px;
+}
   
   .sidebar li i{
     margin-right: 20px;
@@ -92,10 +100,4 @@
 
 .settings-sidebar-li{
   font-size: 20px;
-}
-
-.collapse-arrow {
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: 2px;
 }
