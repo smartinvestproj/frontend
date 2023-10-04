@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import '../styles/components-styles/searchBar.css'
+import axios from 'axios';
 
 function SearchBar() {
-  const URL = "http://127.0.0.1:8000/api/stocks";
+  const URL = "http://127.0.0.1:8000/api/trades";
 
   const [search, setSearch] = useState("");
   const [originalResults, setOriginalResults] = useState([]);
@@ -11,10 +12,11 @@ function SearchBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(URL);
-        if (response.ok) {
-          const data = await response.json();
-          setOriginalResults(data.data);
+        const response = await axios.get(URL);
+        if (response.status === 200) {
+          const data = response.data.data; 
+          setOriginalResults(data);
+          console.log(data[0].stock.name)
         } else {
           console.error("Failed to fetch data");
         }
@@ -33,8 +35,8 @@ function SearchBar() {
       setSearchResults([]);
     } else {
       const filteredResults = originalResults.filter((result) =>
-        result.name.toLowerCase().startsWith(search.toLowerCase())
-      );
+      result && result.name && result.name.toLowerCase().startsWith(search.toLowerCase())
+    );    
 
       setSearchResults(filteredResults);
     }
@@ -57,9 +59,10 @@ function SearchBar() {
           <ul style={{ listStyle: "none" }}>
             {searchResults.map((result, index) => (
               <li key={index} className="results">
+
                 <span className="result-name">{result.name}</span>
                 <span className="result-symbol">{result.symbol}</span>
-                <span className="result-value">{trade.value}</span>
+                <span className="result-value">{result.value}</span>
                 <span className="result-percentage" style={{ color: "red" }}>
                   {result.percentage}
                 </span>
