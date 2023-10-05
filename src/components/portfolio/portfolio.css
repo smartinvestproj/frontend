@@ -23,7 +23,7 @@
       "sidebar main";
   }
   
-  .content {
+  .content{
     grid-area: heading;
     display: flex;
     flex-direction: column;

@@ -10,7 +10,11 @@ function Portfolio() {
       <Sidebar />
       <div className="content">
         <Heading />
-        <PieCharts />
+        <div className="reports-container">
+          <PieCharts />
+          <PieCharts />
+          <PieCharts />
+        </div>
       </div>
     </div>
   );

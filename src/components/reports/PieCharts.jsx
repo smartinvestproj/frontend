@@ -5,18 +5,18 @@ import './pieCharts.css';
 function PieCharts(){
   // Dados para o gráfico de pizza
   const data = {
-    labels: ['Maçãs', 'Bananas', 'Pêssegos', 'Uvas'],
+    labels: ['META', 'AAPL', 'AMZN', 'NFLX'],
     datasets: [
       {
         data: [12, 8, 5, 14], // Valores para cada fatia do gráfico
-        backgroundColor: ['red', 'yellow', 'orange', 'purple'], // Cores para cada fatia
+        backgroundColor: ['#0668E1', '#A3AAAE', '#E4C083', '#D81F26'], // Cores para cada fatia
       },
     ],
   };
 
   return (
-    <div className='chart'>
-      <h2>Gráfico de Pizza</h2>
+    <div className='pieChart-container'>
+      <h2 className='pieChart-header'>Stocks per Company</h2>
       <Pie data={data} />
     </div>
   );
