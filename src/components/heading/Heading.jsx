@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import '../styles/components-styles/heading.css';
-import SearchBar from "./SearchBar.jsx";
-import user from '../assets/user.png';
+import './heading.css';
+import SearchBar from "./searchBar/SearchBar.jsx";
+import user from '../../assets/user.png';
 
 function Heading(){
     

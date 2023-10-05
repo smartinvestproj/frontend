@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/components-styles/myStocks.css';
+import './myStocks.css';
 
 function MyStocks(){
     return(

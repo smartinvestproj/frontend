@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import '../styles/components-styles/dashboardBody.css';
-import MyStocks from './MyStocks.jsx';
-import PortfolioBody from './PortfolioBody.jsx'
+import './dashboardBody.css';
+import MyStocks from '../myStocks/MyStocks.jsx';
+import DashboardGraph from '../../dashboard/dashboardBody/DashboardGraph.jsx'
 
 function DashboardBody(){
     const scrl = useRef(null);
@@ -32,7 +32,7 @@ function DashboardBody(){
                 </div>
             </div>
                     <i onClick={() => slide(+150)} className='stocks-arrow fi fi-rr-angle-small-right'></i>
-            <PortfolioBody />
+            <DashboardGraph />
         </div>
         </>
     );

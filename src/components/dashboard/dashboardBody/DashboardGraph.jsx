@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/components-styles/portfolioBody.css";
+import "./dashboardGraph.css";
 import Chart from "chart.js/auto";
 
 

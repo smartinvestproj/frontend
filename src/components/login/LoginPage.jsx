@@ -1,6 +1,6 @@
 import React from 'react';
-import '../styles/LoginPage.css';
-import LoginImage from '../assets/LoginImage.png'
+import './LoginPage.css';
+import LoginImage from '../../assets/LoginImage.png';
 
 function LoginPage() {
   return (

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import AddStock from '../components/AddStock.jsx';
-import StockInfo from '../components/StockInfo';
-import ModalComponent from './ModalComponent';
-import '../styles/stockManagement.css';
-import '../styles/components-styles/AddStock.css';
-import '../styles/components-styles/StockInfo.css';
+import AddStock from './modals/AddStock.jsx';
+import StockInfo from './stockInfo/StockInfo.jsx';
+import ModalComponent from './modals/ModalComponent.jsx';
+import './stockManagement.css';
+import './modals/addStock.css';
+import './stockInfo/stockInfo.css';
 
 function StockManagement() {
   // Sample stock data

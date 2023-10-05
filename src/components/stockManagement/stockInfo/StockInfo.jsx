@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import editing from '../assets/editing.png';
-import arrow from '../assets/right-arrow.png';
+import editing from '../../../assets/editing.png';
+import arrow from '../../../assets/right-arrow.png';
 
 function StockInfo(props) {
   const {

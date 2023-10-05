@@ -4,7 +4,7 @@ import Dashboard from "./pages/dashboard.jsx";
 import Portfolio from "./pages/portfolio.jsx";
 import StockManagement from "./pages/StockManagement.jsx";
 import Login from "./pages/Login.jsx";
-
+import Reports from "./pages/Reports.jsx";
 function App(){
   
     return(
@@ -14,6 +14,7 @@ function App(){
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/portfolio" element={<Portfolio/>}/>
                 <Route path="/stockManagement" element={<StockManagement/>}/>
+                <Route path="/reports" element={<Reports/>}/>
             </Routes>
         </BrowserRouter>
         

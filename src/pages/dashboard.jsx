@@ -1,8 +1,8 @@
 import React from 'react';
-import '../styles/dashboard.css';
-import Sidebar from '../components/Sidebar.jsx';
-import Heading from '../components/Heading.jsx';
-import DashboardBody from '../components/DashboardBody.jsx';
+import '../components/dashboard/dashboard.css';
+import Sidebar from '../components/sidebar/Sidebar.jsx';
+import Heading from '../components/heading/Heading.jsx';
+import DashboardBody from '../components/dashboard/dashboardBody/DashboardBody.jsx';
 
 
 function Dashboard() {

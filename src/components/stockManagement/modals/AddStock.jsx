@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/components-styles/addStock.css'
+import './addStock.css'
 
 function AddStock({ stock, setStock }) {
 

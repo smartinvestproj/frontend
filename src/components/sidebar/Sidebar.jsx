@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
-import logo from '../assets/logo.png';
-import '../styles/components-styles/sidebar.css'
+import logo from '../../assets/logo.png';
+import './sidebar.css'
 
 function Sidebar(){
 
@@ -31,7 +31,7 @@ return(
         <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
       </li>
       <li>
-          <Link to="/stockManagement" className='sidebar-li'><i class="fi fi-rr-money-check-edit"></i>Stock management</Link>
+          <Link to="/stockManagement" className='sidebar-li'><i clasName="fi fi-rr-money-check-edit"></i>Stock management</Link>
       </li>
       <li>
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>

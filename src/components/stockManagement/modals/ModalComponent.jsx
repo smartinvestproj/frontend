@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 import Modal from 'react-modal';
-import '../styles/components-styles/stockInfo.css'
+import '../stockInfo/stockInfo.css'
 
 function ModalComponent({ modalIsOpen, setModalIsOpen, children }) {
 

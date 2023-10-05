@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../components/portfolio/portfolio.css";
+import "../components/reports/reports.css";
 import Sidebar from "../components/sidebar/Sidebar.jsx";
-import Body from "../components/dashboard/dashboardBody/DashboardGraph.jsx";
+import PieCharts from "../components/reports/PieCharts.jsx";
 import Heading from "../components/heading/Heading.jsx";
 
 function Portfolio() {
@@ -10,7 +10,7 @@ function Portfolio() {
       <Sidebar />
       <div className="content">
         <Heading />
-        <Body />
+        <PieCharts />
       </div>
     </div>
   );
