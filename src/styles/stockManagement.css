@@ -22,7 +22,7 @@
         color: #888;
     }
 
-    .tiny-name {
+    .symbol {
         color: var(--gold-color);
         width: 65vw;
     }
@@ -48,17 +48,18 @@
         text-align: end;
     }
 
-    .extra-td{
+    .extra-td {
         width: 10%;
     }
 
-    .extra-hr{
+    .extra-hr {
         border-color: black;
         margin-left: 200px;
     }
 
     .content-tr {
-        height: auto; /* Change this to 'auto' */
+        height: auto;
+        /* Change this to 'auto' */
         margin: 0;
     }
 }
@@ -68,8 +69,8 @@
     max-height: 6vh;
 }
 
-.table hr{
-  border-color: var(--gold-color);
+.table hr {
+    border-color: var(--gold-color);
 }
 
 .button-placement {
@@ -98,13 +99,12 @@
 }
 
 .plus {
-    font-size: 195%;
+    font-size: 250%;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* position: relative;
-    right: 2px;
-    bottom: 2px; */
+    position: relative;
+    bottom: 9px;
 }
 
 .stock-button,

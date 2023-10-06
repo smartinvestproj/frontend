@@ -31,7 +31,7 @@ return(
         <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
       </li>
       <li>
-          <Link to="/stockManagement" className='sidebar-li'><i class="fi fi-rr-money-check-edit"></i>Stock management</Link>
+          <Link to="/stockManagement" className='sidebar-li'><i className="fi fi-rr-money-check-edit"></i>Stock management</Link>
       </li>
       <li>
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>

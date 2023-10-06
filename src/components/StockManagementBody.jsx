@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddStock from '../components/AddStock.jsx';
 import StockInfo from '../components/StockInfo';
 import ModalComponent from './ModalComponent';
+import ModalComponentStockInfo from './ModalComponentStockInfo';
 import '../styles/stockManagement.css';
 import '../styles/components-styles/AddStock.css';
 import '../styles/components-styles/StockInfo.css';
@@ -9,10 +10,10 @@ import '../styles/components-styles/StockInfo.css';
 function StockManagement() {
   // Sample stock data
   const initialStock = [
-    { id: 1, name: 'META', tinyName: 'META', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "16790", country: "USA", broker: "XTB" },
-    { id: 2, name: 'ADS', tinyName: 'Adidas', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "16790", country: "USA", broker: "XTB" },
-    { id: 3, name: 'AAPL', tinyName: 'Apple', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "16790", country: "USA", broker: "XTB" },
-    { id: 4, name: 'AMZN', tinyName: 'Amazon', dates: [{ date: '07/09/2023', price: '178.66' }, { date: '12/08/2023', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "16790", country: "USA", broker: "XTB" },
+    { id: 1, name: 'META', symbol: 'META', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "2", currency: "USA", broker: "XTB", exchange: "4.1", tax: "55", dividend: "100" },
+    { id: 2, name: 'ADS', symbol: 'Adidas', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "2", currency: "EUR", broker: "Degiro", exchange: "5.2", tax: "32", dividend: "12.5" },
+    { id: 3, name: 'AAPL', symbol: 'Apple', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "2", currency: "GBP", broker: "XTB", exchange: "6.9", tax: "5.4", dividend: "48.5" },
+    { id: 4, name: 'AMZN', symbol: 'Amazon', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "2", currency: "JPY", broker: "Trading 212", exchange: "4", tax: "9.1", dividend: "49.3" },
   ];
 
   const [stock, setStock] = useState(initialStock);
@@ -22,6 +23,8 @@ function StockManagement() {
   // const [showAddStock, setShowAddStock] = useState(false);
 
   // const [showInfoStock, setShowInfoStock] = useState(false);
+
+  let classname = '';
 
   const [selectedStock, setSelectedStock] = useState(null);
   const [clickedDateInfo, setClickedDateInfo] = useState({ date: '', price: '' });
@@ -55,7 +58,6 @@ function StockManagement() {
     // console.log('Before opening modal - showModal:', showInfoStock);
     // setShowInfoStock(true);
     // console.log('After opening modal - showModal:', showInfoStock);
-
 
     setSelectedStock(stockItem);
     setClickedDateInfo(dateInfo);
@@ -96,7 +98,7 @@ function StockManagement() {
                     <hr />
                     <tr>
                       <td className="name" >{item.name}</td>
-                      <td className="tiny-name">{item.tinyName}</td>
+                      <td className="symbol">{item.symbol}</td>
                       <td className="price">€{item.money}</td>
                       <td className="percent">{item.percent}</td>
                     </tr>
@@ -109,7 +111,9 @@ function StockManagement() {
                         <tr key={dateInfo.date}>
                           <tr>
                             <td className="date">
-                              <span onClick={() => openStockInfo(item, dateInfo)}>{dateInfo.date}</span>
+                              <span onClick={() => openStockInfo(item, dateInfo)}>
+                                {dateInfo.date.split('-').reverse().join('/')}
+                              </span>
                             </td>
                             <td className="single-price">€{dateInfo.price}</td>
                           </tr>
@@ -143,7 +147,7 @@ function StockManagement() {
           <StockInfo
           closeModal={closeStockInfo}
           name={selectedStock.name}
-          tinyName={selectedStock.tinyName}
+          symbol={selectedStock.symbol}
           money={selectedStock.money}
           quantity={selectedStock.quantity}
           country={selectedStock.country}
@@ -154,23 +158,58 @@ function StockManagement() {
         
       )} */}
 
-      <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-        {selectedStock ? (
+      {/* {selectedStock ? (
+        <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} cssclassname={"modal-content-stock-info"}>
           <StockInfo
             name={selectedStock.name}
-            tinyName={selectedStock.tinyName}
+            symbol={selectedStock.symbol}
             money={selectedStock.money}
             quantity={selectedStock.quantity}
             country={selectedStock.country}
             broker={selectedStock.broker}
-            date={clickedDateInfo.date}
-            price={clickedDateInfo.price} // Pass both date and price
-          />
+            exchange={selectedStock.exchange}
+            tax={selectedStock.tax}
+            dividend={selectedStock.dividend}
 
-        ) : (
-          <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen}/>
-        )}
-      </ModalComponent>
+            date={clickedDateInfo.date}
+            price={clickedDateInfo.price}
+          />
+        </ModalComponent>
+      ) : (
+        <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
+          <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen} props={initialStock} cssclassname={"modal-content"} />
+        </ModalComponent>
+      )} */}
+
+
+
+      {selectedStock ? (
+        <ModalComponentStockInfo modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} >
+          <StockInfo
+            id={selectedStock.id}
+            name={selectedStock.name}
+            symbol={selectedStock.symbol}
+            money={selectedStock.money}
+            quantity={selectedStock.quantity}
+            currency={selectedStock.currency}
+            broker={selectedStock.broker}
+            exchange={selectedStock.exchange}
+            tax={selectedStock.tax}
+            dividend={selectedStock.dividend}
+
+            date={clickedDateInfo.date}
+            price={clickedDateInfo.price}
+
+            stock={initialStock}
+            setStock={setStock}
+          />
+        </ModalComponentStockInfo>
+      ) : (
+        <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
+          <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen} props={initialStock} isNew={true} />
+        </ModalComponent>
+      )}
+
 
     </main>
 

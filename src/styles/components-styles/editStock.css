@@ -1,0 +1,166 @@
+.add-stock-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 50px;
+}
+
+.add-stock-header h2 {
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+.add-stock-plus {
+  font-size: 3rem;
+  position: relative;
+  padding-left: 60%;
+}
+
+.edit-stock-table input {
+  background: none;
+  border: none;
+  text-align: center;
+}
+
+.edit-stock-table .label-total {
+  text-align: right;
+}
+
+.edit-stock-table {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: lighter;
+}
+
+.edit-stock-table td {
+  height: 45px;
+}
+
+.edit-stock-table input {
+  border-bottom: 2px var(--gold-color) solid;
+}
+
+.edit-stock-table td:nth-child(even) {
+  width: 30%;
+}
+
+.add-button-div {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-button {
+  border: 2px var(--gold-color) solid;
+  background: none;
+  height: 5vh;
+  width: 150px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+}
+
+.add-button:hover {
+  cursor: pointer;
+}
+
+.add-stock-hr {
+  border-color: var(--gold-color);
+}
+
+.edit-stock-table .input {
+  font-size: 2rem;
+}
+
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-clear-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/*.date-picker {
+  appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* Style the date picker arrow icon */
+.date-picker::-webkit-calendar-picker-indicator {
+  background: transparent;
+  display: none;
+}
+
+*/ .custom-select {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 15px;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  /* Adjust padding as needed */
+  cursor: pointer;
+  background-color: #333333;
+  color: #fff;
+  width: 100%;
+  /* Expand to container width */
+  max-width: 500px;
+  /* Adjust as needed */
+  outline: none;
+  /* Remove default focus border */
+  appearance: none;
+  /* Remove default arrow in some browsers */
+  /* Add any additional styles you need */
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the select box and arrow icon */
+.select-box {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-icon {
+  margin-left: 8px;
+}
+
+/* Style the options list */
+.options-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: none;
+  /* Initially hidden */
+  background-color: var(--background-color);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.options-list.active {
+  display: block;
+  /* Display when active */
+}
+
+/* Style individual dropdown items */
+.options-list li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.options-list li:hover {
+  background-color: #f2f2f2;
+}

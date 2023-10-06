@@ -16,26 +16,31 @@
     padding-left: 60%;
 }
 
-.stock-table input {
+.add-stock-table input {
     background: none;
     border: none;
+    text-align: center;
 }
 
-.stock-table {
+.add-stock-table .label-total {
+    text-align: right;
+}
+
+.add-stock-table {
     width: 100%;
     font-size: 1.5rem;
     font-weight: lighter;
 }
 
-.stock-table td {
+.add-stock-table td {
     height: 45px;
 }
 
-.stock-table input {
+.add-stock-table input {
     border-bottom: 2px var(--gold-color) solid;
 }
 
-.stock-table td:nth-child(even) {
+.add-stock-table td:nth-child(even) {
     width: 30%;
 }
 
@@ -60,10 +65,35 @@
     cursor: pointer;
 }
 
-.stock-table hr{
+.add-stock-hr {
     border-color: var(--gold-color);
 }
 
-.add-stock-hr{
-    border-color: var(--gold-color);
+.add-stock-table .input {
+    font-size: 2rem;
+}
+
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-clear-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/*.date-picker {
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+  }
+  
+  /* Style the date picker arrow icon */
+.date-picker::-webkit-calendar-picker-indicator {
+    background: transparent;
+    display: none;
 }

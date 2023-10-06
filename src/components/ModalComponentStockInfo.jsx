@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import Modal from 'react-modal';
 import '../styles/components-styles/stockInfo.css'
 
-function ModalComponent({ modalIsOpen, setModalIsOpen, children }) {
+function ModalComponentStockInfo({ modalIsOpen, setModalIsOpen, children }) {
 
 	return (
 
@@ -13,7 +13,7 @@ function ModalComponent({ modalIsOpen, setModalIsOpen, children }) {
 				setModalIsOpen(false)}
 			}
 			shouldCloseOnOverlayClick={true}
-			className={"modal-content"}>
+			className={"modal-content-stock-info"}>
 			{/* <div className="modal" > */}
 				{/* onClick={() => setModalIsOpen(false)} */}
 				{/* <span className="close" >&times;</span> */}
@@ -24,4 +24,4 @@ function ModalComponent({ modalIsOpen, setModalIsOpen, children }) {
 	);
 }
 
-export default ModalComponent;
+export default ModalComponentStockInfo;
