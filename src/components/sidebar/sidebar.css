@@ -101,3 +101,20 @@
 .settings-sidebar-li{
   font-size: 20px;
 }
+
+/* #region animations */
+
+
+.hithere:hover {
+  animation: hithere 2s ease infinite;
+}
+@keyframes hithere {
+  20% { transform: scale(1.1); }
+  40%, 60% { transform: rotate(-20deg) scale(1.1); }
+  50% { transform: rotate(20deg) scale(1.1); }
+  50% { transform: rotate(0deg) scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* #endregion */
+

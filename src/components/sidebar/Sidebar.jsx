@@ -31,16 +31,17 @@ return(
         <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
       </li>
       <li>
-          <Link to="/stockManagement" className='sidebar-li'><i clasName="fi fi-rr-money-check-edit"></i>Stock management</Link>
+          <Link to="/stockManagement" className='sidebar-li'><i className="fi fi-rr-money-check-edit"></i>Stock management</Link>
       </li>
       <li>
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>
       </li>
     </div>
       <div className='settings-sidebar hithere'>
-        <li><a className='settings-sidebar-li' href="#"><i className="fi fi-rr-settings elastic-spin"></i>Settings</a></li>
+        <li>
+          <Link to="/settings" className='settings-sidebar-li'><i className="fi fi-rr-settings"></i>Settings</Link></li>
       </div>
-      </div>
+    </div>
 
   );
 }

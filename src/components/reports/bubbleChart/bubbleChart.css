@@ -1,0 +1,7 @@
+.bubbles-container{
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 80px;
+}

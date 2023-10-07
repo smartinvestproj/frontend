@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../components/reports/reports.css";
 import Sidebar from "../components/sidebar/Sidebar.jsx";
-import PieCharts from "../components/reports/PieCharts.jsx";
+import PieCharts from "../components/reports/pieChart/PieCharts.jsx";
 import Heading from "../components/heading/Heading.jsx";
+import BubbleChart from "../components/reports/bubbleChart/BubbleChart.jsx";
 
 function Portfolio() {
   return (
@@ -11,8 +12,9 @@ function Portfolio() {
       <div className="content">
         <Heading />
         <div className="reports-container">
-          <PieCharts />
-          <PieCharts />
+          <div className="row-one-charts">
+          <BubbleChart/>
+          </div>
           <PieCharts />
         </div>
       </div>
