@@ -18,7 +18,7 @@ function AddStock({ stock, setStock, props, isNew }) {
     currency
   } = props;
 
-  console.log(':', stock);
+  // console.log(':', stock);
 
   const [formData, setFormData] = useState({
     name: name || '',
@@ -47,94 +47,94 @@ function AddStock({ stock, setStock, props, isNew }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    // if (isNew) {
-    //   // Check if formData is empty (null or all fields are empty)
-    //   if (Object.values(formData).every(value => value === '' || value === null)) {
-    //     console.log('Form data is empty. Not doing anything.');
-    //     return;
-    //   }
+    if (isNew) {
+      // Check if formData is empty (null or all fields are empty)
+      if (Object.values(formData).every(value => value === '' || value === null)) {
+        console.log('Form data is empty. Not doing anything.');
+        return;
+      }
 
-    //   // Find the last ID in the stock array
-    //   const lastStock = stock[stock.length - 1];
-    //   const lastId = lastStock ? lastStock.id : 0;
+      // Find the last ID in the stock array
+      const lastStock = stock[stock.length - 1];
+      const lastId = lastStock ? lastStock.id : 0;
 
-    //   // Calculate the new ID (lastId + 1)
-    //   const newId = lastId + 1;
+      // Calculate the new ID (lastId + 1)
+      const newId = lastId + 1;
 
-    //   // Create the new stock object in the desired format
-    //   const newStock = {
-    //     id: newId,
-    //     name: formData.name,
-    //     symbol: formData.symbol, // Assuming symbol corresponds to symbol
-    //     dates: [{ date: formData.date, price: parseFloat(formData.price) || 100, }], // Assuming date and money correspond to dates
-    //     money: parseFloat(total) || 100,
-    //     percent: formData.percent || '',
-    //     quantity: formData.quantity || '',
-    //     currency: formData.currency || '',
-    //     broker: formData.broker || '',
-    //     exchange: formData.exchange || '',
-    //     tax: formData.tax || '',
-    //     dividend: formData.dividend || ''
-    //   };
+      // Create the new stock object in the desired format
+      const newStock = {
+        id: newId,
+        name: formData.name,
+        symbol: formData.symbol, // Assuming symbol corresponds to symbol
+        dates: [{ date: formData.date, price: parseFloat(formData.price) || 100, }], // Assuming date and money correspond to dates
+        money: parseFloat(total) || 100,
+        percent: formData.percent || '',
+        quantity: formData.quantity || '',
+        currency: formData.currency || '',
+        broker: formData.broker || '',
+        exchange: formData.exchange || '',
+        tax: formData.tax || '',
+        dividend: formData.dividend || ''
+      };
 
-    //   // Update the stock array using the setStock function
-    //   setStock(prevStock => [...prevStock, newStock]);
+      // Update the stock array using the setStock function
+      setStock(prevStock => [...prevStock, newStock]);
 
-    //   console.log('Stock:', stock);
-    //   console.log('New Stock Data:', newStock);
+      console.log('Stock:', stock);
+      console.log('New Stock Data:', newStock);
 
-    //   // Reset the formData fields to empty strings
-    //   setFormData({
-    //     symbol: '',
-    //     name: '',
-    //     currency: '',
-    //     broker: '',
-    //     price: '',
-    //     date: '',
-    //     quantity: '',
-    //     total: ''
-    //   });
+      // Reset the formData fields to empty strings
+      setFormData({
+        symbol: '',
+        name: '',
+        currency: '',
+        broker: '',
+        price: '',
+        date: '',
+        quantity: '',
+        total: ''
+      });
 
-    //   setModalIsOpen(false);
-    // } else {
-    //   if (Object.values(formData).every(value => value === '' || value === null)) {
-    //     console.log('Form data is empty. Not doing anything.');
-    //     return;
-    //   }
+      setModalIsOpen(false);
+    } else {
+      if (Object.values(formData).every(value => value === '' || value === null)) {
+        console.log('Form data is empty. Not doing anything.');
+        return;
+      }
 
-    //   console.log(stock);
-    //   // Check if the stock with the specified id exists in props.stock array
-    //   const stockToUpdate = stock.find(stockItem => stockItem.id === id);
+      console.log(stock);
+      // Check if the stock with the specified id exists in props.stock array
+      const stockToUpdate = stock.find(stockItem => stockItem.id === id);
 
-    //   console.log(stockToUpdate);
+      console.log(stockToUpdate);
 
-    //   if (stockToUpdate) {
-    //     // Find the index of the stock item to update in the stock array
-    //     const indexToUpdate = stock.findIndex(stockItem => stockItem.id === id);
+      if (stockToUpdate) {
+        // Find the index of the stock item to update in the stock array
+        const indexToUpdate = stock.findIndex(stockItem => stockItem.id === id);
 
-    //     // Update the quantity of the existing stock directly in the stock array
-    //     stock[indexToUpdate].quantity = parseFloat(formData.quantity) || 0;
+        // Update the quantity of the existing stock directly in the stock array
+        stock[indexToUpdate].quantity = parseFloat(formData.quantity) || 0;
 
-    //     // Update the stock array using the setStock function
-    //     setStock([...stock]);
+        // Update the stock array using the setStock function
+        setStock([...stock]);
 
-    //     // Reset the formData fields to empty strings
-    //     setFormData({
-    //       symbol: '',
-    //       name: '',
-    //       currency: '',
-    //       broker: '',
-    //       price: '',
-    //       date: '',
-    //       quantity: '',
-    //       total: '',
-    //     });
+        // Reset the formData fields to empty strings
+        setFormData({
+          symbol: '',
+          name: '',
+          currency: '',
+          broker: '',
+          price: '',
+          date: '',
+          quantity: '',
+          total: '',
+        });
 
-    //     setModalIsOpen(false);
-    //   } else {
-    //     console.log(`Stock with ID ${id} not found in props.stock.`);
-    //   }
-    // }
+        setModalIsOpen(false);
+      } else {
+        console.log(`Stock with ID ${id} not found in props.stock.`);
+      }
+    }
   }
 
   const handleInputChange = (event) => {
@@ -177,8 +177,7 @@ function AddStock({ stock, setStock, props, isNew }) {
                 <td><label htmlFor="symbol">Symbol</label></td>
                 <td><input type='text' name='symbol' value={formData.symbol} onChange={handleInputChange}></input></td>
                 <td><label htmlFor="currency">Currency</label></td>
-                <td>
-                  {/* Dropdown menu for currency */}
+                <td>{/* Dropdown menu for currency */}
                   <select name="currency" value={formData.currency} className="custom-select" onChange={handleInputChange}>
                     {currencyOptions.map((currency, index) => (
                       <option key={index} value={currency}>
@@ -217,12 +216,13 @@ function AddStock({ stock, setStock, props, isNew }) {
                     name="date"
                     value={formData.date}
                     onChange={handleInputChange}
+                    className='date-picker'
                   />
                 </td>
                 <td><label htmlFor="quantity">Quantity</label></td>
                 <td><input type='number' name='quantity' value={formData.quantity} className='input-number' onChange={handleInputChange}></input></td>
               </tr>
-              <tr>
+              <tr className='teste-tr'>
                 <td></td>
                 <td></td>
                 <td><label htmlFor="total">Total</label></td>

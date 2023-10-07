@@ -111,8 +111,8 @@ function SellStock({ stock, setStock, props }) {
 								</tr>
 							</tbody>
 						</table>
-						<div className="add-button-div">
-							<button className='add-button' onClick={handleSubmit}>Sell stock</button>
+						<div className="sell-button-div">
+							<button className='sell-button' onClick={handleSubmit}>Sell stock</button>
 						</div>
 					</div>
 				</form>

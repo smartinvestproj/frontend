@@ -1,19 +1,19 @@
-.add-stock-header {
+.edit-stock-header {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
   height: 50px;
 }
 
-.add-stock-header h2 {
+.edit-stock-header h2 {
   font-weight: lighter;
   font-size: 2rem;
 }
 
-.add-stock-plus {
+.edit-stock-plus {
   font-size: 3rem;
   position: relative;
-  padding-left: 60%;
+  padding-left: 78%;
 }
 
 .edit-stock-table input {
@@ -44,13 +44,13 @@
   width: 30%;
 }
 
-.add-button-div {
+.edit-button-div {
   margin: 20px;
   display: flex;
   justify-content: center;
 }
 
-.add-button {
+.edit-button {
   border: 2px var(--gold-color) solid;
   background: none;
   height: 5vh;
@@ -61,11 +61,11 @@
   font-weight: lighter;
 }
 
-.add-button:hover {
+.edit-button:hover {
   cursor: pointer;
 }
 
-.add-stock-hr {
+.edit-stock-hr {
   border-color: var(--gold-color);
 }
 
@@ -79,23 +79,6 @@
   -webkit-appearance: none;
   appearance: none;
   margin: 0;
-}
-
-/*.date-picker {
-  appearance: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-  outline: none;
-}
-
-/* Style the date picker arrow icon */
-.date-picker::-webkit-calendar-picker-indicator {
-  background: transparent;
-  display: none;
 }
 
 */ .custom-select {
@@ -163,4 +146,109 @@
 
 .options-list li:hover {
   background-color: #f2f2f2;
+}
+
+.edit-stock-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 50px;
+}
+
+.edit-stock-header h2 {
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+.edit-stock-table input {
+  background: none;
+  border: none;
+  text-align: center;
+  font-family: var(--primary-font);
+  font-size: 1rem;
+}
+
+.edit-stock-table .label-total {
+  padding-left: 40px;
+  text-align: right;
+}
+
+.edit-stock-table {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: lighter;
+}
+
+.edit-stock-table td {
+  height: 45px;
+}
+
+.edit-stock-table input {
+  border-bottom: 1px var(--gold-color) solid;
+}
+
+.edit-stock-table td:nth-child(even) {
+  width: 30%;
+}
+
+.edit-button-div {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-button {
+  border: 2px var(--gold-color) solid;
+  background: none;
+  height: 5vh;
+  width: 150px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}
+
+.edit-stock-hr {
+  border-color: var(--gold-color);
+}
+
+.edit-stock-table .input {
+  font-size: 2rem;
+}
+
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-clear-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.edit-stock-table select{
+  border: none;
+  border-bottom: 1px var(--gold-color) solid;
+  background-color: var(--boxes-color);
+  width: 179px;
+}
+
+.edit-button-div {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.edit-button {
+  border: 2px var(--gold-color) solid;
+  background: none;
+  height: 5vh;
+  width: 150px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: lighter;
 }

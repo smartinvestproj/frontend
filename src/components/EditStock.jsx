@@ -114,11 +114,11 @@ function EditStock({ stock, setStock, props }) {
 
 		// <div className="modal-content" >
 			<div>
-				<div className="add-stock-header">
+				<div className="edit-stock-header">
 					<h2>Edit Stock</h2>
-					<div className="add-stock-plus">+</div>
+					<div className="edit-stock-plus">+</div>
 				</div>
-				<hr className='add-stock-hr' />
+				<hr className='edit-stock-hr' />
 				<div>
 					<form className="modal-form" action="" onSubmit={handleSubmit}>
 						<table className='edit-stock-table'>
@@ -171,6 +171,7 @@ function EditStock({ stock, setStock, props }) {
 											name="date"
 											value={formData.date}  // Use value instead of defaultValue
 											onChange={handleInputChange}
+											className='date-picker'
 										/>
 									</td>
 									<td><label htmlFor="quantity">Quantity</label></td>
@@ -185,8 +186,8 @@ function EditStock({ stock, setStock, props }) {
 							</tbody>
 						</table>
 					</form>
-					<div className="add-button-div">
-						<button className='add-button' onClick={handleSubmit}>Edit stock</button>
+					<div className="edit-button-div">
+						<button className='edit-button' onClick={handleSubmit}>Edit stock</button>
 					</div>
 				</div>
 			</div >

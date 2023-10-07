@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddStock from '../components/AddStock.jsx';
 import StockInfo from '../components/StockInfo';
 import ModalComponent from './ModalComponent';
 import ModalComponentStockInfo from './ModalComponentStockInfo';
+// import getStocks from '../services/getStocks.jsx';
 import '../styles/stockManagement.css';
 import '../styles/components-styles/AddStock.css';
 import '../styles/components-styles/StockInfo.css';
@@ -17,6 +18,19 @@ function StockManagement() {
   ];
 
   const [stock, setStock] = useState(initialStock);
+
+  // useEffect(() => {
+  //   getStocks()
+  //     .then((fetchedStocks) => {
+  //       setStock(fetchedStocks);
+  //       // console.log(stock);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  // const stocks = [stock];
 
   const [expandedRows, setExpandedRows] = useState([]);
 
@@ -78,7 +92,7 @@ function StockManagement() {
   // }
 
   return (
-    <main className="main center">
+    <main className="main center" >
       <div>
         <h2 className="title">Stock Management</h2>
         <div className="center">
@@ -94,7 +108,6 @@ function StockManagement() {
               {stock.map((item) => (
                 <React.Fragment key={item.id}>
                   <tr className="content-tr" onClick={() => handleRowClick(item.id)}>
-                    {/* solução pode ser tirar o hr e o tr a mais. mas por questão de css não tirei */}
                     <hr />
                     <tr>
                       <td className="name" >{item.name}</td>
@@ -103,7 +116,6 @@ function StockManagement() {
                       <td className="percent">{item.percent}</td>
                     </tr>
                   </tr>
-                  {/* Render two additional rows if the item is expanded */}
                   {expandedRows.includes(item.id) && (
                     <React.Fragment>
                       <hr />
@@ -210,9 +222,7 @@ function StockManagement() {
         </ModalComponent>
       )}
 
-
     </main>
-
   );
 }
 

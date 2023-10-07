@@ -1,113 +1,120 @@
 .title {
-    font-weight: 100;
-    font-size: 3rem;
-    margin-top: 0px;
+	font-weight: 100;
+	font-size: 3rem;
+	margin-top: 0px;
 }
 
 .table {
-    table-layout: fixed;
-    min-height: 300px;
+	table-layout: fixed;
+	min-height: 300px;
 
-    .name {
-        text-align: left;
-        font-weight: lighter;
-        font-size: 2rem;
-        position: relative;
-    }
+	.name {
+		text-align: left;
+		font-weight: lighter;
+		font-size: 2rem;
+		position: relative;
+	}
 
-    .date {
-        text-align: left;
-        width: 50%;
-        font-weight: lighter;
-        color: #888;
-    }
+	.date {
+		text-align: left;
+		width: 50%;
+		font-weight: lighter;
+		color: #888;
+	}
 
-    .symbol {
-        color: var(--gold-color);
-        width: 65vw;
-    }
+	.symbol {
+		color: var(--gold-color);
+		width: 65vw;
+	}
 
-    .price {
-        font-size: 1.5rem;
-        width: 5vw;
-    }
+	.price {
+		font-size: 1.5rem;
+		width: 5vw;
+	}
 
-    .percent {
-        color: var(--red-color);
-    }
+	.percent {
+		color: var(--red-color);
+	}
 
-    .date {
-        font-size: 1.5rem;
-        width: 5vw;
-        width: 100%;
-        padding-left: 200px;
-    }
+	.date {
+		font-size: 1.5rem;
+		width: 5vw;
+		width: 100%;
+		padding-left: 120px;
+	}
 
-    .single-price {
-        font-size: 1.5rem;
-        text-align: end;
-    }
+	.single-price {
+		font-size: 1.5rem;
+		text-align: end;
+	}
 
-    .extra-td {
-        width: 10%;
-    }
+	.extra-td {
+		width: 10%;
+	}
 
-    .extra-hr {
-        border-color: black;
-        margin-left: 200px;
-    }
+	.extra-hr {
+		border-color: black;
+		margin-left: 120px;
+	}
 
-    .content-tr {
-        height: auto;
-        /* Change this to 'auto' */
-        margin: 0;
-    }
+	.content-tr {
+		height: auto;
+		/* Change this to 'auto' */
+		margin: 0;
+	}
 }
 
 .table td {
-    height: 6vh;
-    max-height: 6vh;
+	height: 6vh;
+	max-height: 6vh;
 }
 
 .table hr {
-    border-color: var(--gold-color);
+	border-color: var(--gold-color);
 }
 
 .button-placement {
-    display: flex;
-    justify-content: end;
+	display: flex;
+	justify-content: end;
+	position: fixed;
+	bottom: 0;
+	left: 0; /* Optional, adjust as needed */
+  right: 0; /* Optional, adjust as needed */
+	padding: 20px;
+	padding-bottom: 50px;
+	/* padding-right: 300px; */
 }
 
 .stock-button {
-    display: flex;
-    min-width: 235px;
-    width: 250px;
-    background-color: transparent;
-    border-style: none;
-    font-size: 150%;
-    align-items: center;
-    gap: 5%;
-    font-family: var(--primary-font);
+	display: flex;
+	min-width: 235px;
+	width: 250px;
+	background-color: transparent;
+	border-style: none;
+	font-size: 150%;
+	align-items: center;
+	gap: 5%;
+	font-family: var(--primary-font);
 }
 
 .icon {
-    max-width: 50px;
-    min-width: 50px;
-    height: 50px;
-    background-color: var(--gold-color);
-    border-radius: 100%;
+	max-width: 50px;
+	min-width: 50px;
+	height: 50px;
+	background-color: var(--gold-color);
+	border-radius: 100%;
 }
 
 .plus {
-    font-size: 250%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    bottom: 9px;
+	font-size: 250%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	bottom: 9px;
 }
 
 .stock-button,
 .icon :hover {
-    cursor: pointer;
+	cursor: pointer;
 }
