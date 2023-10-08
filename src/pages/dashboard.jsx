@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../components/dashboard/dashboard.css';
 import Sidebar from '../components/sidebar/Sidebar.jsx';
 import Heading from '../components/heading/Heading.jsx';
@@ -6,17 +6,15 @@ import DashboardBody from '../components/dashboard/dashboardBody/DashboardBody.j
 
 
 function Dashboard() {
-
+  
   return (
-    <>
     <div className='container'>
-      <Sidebar />
+      <Sidebar/>
       <div className="content">
         <Heading/>
         <DashboardBody/>
       </div>
     </div>
-    </>
   );
 }
 

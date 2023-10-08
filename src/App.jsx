@@ -5,6 +5,7 @@ import Portfolio from "./pages/portfolio.jsx";
 import StockManagement from "./pages/StockManagement.jsx";
 import Login from "./pages/Login.jsx";
 import Reports from "./pages/Reports.jsx";
+
 function App(){
   
     return(
@@ -17,7 +18,6 @@ function App(){
                 <Route path="/reports" element={<Reports/>}/>
             </Routes>
         </BrowserRouter>
-        
     )
 }
 

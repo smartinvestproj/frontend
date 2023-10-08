@@ -2,27 +2,35 @@ import React, { useState } from 'react';
 import { Outlet, Link } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import './sidebar.css'
+import getCapitals from '../../services/getCapitals.jsx';
+import CapitalModal from './CapitalModal/CapitalModal.jsx';
+
 
 function Sidebar(){
 
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const value = getCapitals();
 
+  const openModal = () => {
+    setModalIsOpen(true);
+  }
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  }
+  
 return(
       <div className='sidebar'>
         <div className='sidebar-img'>
           <img className='sidebar-img' src={logo} alt="logo" />
         </div>
-        <div className='totalInvestment-box-container'>
+        <div onClick={openModal} className='totalInvestment-box-container'>
       <div>
-        <h3 className='totalInvestment-box-name'>Total Investment</h3>
+        <h3 className='totalInvestment-box-name'>Total Own Capital</h3>
+        
       </div>
       <div className='totalInvestment-box-values'>
-        <p>4564,55€</p>
-        <p className='totalInvest-box-percentage'>+12,78%</p>
+        <p>{value}€</p>
       </div>
     </div>
     <div className='sidebar-ul'>
@@ -41,6 +49,7 @@ return(
         <li>
           <Link to="/settings" className='settings-sidebar-li'><i className="fi fi-rr-settings"></i>Settings</Link></li>
       </div>
+      {modalIsOpen && <CapitalModal closeModal={closeModal} openModal={openModal} />}
     </div>
 
   );

@@ -69,12 +69,13 @@
     align-items: center;
     padding: 0 20px;
     box-shadow: 7px 7px 5px var(--shadow-box-color);
+    cursor: pointer;
   }
 
   .totalInvestment-box-name {
+    color: var(--text-placeholder);
     grid-area: name;
-    font-size: 12px;
-    margin: 0;
+    font-size: 15px;
     margin-top: 5px;
   }
   
@@ -83,13 +84,7 @@
     grid-area: values;
     display: flex;
     font-family: var(--numbers-font);
-  }
-  
-  .totalInvest-box-percentage {
-    font-size: 12px;
-    font-family: var(--numbers-font);
-    color: var(--green-color);
-    font-weight: bold;
+    margin-top: -20px;
   }
 
   a{
