@@ -71,6 +71,7 @@
 .result-symbol,
 .result-percentage {
   font-size: 12px;
+  margin-left: -70px;
 }
 
 .result-value {

@@ -1,31 +1,55 @@
 import React, { useState, useEffect } from "react";
 import '../styles/components-styles/searchBar.css'
-import axios from 'axios';
+import getStocks from "../services/getStocks";
+import getTrades from "../services/getTrades";
 
 function SearchBar() {
-  const URL = "http://127.0.0.1:8000/api/trades";
-
   const [search, setSearch] = useState("");
-  const [originalResults, setOriginalResults] = useState([]);
+  const [originalStocks, setOriginalStocks] = useState([]);
+  const [originalTrades, setOriginalTrades] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    async function fetchStocks() {
       try {
-        const response = await axios.get(URL);
-        if (response.status === 200) {
-          const data = response.data.data; 
-          setOriginalResults(data);
-          console.log(data[0].stock.name)
-        } else {
-          console.error("Failed to fetch data");
-        }
+        const stocksResponse = await getStocks();
+        const stocksData = stocksResponse.data;
+        setOriginalStocks(stocksData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error(error);
       }
-    };
-    fetchData();
+    }
+    fetchStocks();
   }, []);
+
+  useEffect(() => {
+    async function fetchTrades() {
+      try {
+        const tradesResponse = await getTrades();
+        const tradesData = tradesResponse.data;
+        setOriginalTrades(tradesData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchTrades();
+  }, []);
+
+  const calculateTradeValues = (stockId) => {
+    const trades = originalTrades.filter(trade => trade.stock.id === stockId);
+    let totalValue = 0;
+    let totalTotal = 0;
+
+    trades.map(trade => {
+      totalValue += parseFloat(trade.value);
+      totalTotal += parseFloat(trade.total);
+    });
+
+    return {
+      totalValue,
+      totalTotal
+    };
+  };
 
   const handleSearch = (e) => {
     const search = e.target.value;
@@ -34,9 +58,9 @@ function SearchBar() {
     if (search === "") {
       setSearchResults([]);
     } else {
-      const filteredResults = originalResults.filter((result) =>
-      result && result.name && result.name.toLowerCase().startsWith(search.toLowerCase())
-    );    
+      const filteredResults = originalStocks.filter((stock) =>
+        stock && stock.name && stock.name.toLowerCase().startsWith(search.toLowerCase())
+      );
 
       setSearchResults(filteredResults);
     }
@@ -57,15 +81,15 @@ function SearchBar() {
       {searchResults.length > 0 ? (
         <div className="dropdown">
           <ul style={{ listStyle: "none" }}>
-            {searchResults.map((result, index) => (
+            {searchResults.map((stock, index) => (
               <li key={index} className="results">
-
-                <span className="result-name">{result.name}</span>
-                <span className="result-symbol">{result.symbol}</span>
-                <span className="result-value">{result.value}</span>
-                <span className="result-percentage" style={{ color: "red" }}>
-                  {result.percentage}
-                </span>
+                <span className="result-name">{stock.name}</span>
+                <span className="result-symbol">{stock.symbol}</span>
+                {calculateTradeValues(stock.id) && (
+                    <span className="result-value">
+                      {calculateTradeValues(stock.id).totalTotal + "€"}
+                    </span>
+                )}
               </li>
             ))}
           </ul>
