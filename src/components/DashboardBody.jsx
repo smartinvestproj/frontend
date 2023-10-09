@@ -19,16 +19,6 @@ function DashboardBody(){
             <i onClick={() => slide(-150)} className='stocks-arrow-left fi fi-rr-angle-small-left'></i>
                 <div ref={scrl} className="my-stocks-item">
                     <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    <MyStocks/>
-                    
                 </div>
             </div>
                     <i onClick={() => slide(+150)} className='stocks-arrow fi fi-rr-angle-small-right'></i>
