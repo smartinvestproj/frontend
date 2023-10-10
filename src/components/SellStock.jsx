@@ -39,6 +39,7 @@ function SellStock({ stock, setStock, props }) {
 
   function handleSubmit(event) {
 		event.preventDefault();
+		//ao vender por o state a false
 		
 	}
 

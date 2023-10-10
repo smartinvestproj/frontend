@@ -3,34 +3,45 @@ import AddStock from '../components/AddStock.jsx';
 import StockInfo from '../components/StockInfo';
 import ModalComponent from './ModalComponent';
 import ModalComponentStockInfo from './ModalComponentStockInfo';
-// import getStocks from '../services/getStocks.jsx';
+import getStocks from '../services/getStocks.jsx';
+import getTrades from '../services/getTrades.jsx';
 import '../styles/stockManagement.css';
 import '../styles/components-styles/AddStock.css';
 import '../styles/components-styles/StockInfo.css';
 
-function StockManagement() {
+function StockManagementBody() {
   // Sample stock data
-  const initialStock = [
-    { id: 1, name: 'META', symbol: 'META', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "2", currency: "USA", broker: "XTB", exchange: "4.1", tax: "55", dividend: "100" },
-    { id: 2, name: 'ADS', symbol: 'Adidas', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "2", currency: "EUR", broker: "Degiro", exchange: "5.2", tax: "32", dividend: "12.5" },
-    { id: 3, name: 'AAPL', symbol: 'Apple', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "2", currency: "GBP", broker: "XTB", exchange: "6.9", tax: "5.4", dividend: "48.5" },
-    { id: 4, name: 'AMZN', symbol: 'Amazon', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "2", currency: "JPY", broker: "Trading 212", exchange: "4", tax: "9.1", dividend: "49.3" },
-  ];
+  // const initialStock = [
+  //   { id: 1, name: 'META', symbol: 'META', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 302.38, percent: "-9.63%", quantity: "2", currency: "USA", broker: "XTB", exchange: "4.1", tax: "55", dividend: "100" },
+  //   { id: 2, name: 'ADS', symbol: 'Adidas', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 178.66, percent: "-3.76%", quantity: "2", currency: "EUR", broker: "Degiro", exchange: "5.2", tax: "32", dividend: "12.5" },
+  //   { id: 3, name: 'AAPL', symbol: 'Apple', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 192.58, percent: "-3.02%", quantity: "2", currency: "GBP", broker: "XTB", exchange: "6.9", tax: "5.4", dividend: "48.5" },
+  //   { id: 4, name: 'AMZN', symbol: 'Amazon', dates: [{ date: '2023-09-07', price: '178.66' }, { date: '2023-08-12', price: '123.72' }], money: 128.21, percent: "-3.48%", quantity: "2", currency: "JPY", broker: "Trading 212", exchange: "4", tax: "9.1", dividend: "49.3" },
+  // ];
 
-  const [stock, setStock] = useState(initialStock);
+  // const [stock, setStock] = useState(initialStock);
 
-  // useEffect(() => {
-  //   getStocks()
-  //     .then((fetchedStocks) => {
-  //       setStock(fetchedStocks);
-  //       // console.log(stock);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
 
-  // const stocks = [stock];
+  const [stocks, setStocks] = useState([]);
+  const [trades, setTrades] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const stockResponse = await getStocks();
+        const tradeResponse = await getTrades();
+
+        const stockData = stockResponse.data;
+        const tradeData = tradeResponse.data;
+
+        setStocks(stockData);
+        setTrades(tradeData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const [expandedRows, setExpandedRows] = useState([]);
 
@@ -38,10 +49,8 @@ function StockManagement() {
 
   // const [showInfoStock, setShowInfoStock] = useState(false);
 
-  let classname = '';
-
   const [selectedStock, setSelectedStock] = useState(null);
-  const [clickedDateInfo, setClickedDateInfo] = useState({ date: '', price: '' });
+  const [selectedTrade, setSelectedTrade] = useState(null);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -57,24 +66,34 @@ function StockManagement() {
       }
     });
   }
+  let selectedtrade;
 
   // Function to open the modal
-  function openAddStock() {
+  function openAddStock(tradeId) {
     // console.log('Before opening modal - showModal:', showAddStock);
     // setShowAddStock(true);
     // console.log('After opening modal - showModal:', showAddStock);
+    selectedtrade = tradeId;
 
     setSelectedStock(null);
     setModalIsOpen(true);
   }
 
-  function openStockInfo(stockItem, dateInfo) {
+  let selectedTradeBool = false;
+  function openStockInfo(tradeId) {
     // console.log('Before opening modal - showModal:', showInfoStock);
     // setShowInfoStock(true);
     // console.log('After opening modal - showModal:', showInfoStock);
 
-    setSelectedStock(stockItem);
-    setClickedDateInfo(dateInfo);
+    // console.log('tradId: ' + tradeId)
+    setSelectedTrade(tradeId);
+    selectedtrade = tradeId;
+    selectedTradeBool = true;
+    console.log('selectedTrade: ' + selectedtrade)
+    // console.log('selectedTradeBool: ' + selectedTradeBool)
+    // setClickedDateInfo(dateInfo);
+    
+
     setModalIsOpen(true);
   }
 
@@ -91,6 +110,12 @@ function StockManagement() {
   //   openStockInfo(true);
   // }
 
+  function calculateTotalPrice(stockId) {
+    const stockTrades = trades.filter((trade) => trade.stock.id === stockId);
+    const totalPrice = stockTrades.reduce((sum, trade) => sum + parseFloat(trade.price), 0);
+    return totalPrice.toFixed(2); // Assuming you want to display it with 2 decimal places
+  }
+
   return (
     <main className="main center" >
       <div>
@@ -105,29 +130,29 @@ function StockManagement() {
               </tr>
             </thead>
             <tbody>
-              {stock.map((item) => (
-                <React.Fragment key={item.id}>
-                  <tr className="content-tr" onClick={() => handleRowClick(item.id)}>
+              {stocks.map((stock) => (
+                <React.Fragment key={stock.id}>
+                  <tr className="content-tr" onClick={() => handleRowClick(stock.id)}>
                     <hr />
                     <tr>
-                      <td className="name" >{item.name}</td>
-                      <td className="symbol">{item.symbol}</td>
-                      <td className="price">€{item.money}</td>
-                      <td className="percent">{item.percent}</td>
+                      <td className="name" >{stock.name}</td>
+                      <td className="symbol">{stock.symbol}</td>
+                      <td className="price">€{calculateTotalPrice(stock.id)}</td>
+                      <td className="percent"></td>
                     </tr>
                   </tr>
-                  {expandedRows.includes(item.id) && (
+                  {expandedRows.includes(stock.id) && (
                     <React.Fragment>
                       <hr />
-                      {item.dates.map((dateInfo) => (
-                        <tr key={dateInfo.date}>
+                      {trades.filter((trade) => trade.stock.id === stock.id).map((trade) => (
+                        <tr key={stock.id}>
                           <tr>
                             <td className="date">
-                              <span onClick={() => openStockInfo(item, dateInfo)}>
-                                {dateInfo.date.split('-').reverse().join('/')}
+                              <span onClick={() => openStockInfo(trade.id)}>
+                                {trade.date.split('-').reverse().join('/')}
                               </span>
                             </td>
-                            <td className="single-price">€{dateInfo.price}</td>
+                            <td className="single-price">€{trade.price}</td>
                           </tr>
                           <hr className="extra-hr" />
                         </tr>
@@ -142,7 +167,7 @@ function StockManagement() {
         </div>
       </div>
       <div className="button-placement">
-        <button className="stock-button" onClick={openAddStock}>
+        <button className="stock-button" onClick={() => openAddStock(2)}>
           Add new Stock
           <span className="icon">
             <div className="plus">+</div>
@@ -193,32 +218,14 @@ function StockManagement() {
         </ModalComponent>
       )} */}
 
-
-
-      {selectedStock ? (
+      {selectedTrade ? (
         <ModalComponentStockInfo modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} >
-          <StockInfo
-            id={selectedStock.id}
-            name={selectedStock.name}
-            symbol={selectedStock.symbol}
-            money={selectedStock.money}
-            quantity={selectedStock.quantity}
-            currency={selectedStock.currency}
-            broker={selectedStock.broker}
-            exchange={selectedStock.exchange}
-            tax={selectedStock.tax}
-            dividend={selectedStock.dividend}
-
-            date={clickedDateInfo.date}
-            price={clickedDateInfo.price}
-
-            stock={initialStock}
-            setStock={setStock}
-          />
+          <StockInfo trade={selectedtrade} />
         </ModalComponentStockInfo>
       ) : (
         <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-          <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen} props={initialStock} isNew={true} />
+          {/* <AddStock stock={initialStock} setStock={setStock} modalIsOpen={modalIsOpen} props={initialStock} isNew={true} /> */}
+          <AddStock trade={selectedtrade} modalIsOpen={modalIsOpen} isNew={true} />
         </ModalComponent>
       )}
 
@@ -226,4 +233,4 @@ function StockManagement() {
   );
 }
 
-export default StockManagement;
+export default StockManagementBody;
