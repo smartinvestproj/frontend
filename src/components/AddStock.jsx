@@ -9,47 +9,57 @@ import '../styles/components-styles/addStock.css'
 import '../styles/components-styles/stockInfo.css'
 
 // stock, setStock, props,
-function AddStock({ isNew, trade }) {
-  // const {
-  //   id,
-  //   name,
-  //   symbol,
-  //   date,
-  //   money,
-  //   quantity,
-  //   broker,
-  //   price,
-  //   exchange,
-  //   tax,
-  //   dividend,
-  //   currency
-  // } = props; 
+function AddStock({ isNew, tradeId }) {
+  console.log(tradeId);
 
-  console.log(trade);
-  
-  const [formData, setFormData] = useState({
-    // name: name || '',
-    // symbol: symbol || '',
-    // currency: currency || '',
-    // broker: broker || '',
-    // date: date || '',
-    // price: price || '',
-    // exchange: exchange || '',
-    // quantity: quantity || '',
+  const initialValues = {
     name: '',
     symbol: '',
     currency: '',
     broker: '',
     date: '',
     price: '',
-    exchange: '',
+    exchange_rate: '',
     quantity: '',
-  });
+  }
+
+  const [formData, setFormData] = useState(initialValues);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!tradeId) {
+        return
+      }
+      try {
+        const tradeResponse = await getTrade(tradeId);
+        if (tradeResponse?.stock) {
+          setFormData({
+            name: tradeResponse.stock.name || '',
+            symbol: tradeResponse.stock.symbol || '',
+            currency: tradeResponse.stock.currency || '',
+            ...tradeResponse,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
   const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
 
   let total = ''
   total = parseFloat(formData.price) * parseFloat(formData.quantity);
@@ -87,7 +97,7 @@ function AddStock({ isNew, trade }) {
   //       quantity: formData.quantity || '',
   //       currency: formData.currency || '',
   //       broker: formData.broker || '',
-  //       exchange: formData.exchange || '',
+  //       exchange_rate: formData.exchange_rate || '',
   //       tax: 0,
   //       dividend: formData.dividend || ''
   //     };
@@ -152,33 +162,63 @@ function AddStock({ isNew, trade }) {
   //   }
   // }
 
-  const [createdStockId, setCreatedStockId] = useState(null);
+  // const [createdStockId, setCreatedStockId] = useState(null);
 
-  let stock_id_test; 
+  // let stock_id_test; 
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (isNew) {
+      try {
+        const stockResponse = await createStock();
 
-    try {
-      const stockResponse = await createStock(); // Create the stock and wait for it to complete
-      
-      const tradeResponse = await createTrade(stockResponse); // Create the trade using the updated createdStockId
+        const tradeResponse = await createTrade(stockResponse);
 
-      setFormData({
-        symbol: '',
-        name: '',
-        currency: '',
-        date: '',
-        broker: '',
-        quantity: 0,
-        price: 0,
-        total: 0,
-        exchange: 0,
-      });
+        setFormData({
+          symbol: '',
+          name: '',
+          currency: '',
+          date: '',
+          broker: '',
+          quantity: 0,
+          price: 0,
+          total: 0,
+          exchange_rate: 0,
+        });
 
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error. Please try again.');
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error. Please try again.');
+      }
+    }
+    else {
+      try {
+        await updateTrade(tradeId, {
+          date: formData.date,
+          broker: formData.broker,
+          quantity: parseFloat(formData.quantity) || 2,
+          price: parseFloat(formData.price) || 2,
+          total: total || 2,
+          exchange_rate: parseFloat(formData.exchange_rate) || 2,
+          tax: 0,
+          dividends: 0,
+        });
+
+        setFormData({
+          symbol: '',
+          name: '',
+          currency: '',
+          date: '',
+          broker: '',
+          quantity: 0,
+          price: 0,
+          total: 0,
+          exchange_rate: 0,
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error. Please try again.');
+      }
     }
   }
 
@@ -211,7 +251,7 @@ function AddStock({ isNew, trade }) {
         quantity: parseFloat(formData.quantity) || 2,
         price: parseFloat(formData.price) || 2,
         total: total || 2,
-        exchange_rate: parseFloat(formData.exchange) || 2,
+        exchange_rate: parseFloat(formData.exchange_rate) || 2,
         tax: 0,
         dividends: 0,
       });
@@ -224,22 +264,20 @@ function AddStock({ isNew, trade }) {
     }
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  async function updateTrade(tradeId, data) {
+    try {
+      // Send a PUT or PATCH request to update the trade with the specified ID
+      await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
+    } catch (error) {
+      console.error('Error updating trade:', error);
+      alert('Error updating trade. Please try again.');
+    }
+  }
+
+
 
   useEffect(() => {
-    // Update formData based on props when props change
     setFormData({
-      // name: name || '',
-      // symbol: symbol || '',
-      // currency: currency || '',
-      // broker: broker || '',
-      // date: date || '',
       name: '',
       symbol: '',
       currency: '',
@@ -250,7 +288,6 @@ function AddStock({ isNew, trade }) {
 
   return (
 
-    // <div className="modal-content" >
     <div>
       <div className="add-stock-header">
         <h2>Add Stock</h2>
@@ -269,7 +306,7 @@ function AddStock({ isNew, trade }) {
                 <td><label htmlFor="symbol">Symbol</label></td>
                 <td><input type='text' name='symbol' value={formData.symbol} onChange={handleInputChange}></input></td>
                 <td><label htmlFor="currency">Currency</label></td>
-                <td>{/* Dropdown menu for currency */}
+                <td>
                   <select name="currency" value={formData.currency} className="custom-select" onChange={handleInputChange}>
                     {currencyOptions.map((currency, index) => (
                       <option key={index} value={currency}>
@@ -288,7 +325,6 @@ function AddStock({ isNew, trade }) {
               <tr>
                 <td><label htmlFor="broker">Broker</label></td>
                 <td>
-                  {/* Dropdown menu for broker */}
                   <select name="broker" value={formData.broker} className="custom-select" onChange={handleInputChange}>
                     {brokerOptions.map((broker, index) => (
                       <option key={index} value={broker}>
@@ -297,8 +333,8 @@ function AddStock({ isNew, trade }) {
                     ))}
                   </select>
                 </td>
-                <td><label htmlFor="exchange">Exchange Rate</label></td>
-                <td><input type='number' name='exchange' value={formData.exchange} className='input-number' onChange={handleInputChange}></input></td>
+                <td><label htmlFor="exchange_rate">exchange_rate Rate</label></td>
+                <td><input type='number' name='exchange_rate' value={formData.exchange_rate} className='input-number' onChange={handleInputChange}></input></td>
               </tr>
               <tr>
                 <td><label htmlFor="date">Date</label></td>
@@ -328,7 +364,6 @@ function AddStock({ isNew, trade }) {
         </div>
       </div>
     </div >
-    // </div >
   );
 }
 

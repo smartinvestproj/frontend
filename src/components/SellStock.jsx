@@ -1,46 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/components-styles/sellStock.css'
+import getTrade from '../services/getTrade.jsx';
 
-function SellStock({ stock, setStock, props }) {
-	const {
-		name,
-		symbol,
-		date,
-		money,
-		broker,
-		price,
-		exchange,
-		quantity,
-		tax,
-		dividend,
-		currency
-	} = props;
+function SellStock({ tradeId }) {
 
-	const [formData, setFormData] = useState({
-		name: name || '',
-		symbol: symbol || '',
-		currency: currency || '',
-		broker: broker || '',
-		date: date || '',
-	});
+	const initialValues = {
+    name: '',
+    symbol: '',
+    currency: '',
+    broker: '',
+    date: '',
+    price: '',
+    exchange_rate: '',
+    quantity: '',
+  }
 
-	const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
-	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
+  const [formData, setFormData] = useState(initialValues);
+
+	useEffect(() => {
+    async function fetchData() {
+      if (!tradeId) {
+        return
+      }
+      try {
+        const tradeResponse = await getTrade(tradeId);
+        if (tradeResponse?.stock) {
+          setFormData({
+            name: tradeResponse.stock.name || '',
+            symbol: tradeResponse.stock.symbol || '',
+            currency: tradeResponse.stock.currency || '',
+            ...tradeResponse, 
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
 
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
 	let total = ''
-	total = parseFloat(price) * parseFloat(quantity);
+	total = parseFloat(formData.price) * parseFloat(formData.quantity);
 	total = total.toFixed(2);
 
 	if (isNaN(total)) {
 		total = '';
 	}
 
-  function handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
 		//ao vender por o state a false
-		
+
 	}
 
 	const handleInputChange = (event) => {
@@ -52,73 +64,70 @@ function SellStock({ stock, setStock, props }) {
 	};
 
 	useEffect(() => {
-		// Update formData based on props when props change
 		setFormData({
-			name: name || '',
-			symbol: symbol || '',
-			currency: currency || '',
-			broker: broker || '',
-			date: date || '',
-			tax: tax || ''
+			name: '',
+			symbol: '',
+			currency: '',
+			broker: '',
+			date: '',
+			tax: ''
 		});
-	}, [props]);
+	}, []);
 
 	return (
 
-		// <div className="modal-content" >
-			<div>
-				<form className="modal-form" action="" onSubmit={handleSubmit}>
-					<div>
-						<table className='modal-table-sell-stock sell-stock-table'>
-							<thead>
-								<tr>
-									<th><span className='sell-stock'>Sell stock</span></th>
-									<th className='name-l'>{name}</th>
-									<th className='date'>{date}</th>
-									<th className='name-s'>{symbol}</th>
-								</tr>
-							</thead>
-							<hr />
-							<tbody>
-								<tr>
-									<td>EUR</td>
-									<td><b>€{price}</b></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Exchnage Rate</td>
-									<td><b>{exchange}</b></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Quantity </td>
-									<td><b>{quantity}</b></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Total </td>
-									<td><b>{total}</b></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Broker </td>
-									<td>{broker}</td>
-									<td className='tax'><label htmlFor="tax">Tax</label> &emsp;</td>
-									<td><input type='number' name='tax' value={formData.tax} className='input-number' onChange={handleInputChange}></input></td>
-								</tr>
-							</tbody>
-						</table>
-						<div className="sell-button-div">
-							<button className='sell-button' onClick={handleSubmit}>Sell stock</button>
-						</div>
+		<div>
+			<form className="modal-form" action="" onSubmit={handleSubmit}>
+				<div>
+					<table className='modal-table-sell-stock sell-stock-table'>
+						<thead>
+							<tr>
+								<th><span className='sell-stock'>Sell stock</span></th>
+								<th className='name-l'>{formData.name}</th>
+								<th className='date'>{formData.date}</th>
+								<th className='name-s'>{formData.symbol}</th>
+							</tr>
+						</thead>
+						<hr />
+						<tbody>
+							<tr>
+								<td>EUR</td>
+								<td><b>€{formData.price}</b></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Exchnage Rate</td>
+								<td><b>{formData.exchange_rate}</b></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Quantity </td>
+								<td><b>{formData.quantity}</b></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Total </td>
+								<td><b>{total}</b></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>Broker </td>
+								<td>{formData.broker}</td>
+								<td className='tax'><label htmlFor="tax">Tax</label> &emsp;</td>
+								<td><input type='number' name='tax' className='input-number' onChange={handleInputChange}></input></td>
+							</tr>
+						</tbody>
+					</table>
+					<div className="sell-button-div">
+						<button className='sell-button' onClick={handleSubmit}>Sell stock</button>
 					</div>
-				</form>
-			</div >
-		// </div >
+				</div>
+			</form>
+		</div >
 	);
 }
 

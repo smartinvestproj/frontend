@@ -7,33 +7,26 @@ import SellStock from './SellStock';
 import EditStock from './EditStock';
 import getTrade from '../services/getTrade';
 
-function StockInfo(trade) {
+function StockInfo({tradeId}) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const[trades, setTrades] = useState(null);
 
-  // const {
-  //   name,
-  //   symbol,
-  //   date,
-  //   money,
-  //   quantity,
-  //   broker,
-  //   price,
-  //   exchange,
-  //   tax,
-  //   dividend
-  // } = props;
+  // console.log(tradeId);
 
   useEffect(() => {
     async function fetchData() {
+      if(!tradeId){
+        return
+      }
       try {
-        const tradeResponse = await getTrade(trade);
+        console.log("AAA: " + tradeId);
+        const tradeResponse = await getTrade(tradeId);
 
-        const tradeData = tradeResponse.data;
+        // console.log("tradeData: " + JSON.stringify(tradeResponse))
 
-        setTrades(tradeData);
+        setTrades(tradeResponse);
       } catch (error) {
         console.error(error);
       }
@@ -42,8 +35,7 @@ function StockInfo(trade) {
     fetchData();
   }, []);
 
-  console.log(trade);
-
+  // console.log(trades)
   // console.log(stock);
   // Initialize quantity as a state variable
   // const [quantity, setQuantity] = useState(parseInt(initialQuantity, 10) || 0);
@@ -57,6 +49,7 @@ function StockInfo(trade) {
   //   // Increase the quantity by 1 when "Buy Stock" is clicked
   //   setQuantity(prevQuantity => prevQuantity + 1);
   // };
+
   const handleBuyStock = () => {
     // console.log(stock);
     // Open the modal for buying stock and set chooseModal to 'add'
@@ -70,6 +63,7 @@ function StockInfo(trade) {
   //     setQuantity(prevQuantity => prevQuantity - 1);
   //   }
   // };
+
   const handleSellStock = () => {
     // Open the modal for selling stock and set chooseModal to 'sell'
     setModalIsOpen(true);
@@ -82,16 +76,20 @@ function StockInfo(trade) {
     setChooseModal('edit');
   };
 
+  if(!trades){
+    return null;
+  }
+
   return (
     
     // <div className="modal-content-stock-info" >
       <div>
-        {/* <table className='modal-table'>
+        <table className='modal-table'>
           <thead>
             <tr>
-              <th className='name-l'>{Trade.name}</th>
-              <th className='date'>{Trade.date}</th>
-              <th className='name-s'>{Trade.symbol}</th>
+              <th className='name-l'>{trades.stock.name}</th>
+              <th className='date'>{trades.date}</th>
+              <th className='name-s'>{trades.stock.symbol}</th>
             </tr>
           </thead>
           <hr />
@@ -99,30 +97,30 @@ function StockInfo(trade) {
             <tr>
               <td>EUR</td>
               <td></td>
-              <td><b>€{Trade.price}</b></td>
+              <td><b>€{trades.price}</b></td>
             </tr>
             <tr>
               <td>Exchnage Rate</td>
               <td></td>
-              <td><b>{Trade.exchange}</b></td>
+              <td><b>{trades.exchange_rate}</b></td>
             </tr>
             <tr>
               <td>Quantity </td>
               <td></td>
-              <td><b>{Trade.quantity}</b></td>
+              <td><b>{trades.quantity}</b></td>
             </tr>
             <tr>
               <td>Total </td>
               <td></td>
-              <td><b>{total}</b></td>
+              <td><b>{trades.total}</b></td>
             </tr>
             <tr>
               <td>Broker </td>
               <td></td>
-              <td>{Trade.broker}</td>
+              <td>{trades.broker}</td>
             </tr>
           </tbody>
-        </table> */}
+        </table>
 
         <td className='edit'><span onClick={handleEditStock}>Edit</span><img className="editIcon" onClick={handleEditStock} src={editing} alt="" /></td>
 
@@ -136,11 +134,11 @@ function StockInfo(trade) {
 
         <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
           {chooseModal === 'add' ? (
-            <AddStock modalIsOpen={modalIsOpen} isNew={false} />
+            <AddStock modalIsOpen={modalIsOpen} isNew={false} tradeId={tradeId}/>
           ) : chooseModal === 'sell' ? (
-            <SellStock modalIsOpen={modalIsOpen} />
+            <SellStock tradeId={tradeId} modalIsOpen={modalIsOpen} />
           ) : (
-            <EditStock modalIsOpen={modalIsOpen} />
+            <EditStock tradeId={tradeId} modalIsOpen={modalIsOpen} />
           )}
         </ModalComponent>
       </div>

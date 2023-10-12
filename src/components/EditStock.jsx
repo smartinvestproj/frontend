@@ -1,29 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import getTrade from '../services/getTrade.jsx';
 import '../styles/components-styles/addStock.css'
 import '../styles/components-styles/editStock.css'
 
-function EditStock({ stock, setStock, props }) {
-	const {
-		name,
-		symbol,
-		date,
-		money,
-		quantity: initialQuantity,
-		broker,
-		price,
-		exchange,
-		tax,
-		dividend,
-		currency
-	} = props;
+function EditStock({ tradeId }) {
 
-	const [formData, setFormData] = useState({
-		name: name || '',
-		symbol: symbol || '',
-		currency: currency || '',
-		broker: broker || '',
-		date: date || '',
-	});
+	const initialValues = {
+    name: '',
+    symbol: '',
+    currency: '',
+    broker: '',
+    date: '',
+    price: '',
+    exchange_rate: '',
+    quantity: '',
+  }
+
+  const [formData, setFormData] = useState(initialValues);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (!tradeId) {
+        return
+      }
+      try {
+        const tradeResponse = await getTrade(tradeId);
+        if (tradeResponse?.stock) {
+          setFormData({
+            name: tradeResponse.stock.name || '',
+            symbol: tradeResponse.stock.symbol || '',
+            currency: tradeResponse.stock.currency || '',
+            ...tradeResponse,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
 	const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
 	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
@@ -41,42 +57,6 @@ function EditStock({ stock, setStock, props }) {
 	function handleSubmit(event) {
 		event.preventDefault();
 
-		// Check if formData is empty (null or all fields are empty)
-		if (Object.values(formData).every(value => value === '' || value === null)) {
-			console.log('Form data is empty. Not doing anything.');
-			return;
-		}
-
-		// Find the last ID in the stock array
-		const lastStock = stock[stock.length - 1];
-		const lastId = lastStock ? lastStock.id : 0;
-
-		// Calculate the new ID (lastId + 1)
-		const newId = lastId + 1;
-
-		// Create the new stock object in the desired format
-		const newStock = {
-			id: newId,
-			name: formData.name,
-			symbol: formData.symbol, // Assuming symbol corresponds to symbol
-			dates: [{ date: formData.date, price: parseFloat(formData.price) || 100, }], // Assuming date and money correspond to dates
-			money: parseFloat(total) || 100,
-			percent: formData.percent || '',
-			quantity: formData.quantity || '',
-			currency: formData.currency || '',
-			broker: formData.broker || '',
-			exchange: formData.exchange || '',
-			tax: formData.tax || '',
-			dividend: formData.dividend || ''
-		};
-
-		// Update the stock array using the setStock function
-		setStock(prevStock => [...prevStock, newStock]);
-
-		console.log('Stock:', stock);
-		console.log('New Stock Data:', newStock);
-
-		// Reset the formData fields to empty strings
 		setFormData({
 			symbol: '',
 			name: '',
@@ -100,19 +80,18 @@ function EditStock({ stock, setStock, props }) {
 	};
 
 	useEffect(() => {
-		// Update formData based on props when props change
 		setFormData({
-			name: name || '',
-			symbol: symbol || '',
-			currency: currency || '',
-			broker: broker || '',
-			date: date || '',
+			name: '',
+			symbol: '',
+			currency: '',
+			broker: '',
+			date: '',
+			tax: ''
 		});
-	}, [props]);
+	}, []);
 
 	return (
 
-		// <div className="modal-content" >
 			<div>
 				<div className="edit-stock-header">
 					<h2>Edit Stock</h2>
@@ -132,7 +111,6 @@ function EditStock({ stock, setStock, props }) {
 									<td><input type='text' name='symbol' value={formData.symbol} onChange={handleInputChange}></input></td>
 									<td><label htmlFor="currency">Currency</label></td>
 									<td>
-										{/* Dropdown menu for currency */}
 										<select name="currency" value={formData.currency} className="custom-select" onChange={handleInputChange}>
 											{currencyOptions.map((currency, index) => (
 												<option key={index} value={currency}>
@@ -151,7 +129,6 @@ function EditStock({ stock, setStock, props }) {
 								<tr>
 									<td><label htmlFor="broker">Broker</label></td>
 									<td>
-										{/* Dropdown menu for broker */}
 										<select name="broker" value={formData.broker} className="custom-select" onChange={handleInputChange}>
 											{brokerOptions.map((broker, index) => (
 												<option key={index} value={broker}>
@@ -161,7 +138,7 @@ function EditStock({ stock, setStock, props }) {
 										</select>
 									</td>
 									<td><label htmlFor="exchange">Exchange Rate</label></td>
-									<td><input type='number' name='exchange' value={formData.exchange} className='input-number' onChange={handleInputChange}></input></td>
+									<td><input type='number' name='exchange' value={formData.exchange_rate} className='input-number' onChange={handleInputChange}></input></td>
 								</tr>
 								<tr>
 									<td><label htmlFor="date">Date</label></td>
@@ -169,7 +146,7 @@ function EditStock({ stock, setStock, props }) {
 										<input
 											type="date"
 											name="date"
-											value={formData.date}  // Use value instead of defaultValue
+											value={formData.date}
 											onChange={handleInputChange}
 											className='date-picker'
 										/>
@@ -179,7 +156,7 @@ function EditStock({ stock, setStock, props }) {
 								</tr>
 								<tr>
 									<td><label htmlFor="dividend">Dividend</label></td>
-									<td><input type='number' name='dividend' value={formData.dividend} className='input-number' onChange={handleInputChange}></input></td>
+									<td><input type='number' name='dividend' value={formData.dividends} className='input-number' onChange={handleInputChange}></input></td>
 									<td><label htmlFor="total">Total</label></td>
 									<td><label name='total' className='label-total'>{total}</label></td>
 								</tr>
@@ -191,7 +168,6 @@ function EditStock({ stock, setStock, props }) {
 					</div>
 				</div>
 			</div >
-		// </div >
 	);
 }
 
