@@ -13,18 +13,13 @@ function StockInfo({tradeId}) {
 
   const[trades, setTrades] = useState(null);
 
-  // console.log(tradeId);
-
   useEffect(() => {
     async function fetchData() {
       if(!tradeId){
         return
       }
       try {
-        console.log("AAA: " + tradeId);
         const tradeResponse = await getTrade(tradeId);
-
-        // console.log("tradeData: " + JSON.stringify(tradeResponse))
 
         setTrades(tradeResponse);
       } catch (error) {
@@ -35,43 +30,19 @@ function StockInfo({tradeId}) {
     fetchData();
   }, []);
 
-  // console.log(trades)
-  // console.log(stock);
-  // Initialize quantity as a state variable
-  // const [quantity, setQuantity] = useState(parseInt(initialQuantity, 10) || 0);
-
-  // let total = parseFloat(Trade.price) * parseFloat(Trade.quantity);
-  // total = total.toFixed(2);
-
-  const [chooseModal, setChooseModal] = useState(false); // Initialize chooseModal as a state variable
-
-  // const handleBuyStock = () => {
-  //   // Increase the quantity by 1 when "Buy Stock" is clicked
-  //   setQuantity(prevQuantity => prevQuantity + 1);
-  // };
+  const [chooseModal, setChooseModal] = useState(false);
 
   const handleBuyStock = () => {
-    // console.log(stock);
-    // Open the modal for buying stock and set chooseModal to 'add'
     setModalIsOpen(true);
     setChooseModal('add');
   };
 
-  // const handleSellStock = () => {
-  //   // Decrease the quantity by 1 when "Sell Stock" is clicked
-  //   if (quantity > 0) {
-  //     setQuantity(prevQuantity => prevQuantity - 1);
-  //   }
-  // };
-
   const handleSellStock = () => {
-    // Open the modal for selling stock and set chooseModal to 'sell'
     setModalIsOpen(true);
     setChooseModal('sell');
   };
 
   const handleEditStock = () => {
-    // Open the modal for editing stock and set chooseModal to 'edit'
     setModalIsOpen(true);
     setChooseModal('edit');
   };
@@ -82,7 +53,6 @@ function StockInfo({tradeId}) {
 
   return (
     
-    // <div className="modal-content-stock-info" >
       <div>
         <table className='modal-table'>
           <thead>
@@ -134,15 +104,14 @@ function StockInfo({tradeId}) {
 
         <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
           {chooseModal === 'add' ? (
-            <AddStock modalIsOpen={modalIsOpen} isNew={false} tradeId={tradeId}/>
+            <AddStock setModalIsOpen={setModalIsOpen} isNew={false} tradeId={tradeId}/>
           ) : chooseModal === 'sell' ? (
-            <SellStock tradeId={tradeId} modalIsOpen={modalIsOpen} />
+            <SellStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} />
           ) : (
-            <EditStock tradeId={tradeId} modalIsOpen={modalIsOpen} />
+            <EditStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} />
           )}
         </ModalComponent>
       </div>
-    // </div>
   );
 }
 

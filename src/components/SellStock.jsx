@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/components-styles/sellStock.css'
 import getTrade from '../services/getTrade.jsx';
+import axios from 'axios';
 
-function SellStock({ tradeId }) {
+function SellStock({ tradeId, setModalIsOpen }) {
 
 	const initialValues = {
     name: '',
@@ -39,8 +40,6 @@ function SellStock({ tradeId }) {
     fetchData();
   }, []);
 
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-
 	let total = ''
 	total = parseFloat(formData.price) * parseFloat(formData.quantity);
 	total = total.toFixed(2);
@@ -49,11 +48,29 @@ function SellStock({ tradeId }) {
 		total = '';
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
-		//ao vender por o state a false
+		try {
+			await updateTrade(tradeId, {
+				state: 0,
+				tax: formData.tax,
+			});
+			setModalIsOpen(false);
+		} catch (error) {
+			console.error('Error:', error);
+			alert('Error. Please try again.');
+		}
 
 	}
+
+	async function updateTrade(tradeId, data) {
+    try {
+      await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
+    } catch (error) {
+      console.error('Error updating trade:', error);
+      alert('Error updating trade. Please try again.');
+    }
+  }
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -65,11 +82,6 @@ function SellStock({ tradeId }) {
 
 	useEffect(() => {
 		setFormData({
-			name: '',
-			symbol: '',
-			currency: '',
-			broker: '',
-			date: '',
 			tax: ''
 		});
 	}, []);
@@ -123,7 +135,7 @@ function SellStock({ tradeId }) {
 						</tbody>
 					</table>
 					<div className="sell-button-div">
-						<button className='sell-button' onClick={handleSubmit}>Sell stock</button>
+						<button className='sell-button' onClick={() => handleSubmit}>Sell stock</button>
 					</div>
 				</div>
 			</form>

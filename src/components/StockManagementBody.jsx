@@ -76,7 +76,7 @@ function StockManagementBody() {
   function calculateTotalPrice(stockId) {
     const stockTrades = trades.filter((trade) => trade.stock.id === stockId);
     const totalPrice = stockTrades.reduce((sum, trade) => sum + parseFloat(trade.price), 0);
-    return totalPrice.toFixed(2); // Assuming you want to display it with 2 decimal places
+    return totalPrice.toFixed(2); 
   }
 
   return (
@@ -140,11 +140,11 @@ function StockManagementBody() {
 
       {chooseModal === 'info' ? (
         <ModalComponentStockInfo modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} >
-          <StockInfo tradeId={selectedTrade} />
+          <StockInfo tradeId={selectedTrade} setModalIsOpen={setModalIsOpen}/>
         </ModalComponentStockInfo>
       ) : chooseModal === 'add' && (
         <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen}>
-          <AddStock modalIsOpen={modalIsOpen} isNew={true} />
+          <AddStock modalIsOpen={modalIsOpen} isNew={true} setModalIsOpen={setModalIsOpen}/>
         </ModalComponent>
       )}
 

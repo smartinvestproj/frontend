@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import getTrade from '../services/getTrade.jsx';
 import '../styles/components-styles/addStock.css'
 import '../styles/components-styles/editStock.css'
+import axios from 'axios';
 
-function EditStock({ tradeId }) {
+function EditStock({ tradeId, setModalIsOpen }) {
 
 	const initialValues = {
     name: '',
@@ -44,8 +45,6 @@ function EditStock({ tradeId }) {
 	const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
 	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
-	const [modalIsOpen, setModalIsOpen] = useState(false);
-
 	let total = ''
 	total = parseFloat(formData.price) * parseFloat(formData.quantity);
 	total = total.toFixed(2);
@@ -54,22 +53,37 @@ function EditStock({ tradeId }) {
 		total = '';
 	}
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
 
-		setFormData({
-			symbol: '',
-			name: '',
-			currency: '',
-			broker: '',
-			price: '',
-			date: '',
-			quantity: '',
-			total: ''
-		});
+		try {
+			await updateTrade(tradeId, {
+				date: formData.date,
+				broker: formData.broker,
+				quantity: parseFloat(formData.quantity) || 2,
+				price: parseFloat(formData.price) || 2,
+				total: total || 2,
+				exchange_rate: parseFloat(formData.exchange_rate) || 2,
+				tax: 0,
+				dividends: 0,
+			});
+			setModalIsOpen(false);
+		} catch (error) {
+			console.error('Error:', error);
+			alert('Error. Please try again.');
+		}
 
 		setModalIsOpen(false);
 	}
+
+	async function updateTrade(tradeId, data) {
+    try {
+      await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
+    } catch (error) {
+      console.error('Error updating trade:', error);
+      alert('Error updating trade. Please try again.');
+    }
+  }
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;

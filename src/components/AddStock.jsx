@@ -8,8 +8,7 @@ import getTrade from '../services/getTrade.jsx';
 import '../styles/components-styles/addStock.css'
 import '../styles/components-styles/stockInfo.css'
 
-// stock, setStock, props,
-function AddStock({ isNew, tradeId }) {
+function AddStock({ isNew, tradeId, setModalIsOpen }) {
   console.log(tradeId);
 
   const initialValues = {
@@ -25,6 +24,7 @@ function AddStock({ isNew, tradeId }) {
 
   const [formData, setFormData] = useState(initialValues);
 
+
   useEffect(() => {
     async function fetchData() {
       if (!tradeId) {
@@ -37,9 +37,24 @@ function AddStock({ isNew, tradeId }) {
             name: tradeResponse.stock.name || '',
             symbol: tradeResponse.stock.symbol || '',
             currency: tradeResponse.stock.currency || '',
-            ...tradeResponse,
           });
         }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const [stocks, setStocks] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const stockResponse = await getStocks();
+
+        setStocks(stockResponse);
       } catch (error) {
         console.error(error);
       }
@@ -59,8 +74,6 @@ function AddStock({ isNew, tradeId }) {
   const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
   const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-
   let total = ''
   total = parseFloat(formData.price) * parseFloat(formData.quantity);
   total = total.toFixed(2);
@@ -69,140 +82,20 @@ function AddStock({ isNew, tradeId }) {
     total = '';
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   if (isNew) {
-  //     // Check if formData is empty (null or all fields are empty)
-  //     if (Object.values(formData).every(value => value === '' || value === null)) {
-  //       console.log('Form data is empty. Not doing anything.');
-  //       return;
-  //     }
-
-  //     // Find the last ID in the stock array
-  //     const lastStock = stock[stock.length - 1];
-  //     const lastId = lastStock ? lastStock.id : 0;
-
-  //     // Calculate the new ID (lastId + 1)
-  //     const newId = lastId + 1;
-
-  //     // Create the new stock object in the desired format
-  //     const newStock = {
-  //       id: newId,
-  //       name: formData.name,
-  //       symbol: formData.symbol, // Assuming symbol corresponds to symbol
-  //       dates: [{ date: formData.date, price: parseFloat(formData.price) || 100, }], // Assuming date and money correspond to dates
-  //       money: parseFloat(total) || 100,
-  //       percent: formData.percent || '',
-  //       quantity: formData.quantity || '',
-  //       currency: formData.currency || '',
-  //       broker: formData.broker || '',
-  //       exchange_rate: formData.exchange_rate || '',
-  //       tax: 0,
-  //       dividend: formData.dividend || ''
-  //     };
-
-  //     // Update the stock array using the setStock function
-  //     setStock(prevStock => [...prevStock, newStock]);
-
-  //     console.log('Stock:', stock);
-  //     console.log('New Stock Data:', newStock);
-
-  //     // Reset the formData fields to empty strings
-  //     setFormData({
-  //       symbol: '',
-  //       name: '',
-  //       currency: '',
-  //       broker: '',
-  //       price: '',
-  //       date: '',
-  //       quantity: '',
-  //       total: ''
-  //     });
-
-  //     setModalIsOpen(false);
-  //   } else {
-  //     if (Object.values(formData).every(value => value === '' || value === null)) {
-  //       console.log('Form data is empty. Not doing anything.');
-  //       return;
-  //     }
-
-  //     console.log(stock);
-  //     // Check if the stock with the specified id exists in props.stock array
-  //     const stockToUpdate = stock.find(stockItem => stockItem.id === id);
-
-  //     console.log(stockToUpdate);
-
-  //     if (stockToUpdate) {
-  //       // Find the index of the stock item to update in the stock array
-  //       const indexToUpdate = stock.findIndex(stockItem => stockItem.id === id);
-
-  //       // Update the quantity of the existing stock directly in the stock array
-  //       stock[indexToUpdate].quantity = parseFloat(formData.quantity) || 0;
-
-  //       // Update the stock array using the setStock function
-  //       setStock([...stock]);
-
-  //       // Reset the formData fields to empty strings
-  //       setFormData({
-  //         symbol: '',
-  //         name: '',
-  //         currency: '',
-  //         broker: '',
-  //         price: '',
-  //         date: '',
-  //         quantity: '',
-  //         total: '',
-  //       });
-
-  //       setModalIsOpen(false);
-  //     } else {
-  //       console.log(`Stock with ID ${id} not found in props.stock.`);
-  //     }
-  //   }
-  // }
-
-  // const [createdStockId, setCreatedStockId] = useState(null);
-
-  // let stock_id_test; 
-
   async function handleSubmit(event) {
     event.preventDefault();
-    if (isNew) {
-      try {
-        const stockResponse = await createStock();
+    
+    try {
+      if (stocks && stocks.length > 0) {
+        const matchingStock = stocks.find((stockItem) => stockItem.symbol === formData.symbol);
 
-        const tradeResponse = await createTrade(stockResponse);
+        if (!matchingStock) {
+          const stockResponse = await createStock();
 
-        setFormData({
-          symbol: '',
-          name: '',
-          currency: '',
-          date: '',
-          broker: '',
-          quantity: 0,
-          price: 0,
-          total: 0,
-          exchange_rate: 0,
-        });
-
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error. Please try again.');
-      }
-    }
-    else {
-      try {
-        await updateTrade(tradeId, {
-          date: formData.date,
-          broker: formData.broker,
-          quantity: parseFloat(formData.quantity) || 2,
-          price: parseFloat(formData.price) || 2,
-          total: total || 2,
-          exchange_rate: parseFloat(formData.exchange_rate) || 2,
-          tax: 0,
-          dividends: 0,
-        });
+          const tradeResponse = await createTrade(stockResponse);         
+        } else {
+          const tradeResponse = await createTrade(matchingStock);
+        }
 
         setFormData({
           symbol: '',
@@ -215,16 +108,19 @@ function AddStock({ isNew, tradeId }) {
           total: 0,
           exchange_rate: 0,
         });
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error. Please try again.');
+
+        setModalIsOpen(false);
+      } else {
+        console.log('Stock data is empty. Not doing anything.');
       }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error. Please try again.');
     }
   }
 
   const createStock = async () => {
     try {
-      // Send a POST request to create a new stock
       const response = await axios.post('http://127.0.0.1:8000/api/stocks', {
         symbol: formData.symbol,
         name: formData.name,
@@ -242,7 +138,6 @@ function AddStock({ isNew, tradeId }) {
   const createTrade = async (stockResponse) => {
     try {
       console.log("working on it");
-      // Use the createdStockId to associate the trade with the stock
       await axios.post('http://127.0.0.1:8000/api/trades', {
         stock_id: stockResponse.id,
         state: true,
@@ -263,18 +158,6 @@ function AddStock({ isNew, tradeId }) {
       alert('Error creating trade. Please try again.');
     }
   };
-
-  async function updateTrade(tradeId, data) {
-    try {
-      // Send a PUT or PATCH request to update the trade with the specified ID
-      await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
-    } catch (error) {
-      console.error('Error updating trade:', error);
-      alert('Error updating trade. Please try again.');
-    }
-  }
-
-
 
   useEffect(() => {
     setFormData({
