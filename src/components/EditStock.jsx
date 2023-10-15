@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import getTrade from '../services/getTrade.jsx';
+import updateTrade from '../services/putTrade.js';
+
 import '../styles/components-styles/addStock.css'
 import '../styles/components-styles/editStock.css'
-import axios from 'axios';
 
-function EditStock({ tradeId, setModalIsOpen }) {
+function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 
 	const initialValues = {
     name: '',
@@ -18,6 +20,8 @@ function EditStock({ tradeId, setModalIsOpen }) {
   }
 
   const [formData, setFormData] = useState(initialValues);
+	
+	const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,6 +37,7 @@ function EditStock({ tradeId, setModalIsOpen }) {
             currency: tradeResponse.stock.currency || '',
             ...tradeResponse,
           });
+					setLoading(false); 
         }
       } catch (error) {
         console.error(error);
@@ -67,6 +72,11 @@ function EditStock({ tradeId, setModalIsOpen }) {
 				tax: 0,
 				dividends: 0,
 			});
+
+			if (setShouldReloadPage) {
+        setShouldReloadPage(true);
+      }
+
 			setModalIsOpen(false);
 		} catch (error) {
 			console.error('Error:', error);
@@ -76,14 +86,14 @@ function EditStock({ tradeId, setModalIsOpen }) {
 		setModalIsOpen(false);
 	}
 
-	async function updateTrade(tradeId, data) {
-    try {
-      await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
-    } catch (error) {
-      console.error('Error updating trade:', error);
-      alert('Error updating trade. Please try again.');
-    }
-  }
+	// async function updateTrade(tradeId, data) {
+  //   try {
+  //     await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
+  //   } catch (error) {
+  //     console.error('Error updating trade:', error);
+  //     alert('Error updating trade. Please try again.');
+  //   }
+  // }
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -103,6 +113,10 @@ function EditStock({ tradeId, setModalIsOpen }) {
 			tax: ''
 		});
 	}, []);
+
+	if (loading) {
+    return <div>Loading Trade...</div>; // Show loading indicator while loading is true
+  }
 
 	return (
 
