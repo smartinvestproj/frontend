@@ -1,15 +1,10 @@
 import React, { useState } from "react";
+import { useStockContext } from "../../../context/stockContext";
 import './searchBar.css'
 
 function SearchBar() {
-  const initialResults = [
-    { name: "Netflix", symbol: "NFLX", value: "€429,70", percentage: "-8,92%" },
-    { name: "Amazon", symbol: "AMZN", value: "€781,82", percentage: "-3.37%" },
-    { name: "Tesla", symbol: "TSLA", value: "€612,30", percentage: "-5.52%" },
-    { name: "Meta", symbol: "META", value: "€139,69", percentage: "-7.49%" },
-    { name: "Apple", symbol: "AAPL", value: "€981,10", percentage: "-6.21%" },
-    { name: "Toyota", symbol: "TYTA", value: "€354,96", percentage: "-2.08%" },
-  ];
+  const { stocks } = useStockContext();
+
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -18,9 +13,9 @@ function SearchBar() {
     setSearch(search);
 
     const filteredResults = search
-      ? initialResults.filter((result) =>
-          result.name.toLowerCase().startsWith(search.toLowerCase())
-        )
+      ? stocks.filter((result) =>
+        result.name.toLowerCase().startsWith(search.toLowerCase())
+      )
       : [];
 
     setSearchResults(filteredResults);

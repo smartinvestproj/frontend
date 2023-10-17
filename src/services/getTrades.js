@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { base_url } from './base';
 
-const tradeURL = 'http://127.0.0.1:8000/api/trades';
+const tradeURL = `${base_url}/trades/`;
 
 const getTrades = async () => {
     try {

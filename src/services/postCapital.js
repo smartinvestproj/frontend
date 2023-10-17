@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 export default function postCapital(newPost){
-    const postURL = 'http://127.0.0.1:8000/api/capitals';
+    const postURL = `${base_url}/capitals/`;
 
     axios.post(postURL, newPost)
       .then(response => {
-        console.log('Well submitted buddy', response.data);
+        console.log('POST CAPITAL SUCCESS', response.data);
       })
       .catch(error => {
-        console.error('Must have been an error: ', error);
+        console.error('POST CAPITAL ERROR: ', error);
         
       });
 } 

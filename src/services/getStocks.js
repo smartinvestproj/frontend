@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { base_url } from './base';
 
-const stocksURL = 'http://127.0.0.1:8000/api/stocks';
+const stocksURL = `${base_url}/stocks/`;
 const getStocks = async () => {
     try {
         const response = await axios.get(stocksURL);
