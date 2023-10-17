@@ -66,7 +66,6 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
   };
 
   if (isLoading) {
-    // Render a loading message or spinner when waiting for data
     return <div>Loading Trade...</div>;
   }
 

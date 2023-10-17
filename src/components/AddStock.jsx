@@ -19,8 +19,19 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
     quantity: '',
   }
 
+  const [name, setName] = useState('');
+  const [symbol, setSymbol] = useState('');
+  const [currency, setCurrency] = useState('');
+  const [price, setPrice] = useState('');
+  const [broker, setBroker] = useState('');
+  const [exchange_rate, setExchange_rate] = useState('');
+  const [date, setDate] = useState('');
+  const [quantity, setQuantity] = useState('');
+
   const [formData, setFormData] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  // const [total, setTotal] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -31,11 +42,10 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
         const tradeResponse = await getTrade(tradeId);
 
         if (tradeResponse?.stock) {
-          setFormData({
-            name: tradeResponse.stock.name || '',
-            symbol: tradeResponse.stock.symbol || '',
-            currency: tradeResponse.stock.currency || '',
-          });
+          setName(tradeResponse.stock.name)
+          setSymbol(tradeResponse.stock.symbol)
+          setCurrency(tradeResponse.stock.currency)
+
           setLoading(false);
         }
       } catch (error) {
@@ -65,17 +75,41 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === 'symbol') {
+      setSymbol(value);
+    } else if (name === 'name') {
+      setName(value);
+    } else if (name === 'currency') {
+      setCurrency(value);
+    } else if (name === 'price') {
+      setPrice(value);
+    } else if (name === 'broker') {
+      setBroker(value);
+    } else if (name === 'exchange_rate') {
+      setExchange_rate(value);
+    } else if (name === 'date') {
+      setDate(value);
+    } else if (name === 'quantity') {
+      setQuantity(value);
+    }
+    setFormErrors({})
+    // if (name === 'price' || name === 'quantity') {
+    //   const price = parseFloat(formData.price) || 0;
+    //   const quantity = parseFloat(formData.quantity) || 0;
+    //   const newTotal = (price * quantity).toFixed(2);
+    //   if (!isNaN(newTotal)) {
+    //     setTotal(newTotal);
+    //   } else {
+    //     setTotal('');
+    //   }
+    // }
   };
 
   const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
   const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
   let total = ''
-  total = parseFloat(formData.price) * parseFloat(formData.quantity);
+  total = parseFloat(price) * parseFloat(quantity);
   total = total.toFixed(2);
 
   if (isNaN(total)) {
@@ -85,41 +119,70 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
+    const errors = {};
+    if (symbol.length < 3) {
+      errors.symbol = 'Please enter a symbol';
+    }
+    if (name.length < 4) {
+      errors.name = 'Please enter a name';
+    }
+    if (!currency) {
+      errors.currency = 'Please select an currency';
+    }
+    if (!price) {
+      errors.price = 'Please enter a price';
+    }
+    if (!broker) {
+      errors.broker = 'Please select a broker';
+    }
+    if (!exchange_rate) {
+      errors.exchange_rate = 'Please enter a exchange_rate';
+    }
+    if (!date) {
+      errors.date = 'Please select a date';
+    }
+    if (!quantity) {
+      errors.quantity = 'Please enter a quantity';
+    }
     if (total > 9999999) {
-      alert("too many numbers");
-      setFormData({
-        symbol: formData.symbol,
-        name: formData.name,
-        currency: formData.currency,
-        date: formData.date,
-        broker: formData.broker,
-        quantity: formData.quantity,
-        price: formData.price,
-        total: total,
-        exchange_rate: formData.exchange_rate,
-      });
-      return
+      errors.total = 'Please enter a valid price or quantity'
+    }
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
     }
 
+    setFormData({
+      name,
+      symbol,
+      currency,
+      price,
+      broker,
+      exchange_rate,
+      date,
+      quantity,
+      total,
+    });
+
     try {
-      const matchingStock = stocks.find((stockItem) => stockItem.symbol.toUpperCase() === formData.symbol.toUpperCase());
+      const matchingStock = stocks.find((stockItem) => stockItem.symbol.toUpperCase() === symbol.toUpperCase());
 
       if (!matchingStock) {
         const stockResponse = await postStock({
-          symbol: formData.symbol,
-          name: formData.name,
-          currency: formData.currency,
+          symbol: symbol,
+          name: name,
+          currency: currency,
         });
 
         const tradeResponse = await postTrade({
           stock_id: stockResponse.id,
           state: true,
-          date: formData.date,
-          broker: formData.broker,
-          quantity: parseFloat(formData.quantity) || 2,
-          price: parseFloat(formData.price) || 2,
+          date: date,
+          broker: broker,
+          quantity: parseFloat(quantity) || 2,
+          price: parseFloat(price) || 2,
           total: total || 2,
-          exchange_rate: parseFloat(formData.exchange_rate) || 2,
+          exchange_rate: parseFloat(exchange_rate) || 2,
           tax: 0,
           dividends: 0,
           sell_price: 0,
@@ -129,29 +192,20 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
         const tradeResponse = await postTrade({
           stock_id: matchingStock.id,
           state: true,
-          date: formData.date,
-          broker: formData.broker,
-          quantity: parseFloat(formData.quantity) || 2,
-          price: parseFloat(formData.price) || 2,
+          date: date,
+          broker: broker,
+          quantity: parseFloat(quantity) || 2,
+          price: parseFloat(price) || 2,
           total: total || 2,
-          exchange_rate: parseFloat(formData.exchange_rate) || 2,
+          exchange_rate: parseFloat(exchange_rate) || 2,
           tax: 0,
           dividends: 0,
           sell_price: 0,
         });
       }
 
-      setFormData({
-        symbol: '',
-        name: '',
-        currency: '',
-        date: '',
-        broker: '',
-        quantity: 0,
-        price: 0,
-        total: 0,
-        exchange_rate: 0,
-      });
+      setFormData(initialValues);
+      // setTotal('');
 
       if (setShouldReloadPage) {
         setShouldReloadPage(true);
@@ -164,47 +218,6 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
       alert('Error. Please try again.');
     }
   }
-
-  // const createStock = async () => {
-  //   try {
-  //     const response = await axios.post('http://127.0.0.1:8000/api/stocks', {
-  //       symbol: formData.symbol,
-  //       name: formData.name,
-  //       currency: formData.currency,
-  //     });
-
-  //     return response.data;
-
-  //   } catch (error) {
-  //     console.error('Error creating stock:', error);
-  //     alert('Error creating stock. Please try again.');
-  //   }
-  // };
-
-  // const createTrade = async (stockResponse) => {
-  //   try {
-  //     console.log("working on it");
-  //     await axios.post('http://127.0.0.1:8000/api/trades', {
-  //       stock_id: stockResponse.id,
-  //       state: true,
-  //       date: formData.date,
-  //       broker: formData.broker,
-  //       quantity: parseFloat(formData.quantity) || 2,
-  //       price: parseFloat(formData.price) || 2,
-  //       total: total || 2,
-  //       exchange_rate: parseFloat(formData.exchange_rate) || 2,
-  //       tax: 0,
-  //       dividends: 0,
-  //       sell_price: 0,
-  //     });
-
-  //     console.log("done!");
-
-  //   } catch (error) {
-  //     console.error('Error creating trade:', error);
-  //     alert('Error creating trade. Please try again.');
-  //   }
-  // };
 
   return (
 
@@ -221,16 +234,14 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
           <form className="modal-form" action="" onSubmit={handleSubmit}>
             <table className='add-stock-table'>
               <thead>
-                {/* <th></th>
-              <th></th> */}
               </thead>
               <tbody>
                 <tr>
-                  <td><label htmlFor="symbol">Symbol</label></td>
-                  <td><input type='text' name='symbol' value={formData.symbol} onChange={handleInputChange}></input></td>
-                  <td><label htmlFor="currency">Currency</label></td>
+                  <td><label htmlFor="symbol">Symbol</label>{formErrors.symbol && <label className='error-label'><br />{formErrors.symbol}</label>}</td>
+                  <td><input type='text' name='symbol' value={symbol} onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="currency">Currency</label>{formErrors.currency && <label className='error-label'><br />{formErrors.currency}</label>}</td>
                   <td>
-                    <select name="currency" value={formData.currency} className="custom-select" onChange={handleInputChange}>
+                    <select name="currency" value={currency} className="custom-select" onChange={handleInputChange}>
                       {currencyOptions.map((currency, index) => (
                         <option key={index} value={currency}>
                           {currency}
@@ -240,15 +251,15 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
                   </td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="name">Name</label></td>
-                  <td><input type='text' name='name' value={formData.name} onChange={handleInputChange}></input></td>
-                  <td>Price</td>
-                  <td><input type='number' name='price' value={formData.price} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="name">Name</label>{formErrors.name && <label className='error-label'><br />{formErrors.name}</label>}</td>
+                  <td><input type='text' name='name' value={name} onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="price">Price</label>{formErrors.price && <label className='error-label'><br />{formErrors.price}</label>}</td>
+                  <td><input type='number' step=".01" name='price' value={price} className='input-number' onChange={handleInputChange}></input></td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="broker">Broker</label></td>
+                  <td><label htmlFor="broker">Broker</label>{formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}</td>
                   <td>
-                    <select name="broker" value={formData.broker} className="custom-select" onChange={handleInputChange}>
+                    <select name="broker" value={broker} className="custom-select" onChange={handleInputChange}>
                       {brokerOptions.map((broker, index) => (
                         <option key={index} value={broker}>
                           {broker}
@@ -256,27 +267,27 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
                       ))}
                     </select>
                   </td>
-                  <td><label htmlFor="exchange_rate">Exchange Rate</label></td>
-                  <td><input type='number' name='exchange_rate' value={formData.exchange_rate} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="exchange_rate">Exchange Rate</label>{formErrors.exchange_rate && <label className='error-label'><br />{formErrors.exchange_rate}</label>}</td>
+                  <td><input type='number' step=".01" name='exchange_rate' value={exchange_rate} className='input-number' onChange={handleInputChange}></input></td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="date">Date</label></td>
+                  <td><label htmlFor="date">Date</label>{formErrors.date && <label className='error-label'><br />{formErrors.date}</label>}</td>
                   <td>
                     <input
                       type="date"
                       name="date"
-                      value={formData.date}
+                      value={date}
                       onChange={handleInputChange}
                       className='date-picker'
                     />
                   </td>
-                  <td><label htmlFor="quantity">Quantity</label></td>
-                  <td><input type='number' name='quantity' value={formData.quantity} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="quantity">Quantity</label>{formErrors.quantity && <label className='error-label'><br />{formErrors.quantity}</label>}</td>
+                  <td><input type='number' step=".01" name='quantity' value={quantity} className='input-number' onChange={handleInputChange}></input></td>
                 </tr>
                 <tr className='teste-tr'>
                   <td></td>
                   <td></td>
-                  <td><label htmlFor="total">Total</label></td>
+                  <td><label htmlFor="total">Total</label>{formErrors.total && <label className='error-label'><br />{formErrors.total}</label>}</td>
                   <td><label name='total' className='label-total'>{total}</label></td>
                 </tr>
               </tbody>

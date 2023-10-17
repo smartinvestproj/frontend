@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/components-styles/sellStock.css'
 import getTrade from '../services/getTrade.jsx';
 import ModalComponent from "./ModalComponent";
-import axios from 'axios';
 import SellModal from './SellModal';
 import updateTrade from '../services/putTrade';
+import '../styles/components-styles/sellStock.css'
 
 function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 
@@ -23,9 +22,12 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 		price: '',
 		exchange_rate: '',
 		quantity: '',
+		tax: '',
+		sell_price: '',
 	}
 
 	const [formData, setFormData] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
 
 	useEffect(() => {
 		async function fetchData() {
@@ -61,32 +63,32 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 	async function handleSubmit(event) {
 		event.preventDefault();
 
-		// setDisable(true);
+		const errors = {};
+		if (formData.sell_price <= 0) {
+      errors.sell_price = 'Please enter a valid Sell Price';
+    }
+		if (formData.tax <= 0) {
+      errors.tax = 'Please enter a valid tax';
+    }
+		if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+		
 		try {
 			await updateTrade(tradeId, {
 				state: 0,
 				tax: formData.tax,
+				sell_price: formData.sell_price,
 			});
 
 			setModal2IsOpen(true);
 			setChooseModal(true);
-			// setModalIsOpen(false);
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Error. Please try again.');
 		}
-
-		// setModalIsOpen(false)
 	}
-
-	// async function updateTrade(tradeId, data) {
-	// 	try {
-	// 		await axios.put(`http://127.0.0.1:8000/api/trades/${tradeId}`, data);
-	// 	} catch (error) {
-	// 		console.error('Error updating trade:', error);
-	// 		alert('Error updating trade. Please try again.');
-	// 	}
-	// }
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -94,18 +96,20 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 			...formData,
 			[name]: value,
 		});
+		setFormErrors({})
 	};
 
 	useEffect(() => {
 		setFormData({
-			tax: ''
+			tax: '',
+			sell_price: ''
 		});
 	}, []);
 
 	return (
 
 		<div>
-			{loading ? ( // Show loading indicator while loading is true
+			{loading ? (
 				<div className="loading-indicator">Loading Stock...</div>
 			) : (
 				<form className="modal-form" action="" onSubmit={handleSubmit}>
@@ -142,14 +146,14 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 								<tr>
 									<td>Total </td>
 									<td><b>{total}</b></td>
-									<td></td>
-									<td></td>
+									<td className='tax'><label htmlFor="sell_price">Sell Price</label> &emsp;{formErrors.sell_price && <label className='error-label'><br />{formErrors.sell_price}</label>}</td>
+									<td><input type='number' name='sell_price' step=".01" className='input-number' onChange={handleInputChange}></input></td>
 								</tr>
 								<tr>
 									<td>Broker </td>
 									<td>{formData.broker}</td>
-									<td className='tax'><label htmlFor="tax">Tax</label> &emsp;</td>
-									<td><input type='number' name='tax' className='input-number' onChange={handleInputChange}></input></td>
+									<td className='tax'><label htmlFor="tax">Tax</label> &emsp;{formErrors.tax && <label className='error-label'><br />{formErrors.tax}</label>}</td>
+									<td><input type='number' name='tax' step=".01" className='input-number' onChange={handleInputChange}></input></td>
 								</tr>
 							</tbody>
 						</table>

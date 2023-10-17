@@ -110,3 +110,8 @@
     background-color: var(--boxes-color);
     width: 179px;
 }
+
+.error-label{
+    font-size: 0.7rem;
+    color: var(--red-color);
+}

@@ -30,9 +30,6 @@ function StockManagementBody() {
         const stockData = stockResponse.data;
         const tradeData = tradeResponse.data;
 
-        // setStocks(stockData);
-        // setTrades(tradeData);
-
         const filteredTrades = tradeData.filter(trade => trade.state === 1);
 
         // Then, filter stocks that have no trades with state = 1
@@ -47,7 +44,6 @@ function StockManagementBody() {
         setLoading(false);
 
         if (shouldReloadPage) {
-          // Reload the page and reset the state
           window.location.reload();
           setShouldReloadPage(false);
         }
@@ -61,11 +57,6 @@ function StockManagementBody() {
 
   const [expandedRows, setExpandedRows] = useState([]);
 
-  // const [showAddStock, setShowAddStock] = useState(false);
-
-  // const [showInfoStock, setShowInfoStock] = useState(false);
-
-  // const [selectedStock, setSelectedStock] = useState(null);
   const [selectedTrade, setSelectedTrade] = useState(null);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -84,7 +75,6 @@ function StockManagementBody() {
     });
   }
 
-  // Function to open the modal
   function openAddStock() {
     setModalType(modalType1)
     setChooseModal('add');
@@ -93,7 +83,6 @@ function StockManagementBody() {
   }
 
   function openStockInfo(tradeId) {
-    // console.log('tradId: ' + tradeId)
     setModalType(modalType2)
     setSelectedTrade(tradeId);
     setChooseModal('info');
