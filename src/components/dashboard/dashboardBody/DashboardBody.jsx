@@ -3,51 +3,80 @@ import './dashboardBody.css';
 import MyStocks from '../myStocks/MyStocks.jsx';
 import DashboardGraph from '../../dashboard/dashboardBody/DashboardGraph.jsx';
 import getStocks from '../../../services/getStocks';
-import Loading from '../../loading/Loading';
+import getTrades from '../../../services/getTrades';
 
 export default function DashboardBody() {
   const scrl = useRef(null);
-  const slide = (shift) => {
-    scrl.current.scrollLeft += shift;
-  };
-  
-  getStocks();
-  const [stocks, setStocks] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const stockData = await getStocks(); 
-        setStocks(stockData);
-        console.log(stockData)
-        setLoading(false); 
-      } catch (error) {
-        console.error(error);
-        setLoading(true); 
-      }
+    const slide = (shift) => {
+        scrl.current.scrollLeft += shift;
+    };
+    const [originalStocks, setOriginalStocks] = useState([]);
+    const [originalTrades, setOriginalTrades] = useState([]);
+
+    useEffect(() => {
+        async function fetchStocks() {
+          try {
+            const stocksResponse = await getStocks();
+            const stocksData = stocksResponse.data;
+            setOriginalStocks(stocksData);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        fetchStocks();
+    }, []);
+    
+    useEffect(() => {
+        async function fetchTrades() {
+          try {
+            const tradesResponse = await getTrades();
+            const tradesData = tradesResponse.data;
+            setOriginalTrades(tradesData);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        fetchTrades();
+    }, []);
+
+    const calculateTradeValues = (stockId) => {
+      const trades = originalTrades.filter(trade => trade.stock.id === stockId);
+      let totalValue = 0;
+      let totalTotal = 0;
+  
+      trades.map(trade => {
+        totalValue += parseFloat(trade.value);
+        totalTotal += parseFloat(trade.total);
+      });
+  
+      return {
+        totalValue,
+        totalTotal
+      };
     };
 
-    fetchData();
-  }, []);
-
-  return (
-    <div className="dashboardBody-container">
-      <div className="dashboardBody-mystocks-container">
-        <h3 className='my-stocks-label'>My Stocks</h3>
-        <i onClick={() => slide(-150)} className='stocks-arrow-left fi fi-rr-angle-small-left'></i>
-        <div ref={scrl} className="my-stocks-item">
-          {loading ? (
-            <Loading/>
-          ) : (
-            stocks.map((stock, index) => (
-              <MyStocks key={index} props={stock} />
-            ))
-          )}
+    
+    return(
+        <>
+        <div className="dashboardBody-container">
+            <div className="dashboardBody-mystocks-container">
+            <h3 className='my-stocks-label'>My Stocks</h3>
+            <i onClick={() => slide(-150)} className='stocks-arrow-left fi fi-rr-angle-small-left'></i>
+                <div ref={scrl} className="my-stocks-item">
+                {originalStocks.map((stock, index) => (
+                    <MyStocks key={index} 
+                      symbol={stock.symbol}
+                      name={stock.name}
+                      total={calculateTradeValues(stock.id).totalTotal + "€"}
+                      percentage={stock.percentage}
+                    />
+            ))}
+                </div>
+            </div>
+                    <i onClick={() => slide(+150)} className='stocks-arrow fi fi-rr-angle-small-right'></i>
+                    <DashboardGraph/>
         </div>
-      </div>
-      <i onClick={() => slide(+150)} className='stocks-arrow fi fi-rr-angle-small-right'></i>
-      <DashboardGraph />
-    </div>
-  );
+        </>
+    );
 }
