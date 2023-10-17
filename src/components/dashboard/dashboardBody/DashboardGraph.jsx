@@ -250,7 +250,6 @@ function PortfolioPage() {
             <p>-10,4%</p>
           </div>
         </div>
-        <div className="line2"></div>
         <div className="updateButtons">
           <button onClick={() => updatePeriod("1 day")}>1 day</button>
           <button onClick={() => updatePeriod("1 week")}>1 week</button>

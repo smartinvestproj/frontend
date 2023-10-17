@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './capitalModal.css';
-import postCapital from '../../../services/postCapital';
+import { createOrUpdateCapital } from '../../../services/Capitals';
 
-export default function CapitalModal(props) {
+export default function CapitalModal() {
   const customStyles = {
     content: {
       width: '20%',
@@ -20,9 +20,18 @@ export default function CapitalModal(props) {
     },
   };
 
-  const { closeModal, openModal } = props;
+  const [modalIsOpen, setModalIsOpen] = useState(true);
   const [dateValue, setDateValue] = useState('');
   const [value, setValue] = useState('');
+
+  function refreshPage() {
+    return window.location.reload(false);
+  }
+  
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
 
   const handleDateChange = (event) => {
     const selectedDate = event.target.value;
@@ -44,22 +53,26 @@ export default function CapitalModal(props) {
     setValue(newValue);
   };
 
+  const handleRequestClose = () => {
+    closeModal();
+    refreshPage();
+  };
+
   const handleSubmit = () => {
     const newPost = {
       value: value,
       date: dateValue,
     };
 
-    console.log('Data formatada:', dateValue);
-    postCapital(newPost);
+    createOrUpdateCapital(newPost);
     closeModal();
   };
 
   return (
     <div>
       <Modal
-        isOpen={openModal}
-        onRequestClose={closeModal}
+        isOpen={modalIsOpen}
+        onRequestClose={handleRequestClose}
         shouldCloseOnOverlayClick={true}
         style={customStyles}
         contentLabel="Capital Modal"
@@ -72,7 +85,7 @@ export default function CapitalModal(props) {
             placeholder='2000.00'
             type="number"
             value={value}
-            onChange={handleValueChange} 
+            onChange={handleValueChange}
           />
           <label>Date of the new value invested</label>
           <input

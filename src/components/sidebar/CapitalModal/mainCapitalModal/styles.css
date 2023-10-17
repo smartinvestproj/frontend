@@ -1,0 +1,19 @@
+.main-capital-modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-capital-container{
+    display: flex;
+    margin-top: 80px;
+}
+
+.btn-capital-container button{
+    margin: 0 10px;
+    width: 130px;
+}
+
+.btn-capital-container button:hover{
+    background-color: var(--boxes-color);
+}
