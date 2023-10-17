@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import './pieCharts.css';
+import getTrades from '../../../services/getTrades';
 
 function PieCharts(){
+
+  const [tradeData, setTradeData] = useState([])
+
+  useEffect(() => {
+    async function fetchTradeData() {
+      try {
+        const data = await getTrades();
+        const trades = data.data;
+        setTradeData(trades);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchTradeData();
+  }, []);
+
+  if (tradeData === null) {
+    return <div>Loading...</div>;
+  }
+
+  const stockNames = tradeData.map((trade) => trade.stock.name);
+  const quantities = tradeData.map((trade) => parseFloat(trade.quantity));  
+
   const data = {
-    labels: ['META', 'AAPL', 'AMZN', 'NFLX'],
+    labels: stockNames,
     datasets: [
       {
-        data: [12, 8, 5, 14], 
-        backgroundColor: ['#0668E1', '#A3AAAE', '#E4C083', '#D81F26'], 
+        data: quantities,
+        backgroundColor: ['#0668E1', '#A3AAAE', '#E4C083', '#D81F26'],
         borderColor: '#242424',
       },
     ],
-  };
+  };  
+
 
   return (
     <div className='pieChart-container'>

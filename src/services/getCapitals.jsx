@@ -10,10 +10,8 @@ export default function getCapitals(){
       const fetchData = async () => {
         try {
           const response = await axios.get(capitalsURL);
-
           const data = response.data;
           setCapitals(data);
-          console.log(data);
         } catch (error) {
           console.error(error);
         }
@@ -24,7 +22,6 @@ export default function getCapitals(){
     useEffect(() => {
       const totalCapital = capitals.reduce((total, capital) => total + parseFloat(capital.value), 0);
       setValue(totalCapital);
-      console.log(value)
     }, [capitals]);
 
     return value;

@@ -1,23 +1,44 @@
-import React from 'react';
-import { Bubble  } from 'react-chartjs-2';
-import './bubbleChart.css';
+import { Bubble } from "react-chartjs-2";
+import "./bubbleChart.css";
+import getTrades from "../../../services/getTrades";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
-export default function BubbleChart(){
-    const data = {
-        datasets: [{
-            label: 'Portfolio investments',
-            data: [
-                { x: 10, y: 20, r: 5 },  
-                { x: 30, y: 15, r: 10 }, 
-                { x: 500, y: 25, r: 15 },
-            ],
-            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        }]
+export default function BubbleChart() {
+  const [tradeData, setTradeData] = useState([]);
+
+  useEffect(() => {
+    async function fetchTradeData() {
+      try {
+        const data = await getTrades();
+        const trades = data.data;
+        setTradeData(trades);
+      } catch (error) {
+        console.log(error);
+      }
     }
-      return(
-        <div className='bubbles-container'>
-            <h2>Portfolio value by time</h2>
-            <Bubble data={data}/>
-        </div>
-      )
+    fetchTradeData();
+  }, []);
+  
+  const data = {
+    datasets: tradeData.map((trade) => {
+      const formattedDate = format(new Date(trade.created_at), "yyyy-MM-dd");
+      return {
+        label: trade.stock.name,
+        data: [{
+          x: formattedDate,
+          y: parseFloat(trade.total),
+          r: parseFloat(trade.quantity),
+        }],
+      };
+    }),
+    backgroundColor: ['#0668E1', '#A3AAAE', '#E4C083', '#D81F26'],
+  };
+
+  return (
+    <div className="bubbles-container">
+      <h2>Portfolio value by time</h2>
+      <Bubble data={data} />
+    </div>
+  );
 }
