@@ -8,13 +8,7 @@ import DashboardBody from '../components/dashboard/dashboardBody/DashboardBody.j
 function Dashboard() {
   
   return (
-    <div className='container'>
-      <Sidebar/>
-      <div className="content">
-        <Heading/>
         <DashboardBody/>
-      </div>
-    </div>
   );
 }
 

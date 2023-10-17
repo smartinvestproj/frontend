@@ -1,0 +1,27 @@
+Compra:
+valor total das trades 
+
+Venda:
+valor das trades vendidas - state a 1 
+
+Transacionado:
+valor de compra + valor de venda 
+
+Total Investido:
+valor total das trades === ??
+
+Investimento Capital Próprio:
+valor capital próprio - valor compra 
+
+Investimento Capital Ganho:
+Total Investido - Investimento Capital Próprio
+
+Capitalizado:
+
+
+Capitalizacao:
+
+
+Mais valias:
+Total das mais valias que vem do edit de uma trade
+

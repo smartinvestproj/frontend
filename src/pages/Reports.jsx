@@ -7,18 +7,14 @@ import BubbleChart from "../components/reports/bubbleChart/BubbleChart.jsx";
 
 function Portfolio() {
   return (
-    <div className="container">
-      <Sidebar />
-      <div className="content">
-        <Heading />
-        <div className="reports-container">
-          <div className="row-one-charts">
-          <BubbleChart/>
-          </div>
-          <PieCharts />
+    <>
+      <div className="reports-container">
+        <div className="row-one-charts">
+          <BubbleChart />
         </div>
+        <PieCharts />
       </div>
-    </div>
+    </>
   );
 }
 

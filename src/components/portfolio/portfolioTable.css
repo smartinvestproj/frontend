@@ -1,0 +1,49 @@
+.title-container{
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.portfolio-container{
+  margin: 20px;
+}
+
+hr{
+  border: 1px solid var(--gold-color);
+  width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+}
+
+.table-container th {
+  background-color: #333;
+}
+  
+.table-container td {
+  background-color: #535353;
+  font-size: 20px;
+}
+
+.table-container th, td {
+  border-left: 1px solid #333; 
+  border-right: 1px solid #333;
+  padding: 10px;
+  height: 70px;
+  text-align: center;
+  width: 150px;
+}
+
+.table-container th:first-child, td:first-child {
+  border-left: none;
+}
+
+.table-container th:last-child, td:last-child {
+  border-right: none;
+}
+
+.gold {
+  color: var(--gold-color);
+}

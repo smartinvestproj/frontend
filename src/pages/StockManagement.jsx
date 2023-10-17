@@ -4,13 +4,9 @@ import StockManagementBody from '../components/stockManagement/StockManagementBo
 
 function StockManagement() {
   return (
-    <div className="container">
-      <Sidebar />
-      <div className="content">
-        <Heading />
+    <>
         <StockManagementBody />
-      </div>
-    </div>
+    </>
   );
 }
 
