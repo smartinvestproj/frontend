@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './styles.css';
-import CapitalModal from '../CapitalModal.jsx';
+import CapitalModal from '../newCapitalModal/CapitalModal.jsx';
 import ManageCapitalModal from '../manageCapitalModal';
 
 export default function MainCapitalModal(props) {

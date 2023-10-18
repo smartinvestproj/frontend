@@ -4,6 +4,12 @@ import axios from 'axios';
 const entity = 'capitals';
 const urlBuilder = (id) => id ? `${base_url}/${entity}/${id}` : `${base_url}/${entity}`;
 
+
+const errorHandler = (error) => {
+    console.error('API Error:', error);
+    throw error;
+};
+
 export async function getCapital() {
     try{
         const response = await axios.get(urlBuilder());

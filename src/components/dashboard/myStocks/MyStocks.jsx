@@ -15,7 +15,6 @@ export default function MyStocks({symbol, name, total, percentage}){
                     <p className='stock-value'>
                         {total}
                     </p>
-                    <p className="stock-percentage">{percentage}%</p>
                 </div>
             </div>
         <i className="divide-stock fi fi-rr-tally-1"></i>

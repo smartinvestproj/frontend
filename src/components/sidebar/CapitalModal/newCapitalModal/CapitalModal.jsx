@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import './capitalModal.css';
-import { createOrUpdateCapital } from '../../../services/Capitals';
+import { createOrUpdateCapital } from '../../../../services/Capitals';
 
 export default function CapitalModal() {
   const customStyles = {
