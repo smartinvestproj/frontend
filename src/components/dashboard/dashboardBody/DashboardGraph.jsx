@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "./dashboardGraph.css";
 import Chart from "chart.js/auto";
 
-
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const data = {
   labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
@@ -86,10 +87,11 @@ function PortfolioPage() {
     let newData = null;
 
     if (newPeriod === "1 day") {
-      const hoursLabels = Array.from({ length: 24 }, (_, i) => `${i}h`);
+      const hourIndex = (new Date().getHours());
+      const DayLabels = Array.from({ length: 23 }, (_, i) => [hourIndex - 23 + i]);
       const hoursData = Array.from({ length: 24 }, () => Math.floor(Math.random() * 20)); // Generate random data
       newData = {
-        labels: hoursLabels,
+        labels: DayLabels,
         datasets: [
           {
             label: "",
@@ -101,9 +103,11 @@ function PortfolioPage() {
         ],
       };
     } else if (newPeriod === "1 week") {
+      const dayIndex = (new Date().getDay());
+      const WeekLabels = Array.from({ length: 7 }, (_, i) => dayNames[dayIndex - 6 + i]);
       const weekData = Array.from({ length: 7 }, () => Math.floor(Math.random() * 21)); // Generate random data up to 20
       newData = {
-        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        labels: WeekLabels,
         datasets: [
           {
             label: "",
@@ -115,10 +119,13 @@ function PortfolioPage() {
         ],
       };
     } else if (newPeriod === "1 month") {
-      const monthLabels = Array.from({ length: 30 }, (_, i) => `${i}`);
-      const monthData = Array.from({ length: 30 }, () => Math.floor(Math.random() * 20)); // Generate random data
+      const currentDate = new Date();
+      const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+      const MonthLabels = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+      const monthData = Array.from({ length: daysInMonth }, () => Math.floor(Math.random() * 20)); // Gere dados aleatórios
+
       newData = {
-        labels: monthLabels,
+        labels: MonthLabels,
         datasets: [
           {
             label: "",
@@ -130,10 +137,12 @@ function PortfolioPage() {
         ],
       };
     } else if (newPeriod === "3 months") {
-      const months3Labels = Array.from({ length: 90 }, (_, i) => `${i}`);
-      const months3Data = Array.from({ length: 90 }, () => Math.floor(Math.random() * 20)); // Generate random data
+      const monthIndex = (new Date().getMonth());
+      const Months3Labels = Array.from({ length: 3 }, (_, i) => monthNames[monthIndex - 2 + i]);
+      const months3Data = Array.from({ length: 90 }, () => Math.floor(Math.random() * 20));
+
       newData = {
-        labels: months3Labels,
+        labels: Months3Labels,
         datasets: [
           {
             label: "",
@@ -145,10 +154,11 @@ function PortfolioPage() {
         ],
       };
     } else if (newPeriod === "6 months") {
-      const months6Labels = Array.from({ length: 180 }, (_, i) => `${i}`);
+      const monthIndex = (new Date().getMonth());
+      const Months6Labels = Array.from({ length: 6 }, (_, i) => monthNames[monthIndex - 5 + i]);
       const months6Data = Array.from({ length: 180 }, () => Math.floor(Math.random() * 20)); // Generate random data
       newData = {
-        labels: months6Labels,
+        labels: Months6Labels,
         datasets: [
           {
             label: "",
@@ -159,10 +169,14 @@ function PortfolioPage() {
           },
         ],
       };
-    } else if (newPeriod === "1 year") {
+    } 
+    else if (newPeriod === "1 year") {
+      const monthIndex = (new Date().getMonth());
+      const months12Labels = Array.from({ length: 12 }, (_, i) => monthNames[monthIndex - 11 + i]);
+
       const yearData = Array.from({ length: 12 }, () => Math.floor(Math.random() * 20)); // Generate random data
       newData = {
-        labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        labels: months12Labels,
         datasets: [
           {
             label: "",
