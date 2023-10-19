@@ -8,7 +8,7 @@ const getTrades = async () => {
         const response = await axios.get(tradeURL);
         return response.data;
     } catch (error) {
-        console.error(error);
+        console.error('GET TRADE ERROR: ', error);
     }
 };
 

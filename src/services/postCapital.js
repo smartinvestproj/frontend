@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { base_url } from './base';
 
 export default function postCapital(newPost){
     const postURL = `${base_url}/capitals/`;

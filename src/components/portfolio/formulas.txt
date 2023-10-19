@@ -1,27 +1,49 @@
+
+----- MAIN TABLE -----
+
+//DONE
 Compra:
-valor total das trades 
+valor total das trades (compradas e vendidas)
 
+//DONE
 Venda:
-valor das trades vendidas - state a 1 
+valor das trades vendidas - state a 0
 
+//DONE
 Transacionado:
 valor de compra + valor de venda 
 
+//DONE
 Total Investido:
-valor total das trades === ??
+Compra - Venda + MaisValias + dividendos
 
+//REVER
 Investimento Capital Próprio:
-valor capital próprio - valor compra 
+Total inestimento - mais valias - dividendos stock + (divididendos net - liquidos)
 
+//REVER
 Investimento Capital Ganho:
-Total Investido - Investimento Capital Próprio
+Mais valias + dividendos stock + (divididendos net - liquidos)
 
-Capitalizado:
-
-
-Capitalizacao:
-
-
+//DONE
 Mais valias:
 Total das mais valias que vem do edit de uma trade
 
+//IMPOSTOS (Custos)
+Total tax + {[total corretagem]}
+
+//REVER
+Rentabilidade investimento total
+(dividendos brutos + dividendos stocks + MaisValias + {[Capitalizacao]} ) / Total Investimento
+
+
+Rentabilidade Capital Próprio
+dividendos net + dividendos stock + MaisValias + {[Capitalizacao]} / Investimento Capital Próprio
+
+
+{[Capitalizacao]} - OUT 
+{[Total corretagem]} - OUT 
+{[Corretagem]} - OUT
+
+// 0 foi Vendido
+// 1 foi Comprado/Presente no Portfolio

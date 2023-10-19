@@ -12,11 +12,11 @@ function SearchBar() {
     const search = e.target.value;
     setSearch(search);
 
-    const filteredResults = search
-      ? stocks.filter((result) =>
-        result.name.toLowerCase().startsWith(search.toLowerCase())
-      )
-      : [];
+  const filteredResults = search
+    ? stocks.filter((result) =>
+      result.name.toLowerCase().startsWith(search.toLowerCase())
+    )
+    : [];
 
     setSearchResults(filteredResults);
   };
@@ -41,9 +41,7 @@ function SearchBar() {
                 <span className="result-name">{result.name}</span>
                 <span className="result-symbol">{result.symbol}</span>
                 <span className="result-value">{result.value}</span>
-                <span className="result-percentage" style={{ color: "red" }}>
-                  {result.percentage}
-                </span>
+                <span className="result-percentage" style={{ color: "red" }}>{result.percentage}</span>
               </li>
             ))}
           </ul>

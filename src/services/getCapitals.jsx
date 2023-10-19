@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { base_url } from './base';
 import axios from 'axios';
 
 export default function getCapitals() {
 
-  const capitalsURL = 'http://127.0.0.1:8000/api/capitals';
+  const capitalsURL = `${base_url}/capitals/`;
   const [capitals, setCapitals] = useState([]);
   const [value, setValue] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -13,7 +15,6 @@ export default function getCapitals() {
 
         const data = response.data;
         setCapitals(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }
@@ -24,7 +25,6 @@ export default function getCapitals() {
   useEffect(() => {
     const totalCapital = capitals.reduce((total, capital) => total + parseFloat(capital.value), 0);
     setValue(totalCapital);
-    console.log(value)
   }, [capitals]);
 
   return value;

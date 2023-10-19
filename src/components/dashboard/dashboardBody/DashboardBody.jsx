@@ -5,7 +5,7 @@ import DashboardGraph from '../../dashboard/dashboardBody/DashboardGraph.jsx';
 import { useStockContext } from '../../../context/stockContext';
 
 export default function DashboardBody() {
-  const { stocks, calculateTradeValues } = useStockContext();
+  const { stocks, tradeValuesByStockId } = useStockContext();
 
   const scrl = useRef(null);
   const slide = (shift) => {
@@ -24,7 +24,7 @@ export default function DashboardBody() {
                 key={index}
                 symbol={stock.symbol}
                 name={stock.name}
-                total={calculateTradeValues(stock.id).totalTotal + "€"}
+                total={tradeValuesByStockId(stock.id).totalTotal + "€"}
               />
             ))}
           </div>
