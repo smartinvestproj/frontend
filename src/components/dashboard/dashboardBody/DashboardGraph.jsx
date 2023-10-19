@@ -17,10 +17,10 @@ const data = {
   ],
 };
 
-function PortfolioPage() {
+export default function PortfolioPage({props}) {
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("1 day"); // Estado para controlar o período
-
+  
 
   useEffect(() => {
     
@@ -266,5 +266,3 @@ function PortfolioPage() {
     </main>
   );
 }
-
-export default PortfolioPage;

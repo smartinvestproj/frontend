@@ -66,6 +66,9 @@ export default function CapitalModal() {
 
     createOrUpdateCapital(newPost);
     closeModal();
+    const timer = setTimeout(() => {
+      refreshPage();
+    }, 1000);
   };
 
   return (
