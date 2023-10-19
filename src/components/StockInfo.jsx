@@ -14,8 +14,6 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
 
   const sellButton = useRef(null);
   const buyButton = useRef(null);
-  // const [editButtonIsDisabled, setEditButtonIsDisabled] = useState(false);
-  // const [disable, setDisable] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
 
   const [trades, setTrades] = useState(null);
@@ -41,29 +39,20 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
 
   const [chooseModal, setChooseModal] = useState(false);
 
-  const handleBuyStock = () => {
+  function handleBuyStock() {
     setModalIsOpen(true);
     setChooseModal('add');
-  };
+  }
 
-  const handleSellStock = () => {
-    // if (disable) {
-    //   setEditButtonIsDisabled(true);
-    //   buyButton.current.disabled = true;
-    //   sellButton.current.disabled = true;
-    // }
+  function handleSellStock() {
     setModalIsOpen(true);
     setChooseModal('sell');
+  }
 
-  };
-
-  const handleEditStock = () => {
-    // if (!editButtonIsDisabled) { 
-      setModalIsOpen(true);
-      setChooseModal('edit');
-    // }
-
-  };
+  function handleEditStock() {
+    setModalIsOpen(true);
+    setChooseModal('edit');
+  }
 
   if (isLoading) {
     return <div>Loading Trade...</div>;
@@ -76,15 +65,14 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
   return (
 
     <div>
-      <table className='modal-table'>
+      <table className='table-info'>
         <thead>
           <tr>
-            <th className='name-l'>{trades.stock.name}</th>
+            <th className='name'>{trades.stock.name}</th>
             <th className='date'>{trades.date}</th>
-            <th className='name-s'>{trades.stock.symbol}</th>
+            <th className='symbol'>{trades.stock.symbol}</th>
           </tr>
         </thead>
-        <hr />
         <tbody>
           <tr>
             <td>EUR</td>
@@ -114,7 +102,9 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
         </tbody>
       </table>
 
-      <td className='edit'><span onClick={handleEditStock}>Edit</span><img className="editIcon" onClick={handleEditStock} src={editing} alt="" /></td>
+      <div className='edit'>
+        <span onClick={handleEditStock}>Edit</span><img className="editIcon" onClick={handleEditStock} src={editing} alt="" />
+      </div>
 
       <div className="buttons-container">
         <div className="buttons">
@@ -126,11 +116,11 @@ function StockInfo({ tradeId, setShouldReloadPage }) {
 
       <ModalComponent modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} modalType={modalType1}>
         {chooseModal === 'add' ? (
-          <AddStock setModalIsOpen={setModalIsOpen} isNew={false} tradeId={tradeId} setShouldReloadPage={setShouldReloadPage}/>
+          <AddStock setModalIsOpen={setModalIsOpen} isNew={false} tradeId={tradeId} setShouldReloadPage={setShouldReloadPage} />
         ) : chooseModal === 'sell' ? (
-          <SellStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage}/>
+          <SellStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage} />
         ) : (
-          <EditStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage}/>
+          <EditStock tradeId={tradeId} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage} />
         )}
       </ModalComponent>
     </div>

@@ -1,5 +1,45 @@
-.add-stock-table{
+.add-stock-table {
     margin-left: 30px;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: lighter;
+}
+
+.add-stock-table input {
+    background: none;
+    border: none;
+    text-align: center;
+    font-family: var(--primary-font);
+    font-size: 1rem;
+}
+
+.add-stock-table .label-total {
+    padding-left: 40px;
+    text-align: right;
+}
+
+.add-stock-table td {
+    height: 45px;
+}
+
+.add-stock-table input {
+    border-bottom: 1px var(--gold-color) solid;
+    font-size: 1.3rem;
+    width: 200px;
+    padding: 0;
+}
+
+.add-stock-table td:nth-child(even) {
+    width: 30%;
+}
+
+.add-stock-table select {
+    border-color: var(--boxes-color);
+    border-bottom: 1px var(--gold-color) solid;
+    background-color: var(--boxes-color);
+    width: 200px;
+    font-size: 1.3rem;
+    text-align: center;
 }
 
 .add-stock-header {
@@ -20,37 +60,6 @@
     padding-left: 78%;
 }
 
-.add-stock-table input {
-    background: none;
-    border: none;
-    text-align: center;
-    font-family: var(--primary-font);
-    font-size: 1rem;
-}
-
-.add-stock-table .label-total {
-    padding-left: 40px;
-    text-align: right;
-}
-
-.add-stock-table {
-    width: 100%;
-    font-size: 1.5rem;
-    font-weight: lighter;
-}
-
-.add-stock-table td {
-    height: 45px;
-}
-
-.add-stock-table input {
-    border-bottom: 1px var(--gold-color) solid;
-}
-
-.add-stock-table td:nth-child(even) {
-    width: 30%;
-}
-
 .add-button-div {
     margin: 20px;
     display: flex;
@@ -61,7 +70,7 @@
 .add-button {
     border: 2px var(--gold-color) solid;
     background: none;
-    height: 5vh;
+    height: 48px;
     width: 150px;
     border-radius: 10px;
     font-size: 1.5rem;
@@ -77,41 +86,24 @@
     border-color: var(--gold-color);
 }
 
-
 .input-number::-webkit-inner-spin-button,
 .input-number::-webkit-outer-spin-button,
 .input-number::-webkit-clear-button {
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
+    font-size: 1.3rem;
 }
 
 .date-picker {
     appearance: none;
-    /* border: 1px solid #ccc; */
-    /* border-radius: 4px; */
-    /* padding: 8px; */
-    /* font-size: 16px; */
     width: 179px;
     box-sizing: border-box;
     outline: none;
-    font-size: 0.95rem !important;
+    font-size: 1.3rem !important;
 }
 
-/* Style the date picker arrow icon */
-/* .date-picker::-webkit-calendar-picker-indicator {
-    background: transparent;
-    display: none;
-} */
-
-.add-stock-table select{
-    border: none;
-    border-bottom: 1px var(--gold-color) solid;
-    background-color: var(--boxes-color);
-    width: 179px;
-}
-
-.error-label{
+.error-label {
     font-size: 0.7rem;
     color: var(--red-color);
 }

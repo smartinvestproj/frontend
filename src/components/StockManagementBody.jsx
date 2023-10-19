@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import AddStock from '../components/AddStock.jsx';
+import React, { useEffect, useRef, useState } from 'react';
+import AddStock from '../components/AddStock';
 import StockInfo from '../components/StockInfo';
+import TradeRow from './TradeRow'
 import ModalComponent from './ModalComponent';
-import getStocks from '../services/getStocks.jsx';
-import getTrades from '../services/getTrades.jsx';
+import getStocks from '../services/getStocks';
+import getTrades from '../services/getTrades';
+
 import '../styles/stockManagement.css';
-import '../styles/components-styles/AddStock.css';
-import '../styles/components-styles/StockInfo.css';
+import '../styles/components-styles/addStock.css';
+import '../styles/components-styles/stockInfo.css';
+import '../styles/components-styles/editStock.css'
+import '../styles/components-styles/sellStock.css'
 import '../styles/components-styles/sellModal.css';
+
 
 function StockManagementBody() {
 
@@ -15,11 +20,16 @@ function StockManagementBody() {
   const [trades, setTrades] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const lastTr = useRef(null)
+
   const [modalType, setModalType] = useState(null);
   const modalType1 = "modal-content";
   const modalType2 = "modal-content-stock-info";
 
   const [shouldReloadPage, setShouldReloadPage] = useState(false);
+  const [stockLength, setStockLength] = useState('');
+
+  let stocklength;
 
   useEffect(() => {
     async function fetchData() {
@@ -29,6 +39,8 @@ function StockManagementBody() {
 
         const stockData = stockResponse.data;
         const tradeData = tradeResponse.data;
+
+        setStockLength(stockData.length)
 
         const filteredTrades = tradeData.filter(trade => trade.state === 1);
 
@@ -63,6 +75,17 @@ function StockManagementBody() {
   const [chooseModal, setChooseModal] = useState(false);
 
   function handleRowClick(itemId) {
+
+    if (itemId === stockLength + 1) {
+      if (lastTr.current) {
+        const hasClass = lastTr.current.classList.contains('last-td-border');
+        if (!hasClass) {
+          lastTr.current.classList.add('last-td-border');
+        } else {
+          lastTr.current.classList.remove('last-td-border');
+        }
+      }
+    }
     // Toggle the clicked row's ID in the expandedRows state
     setExpandedRows((prevExpandedRows) => {
       if (prevExpandedRows.includes(itemId)) {
@@ -99,11 +122,12 @@ function StockManagementBody() {
     <main className="main center" >
       <div>
         <h2 className="title">Stock Management</h2>
+        <hr className='title-hr' />
         {loading ? (
           <div className="loading-indicator">Loading Stocks...</div>
         ) : (
           <div className="center">
-            <table className="table">
+            <table className="table-stock">
               <thead>
                 <tr>
                   <th></th>
@@ -112,45 +136,29 @@ function StockManagementBody() {
                 </tr>
               </thead>
               <tbody>
-                {stocks.map((stock) => (
+                {stocks.map((stock, idx) => (
                   <React.Fragment key={stock.id}>
-                    <tr className="content-tr" onClick={() => handleRowClick(stock.id)}>
-                      <hr />
-                      <tr>
-                        <td className="name" >{stock.name}</td>
-                        <td className="symbol">{stock.symbol}</td>
-                        <td className="price">€{calculateTotalPrice(stock.id)}</td>
-                        <td className="percent"></td>
-                      </tr>
+                    <tr className={`stock-row ${idx < stocks.length - 1 && 'last-td-border'}`} ref={lastTr} onClick={() => handleRowClick(stock.id)}>
+                      <td className="name" >{stock.name}</td>
+                      <td className="symbol">{stock.symbol}</td>
+                      <td className="price">€{calculateTotalPrice(stock.id)}</td>
                     </tr>
-                    {expandedRows.includes(stock.id) && (
-                      <React.Fragment>
-                        <hr />
-                        {trades.filter((trade) => trade.stock.id === stock.id).map((trade) => (
-                          <tr key={stock.id}>
-                            <tr>
-                              <td className="date">
-                                <span onClick={() => openStockInfo(trade.id)}>
-                                  {trade.date.split('-').reverse().join('/')}
-                                </span>
-                              </td>
-                              <td className="single-price">€{trade.total}</td>
-                            </tr>
-                            <hr className="extra-hr" />
-                          </tr>
-                        ))}
-                      </React.Fragment>
-                    )}
+                    {expandedRows.includes(stock.id) &&
+                      <TradeRow
+                        trades={trades}
+                        stockId={stock.id}
+                        openStockInfo={openStockInfo}
+                      />
+                    }
                   </React.Fragment>
                 ))}
-                <hr />
               </tbody>
             </table>
           </div>
         )}
       </div>
       <div className="button-placement">
-        <button className="stock-button" onClick={() => openAddStock(2)}>
+        <button className="stock-button" onClick={() => openAddStock()}>
           Add new Stock
           <span className="icon">
             <div className="plus">+</div>
@@ -162,7 +170,7 @@ function StockManagementBody() {
         {chooseModal === 'info' ? (
           <StockInfo tradeId={selectedTrade} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} setShouldReloadPage={setShouldReloadPage} />
         ) : chooseModal === 'add' && (
-          <AddStock modalIsOpen={modalIsOpen} isNew={true} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage} />
+          <AddStock modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} setShouldReloadPage={setShouldReloadPage} />
         )}
       </ModalComponent>
 

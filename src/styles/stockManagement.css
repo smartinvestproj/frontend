@@ -1,88 +1,96 @@
+.modal-content {
+  background-color: rgb(51, 51, 51);
+  margin: 10% auto;
+  max-width: 800px;
+  min-width: 800px;
+  min-height: 460px;
+  padding: 30px;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 2px #000000;
+}
+
+.modal-content-stock-info {
+  background-color: rgb(51, 51, 51);
+  margin: 10% auto;
+  max-width: 450px;
+  min-height: 460px;
+  padding: 30px;
+  padding-top: 2%;
+  padding-bottom: 1%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 2px #000000;
+}
+
 .title {
 	font-weight: 100;
 	font-size: 3rem;
 	margin-top: 0px;
 }
 
-.table {
+.title-hr {
+  border-color: var(--gold-color);
+  margin-bottom: 40px;
+}
+
+.table-stock {
 	table-layout: fixed;
 	min-height: 300px;
-
-	.name {
+	border-collapse: collapse;
+	
+  .name {
 		text-align: left;
 		font-weight: lighter;
 		font-size: 2rem;
 		position: relative;
 	}
-
-	.date {
-		text-align: left;
-		width: 50%;
-		font-weight: lighter;
-		color: #888;
-	}
-
-	.symbol {
+  
+  .symbol {
 		color: var(--gold-color);
-		width: 65vw;
+    width: 80%;
 	}
 
-	.price {
+  .price, .single-price {
 		font-size: 1.5rem;
-		width: 5vw;
 	}
 
-	.percent {
-		color: var(--red-color);
-	}
-
-	.date {
+  .date {
+		text-align: left;
+		font-weight: lighter;
 		font-size: 1.5rem;
-		width: 5vw;
-		width: 100%;
-		padding-left: 120px;
 	}
-
-	.single-price {
-		font-size: 1.5rem;
-		text-align: end;
-	}
-
-	.extra-td {
-		width: 10%;
-	}
-
-	.extra-hr {
-		border-color: black;
-		margin-left: 120px;
-	}
-
-	.content-tr {
-		height: auto;
-		/* Change this to 'auto' */
-		margin: 0;
-	}
+  
 }
 
-.table td {
-	height: 6vh;
-	max-height: 6vh;
+.table-stock .stock-row {
+  height: 80px;
 }
 
-.table hr {
-	border-color: var(--gold-color);
+.table-stock .last-td-border {
+	border-bottom: 1px solid var(--gold-color);
+}
+
+.trade-row td {
+  height: 50px;
+}
+
+.trade-row .td-border {
+  border-bottom: 1px solid var(--boxes-color);
+}
+
+
+.trade-row td:nth-child(1) {
+  border: none;
 }
 
 .button-placement {
 	display: flex;
 	justify-content: end;
-	position: fixed;
-	bottom: 0;
-	left: 0; /* Optional, adjust as needed */
-  right: 0; /* Optional, adjust as needed */
-	padding: 20px;
-	padding-bottom: 50px;
-	/* padding-right: 300px; */
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .stock-button {

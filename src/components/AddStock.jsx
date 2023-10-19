@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import getStocks from '../services/getStocks.jsx';
-import getTrade from '../services/getTrade.jsx';
-import postStock from '../services/postStock.js';
-import postTrade from '../services/postTrade.js';
+import getStocks from '../services/getStocks';
+import getTrade from '../services/getTrade';
+import postStock from '../services/postStock';
+import postTrade from '../services/postTrade';
 
-import '../styles/components-styles/addStock.css'
-import '../styles/components-styles/stockInfo.css'
-
-function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
+function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
   const initialValues = {
     name: '',
     symbol: '',
@@ -31,7 +28,6 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
   const [formData, setFormData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  // const [total, setTotal] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -93,16 +89,6 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
       setQuantity(value);
     }
     setFormErrors({})
-    // if (name === 'price' || name === 'quantity') {
-    //   const price = parseFloat(formData.price) || 0;
-    //   const quantity = parseFloat(formData.quantity) || 0;
-    //   const newTotal = (price * quantity).toFixed(2);
-    //   if (!isNaN(newTotal)) {
-    //     setTotal(newTotal);
-    //   } else {
-    //     setTotal('');
-    //   }
-    // }
   };
 
   const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
@@ -205,7 +191,6 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
       }
 
       setFormData(initialValues);
-      // setTotal('');
 
       if (setShouldReloadPage) {
         setShouldReloadPage(true);
@@ -237,9 +222,9 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
               </thead>
               <tbody>
                 <tr>
-                  <td><label htmlFor="symbol">Symbol</label>{formErrors.symbol && <label className='error-label'><br />{formErrors.symbol}</label>}</td>
-                  <td><input type='text' name='symbol' value={symbol} onChange={handleInputChange}></input></td>
-                  <td><label htmlFor="currency">Currency</label>{formErrors.currency && <label className='error-label'><br />{formErrors.currency}</label>}</td>
+                  <td><label htmlFor="symbol">Symbol</label></td>
+                  <td><input type='text' name='symbol' value={symbol} onChange={handleInputChange}></input>{formErrors.symbol && <label className='error-label'><br />{formErrors.symbol}</label>}</td>
+                  <td><label htmlFor="currency">Currency</label></td>
                   <td>
                     <select name="currency" value={currency} className="custom-select" onChange={handleInputChange}>
                       {currencyOptions.map((currency, index) => (
@@ -248,16 +233,17 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
                         </option>
                       ))}
                     </select>
+                    {formErrors.currency && <label className='error-label'><br />{formErrors.currency}</label>}
                   </td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="name">Name</label>{formErrors.name && <label className='error-label'><br />{formErrors.name}</label>}</td>
-                  <td><input type='text' name='name' value={name} onChange={handleInputChange}></input></td>
-                  <td><label htmlFor="price">Price</label>{formErrors.price && <label className='error-label'><br />{formErrors.price}</label>}</td>
-                  <td><input type='number' step=".01" name='price' value={price} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="name">Name</label></td>
+                  <td><input type='text' name='name' value={name} onChange={handleInputChange}></input>{formErrors.name && <label className='error-label'><br />{formErrors.name}</label>}</td>
+                  <td><label htmlFor="price">Price</label></td>
+                  <td><input type='number' step=".01" name='price' value={price} className='input-number' onChange={handleInputChange}></input>{formErrors.price && <label className='error-label'><br />{formErrors.price}</label>}</td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="broker">Broker</label>{formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}</td>
+                  <td><label htmlFor="broker">Broker</label></td>
                   <td>
                     <select name="broker" value={broker} className="custom-select" onChange={handleInputChange}>
                       {brokerOptions.map((broker, index) => (
@@ -266,12 +252,13 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
                         </option>
                       ))}
                     </select>
+                    {formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}
                   </td>
-                  <td><label htmlFor="exchange_rate">Exchange Rate</label>{formErrors.exchange_rate && <label className='error-label'><br />{formErrors.exchange_rate}</label>}</td>
-                  <td><input type='number' step=".01" name='exchange_rate' value={exchange_rate} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="exchange_rate">Exchange Rate</label></td>
+                  <td><input type='number' step=".01" name='exchange_rate' value={exchange_rate} className='input-number' onChange={handleInputChange}></input>{formErrors.exchange_rate && <label className='error-label'><br />{formErrors.exchange_rate}</label>}</td>
                 </tr>
                 <tr>
-                  <td><label htmlFor="date">Date</label>{formErrors.date && <label className='error-label'><br />{formErrors.date}</label>}</td>
+                  <td><label htmlFor="date">Date</label></td>
                   <td>
                     <input
                       type="date"
@@ -280,9 +267,10 @@ function AddStock({ isNew, tradeId, setModalIsOpen, setShouldReloadPage }) {
                       onChange={handleInputChange}
                       className='date-picker'
                     />
+                    {formErrors.date && <label className='error-label'><br />{formErrors.date}</label>}
                   </td>
-                  <td><label htmlFor="quantity">Quantity</label>{formErrors.quantity && <label className='error-label'><br />{formErrors.quantity}</label>}</td>
-                  <td><input type='number' step=".01" name='quantity' value={quantity} className='input-number' onChange={handleInputChange}></input></td>
+                  <td><label htmlFor="quantity">Quantity</label></td>
+                  <td><input type='number' step=".01" name='quantity' value={quantity} className='input-number' onChange={handleInputChange}></input>{formErrors.quantity && <label className='error-label'><br />{formErrors.quantity}</label>}</td>
                 </tr>
                 <tr className='teste-tr'>
                   <td></td>

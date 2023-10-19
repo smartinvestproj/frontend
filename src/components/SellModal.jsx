@@ -1,13 +1,13 @@
 function SellModal({ setModalIsOpen, setShouldReloadPage }) {
 
-  function addToPort() {
+  function addToPortfolio() {
     setModalIsOpen(false)
     if (setShouldReloadPage) {
       setShouldReloadPage(true);
     }
   }
 
-  function withDraw() {
+  function withdraw() {
     setModalIsOpen(false)
     if (setShouldReloadPage) {
       setShouldReloadPage(true);
@@ -16,9 +16,11 @@ function SellModal({ setModalIsOpen, setShouldReloadPage }) {
 
   return (
     <div>
+      <h2 className="title-sell-modal">Confirm Action</h2>
+      <hr className="hr-sell-modal" />
       <div className="button-place">
-        <button className="button height" onClick={addToPort}>Add To Portefolio</button>
-        <button className="button drop" onClick={withDraw}>WithDraw</button>
+        <button className="button margin-right" onClick={addToPortfolio}>Add To Portfolio</button>
+        <button className="button" onClick={withdraw}>Withdraw</button>
       </div>
     </div>
   );

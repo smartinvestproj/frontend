@@ -1,76 +1,26 @@
 .ReactModal__Overlay {
-  /* position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%; */
   background-color: rgba(44, 41, 43, 0.7) !important;
-  /* overflow: hidden; */
 }
 
-.modal-content {
-  background-color: rgb(51, 51, 51);
-  margin: 10% auto;
-  max-width: 800px;
-  min-width: 800px;
-  min-height: 460px;
-  padding: 30px;
-  padding-top: 2%;
-  padding-bottom: 1%;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  text-shadow: 2px 2px 2px #000000;
-}
-
-.modal-content-stock-info {
-  background-color: rgb(51, 51, 51);
-  margin: 10% auto;
-  max-width: 450px;
-  min-height: 460px;
-  padding: 30px;
-  padding-top: 2%;
-  padding-bottom: 1%;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  text-shadow: 2px 2px 2px #000000;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: #000;
-}
-
-/* Modal */
-.modal-table {
+.table-info {
   table-layout: fixed;
   width: 100%;
   min-height: 300px;
+	border-collapse: collapse;
 
-  .name-l {
-    width: 20%;
+  .name {
     text-align: left;
     font-weight: lighter;
     font-size: 2rem;
-    position: relative;
-    bottom: 6px;
   }
 
   .date {
     text-align: left;
-    width: 60%;
     font-weight: lighter;
     color: #888;
   }
 
-  .name-s {
+  .symbol {
     text-align: right;
     font-weight: lighter;
     font-size: 1.5rem;
@@ -78,26 +28,29 @@
   }
 }
 
-.modal-table hr {
-  width: 490%;
-  border-color: var(--gold-color);
+.table-info thead{
+  border-bottom: 1px solid var(--gold-color);
 }
 
-.modal-table td {
-  font-weight: lighter;
+.table-info tr {
+  height: 70px;
+}
+
+.table-info td {
   padding-bottom: 2%;
   font-size: 1.5rem;
 }
 
-.modal-table td:nth-child(3) {
+.table-info td:nth-child(3) {
   text-align: right;
 }
 
-.modal-table td:nth-child(1) {
+.table-info td:nth-child(1) {
   text-align: left;
 }
 
 .edit {
+  font-size: 1.2rem;
   display: flex;
   justify-content: right;
 }
@@ -133,7 +86,6 @@
 .buttons-container {
   display: flex;
   justify-content: center;
-  /* Center items horizontally */
   margin-top: 10%;
 }
 

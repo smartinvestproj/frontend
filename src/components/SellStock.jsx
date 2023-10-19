@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import getTrade from '../services/getTrade.jsx';
+import { useEffect, useState } from 'react';
+import getTrade from '../services/getTrade';
 import ModalComponent from "./ModalComponent";
 import SellModal from './SellModal';
 import updateTrade from '../services/putTrade';
-import '../styles/components-styles/sellStock.css'
+
 
 function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 
@@ -90,14 +90,14 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 		}
 	}
 
-	const handleInputChange = (event) => {
+	function handleInputChange(event) {
 		const { name, value } = event.target;
 		setFormData({
 			...formData,
 			[name]: value,
 		});
 		setFormErrors({})
-	};
+	}
 
 	useEffect(() => {
 		setFormData({
@@ -114,16 +114,15 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 			) : (
 				<form className="modal-form" action="" onSubmit={handleSubmit}>
 					<div>
-						<table className='modal-table-sell-stock sell-stock-table'>
+						<table className='table-sell-stock'>
 							<thead>
 								<tr>
-									<th><span className='sell-stock'>Sell stock</span></th>
-									<th className='name-l'>{formData.name}</th>
+									<th className='sell-stock'>Sell stock</th>
+									<th className='name'>{formData.name}</th>
 									<th className='date'>{formData.date}</th>
-									<th className='name-s'>{formData.symbol}</th>
+									<th className='symbol'>{formData.symbol}</th>
 								</tr>
 							</thead>
-							<hr />
 							<tbody>
 								<tr>
 									<td>EUR</td>
@@ -146,14 +145,14 @@ function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 								<tr>
 									<td>Total </td>
 									<td><b>{total}</b></td>
-									<td className='tax'><label htmlFor="sell_price">Sell Price</label> &emsp;{formErrors.sell_price && <label className='error-label'><br />{formErrors.sell_price}</label>}</td>
-									<td><input type='number' name='sell_price' step=".01" className='input-number' onChange={handleInputChange}></input></td>
+									<td className='tax'><label htmlFor="sell_price">Sell Price</label> &emsp;</td>
+									<td><input type='number' name='sell_price' step=".01" className='input-number' onChange={handleInputChange}></input>{formErrors.sell_price && <label className='error-label'><br />{formErrors.sell_price}</label>}</td>
 								</tr>
 								<tr>
 									<td>Broker </td>
 									<td>{formData.broker}</td>
-									<td className='tax'><label htmlFor="tax">Tax</label> &emsp;{formErrors.tax && <label className='error-label'><br />{formErrors.tax}</label>}</td>
-									<td><input type='number' name='tax' step=".01" className='input-number' onChange={handleInputChange}></input></td>
+									<td className='tax'><label htmlFor="tax">Tax</label> &emsp;</td>
+									<td><input type='number' name='tax' step=".01" className='input-number' onChange={handleInputChange}></input>{formErrors.tax && <label className='error-label'><br />{formErrors.tax}</label>}</td>
 								</tr>
 							</tbody>
 						</table>
