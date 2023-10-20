@@ -52,10 +52,6 @@ export default function Sidebar() {
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>
         </li>
       </div>
-      <div className='settings-sidebar hithere'>
-        <li>
-          <Link to="/settings" className='settings-sidebar-li'><i className="fi fi-rr-settings"></i>Settings</Link></li>
-      </div>
       {modalIsOpen && <MainCapitalModal closeModal={closeModal} openModal={openModal} />}
     </div>
 
