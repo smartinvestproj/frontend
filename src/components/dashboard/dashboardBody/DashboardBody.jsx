@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import './dashboardBody.css';
 import MyStocks from '../myStocks/MyStocks.jsx';
 import DashboardGraph from '../../dashboard/dashboardBody/DashboardGraph.jsx';
-import getStocks from '../../../services/getStocks';
+import {getStocks} from '../../../services/Stocks.js';
 import {getTrades} from '../../../services/Trades.js';
 
 export default function DashboardBody() {

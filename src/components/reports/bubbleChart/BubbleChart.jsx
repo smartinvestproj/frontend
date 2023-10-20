@@ -1,6 +1,6 @@
 import { Bubble } from "react-chartjs-2";
 import "./bubbleChart.css";
-import getTrades from "../../../services/getTrades";
+import {getTrades} from "../../../services/Trades.js";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 

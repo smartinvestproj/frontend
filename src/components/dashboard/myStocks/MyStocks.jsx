@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './myStocks.css';
 
 
-export default function MyStocks({symbol, name, total, percentage}){
+export default function MyStocks({symbol, name, total}){
 
     return(
         <>

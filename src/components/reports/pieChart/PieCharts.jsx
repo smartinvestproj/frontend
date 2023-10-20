@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import './pieCharts.css';
 import {getTrades} from '../../../services/Trades.js';
-import getStocks from '../../../services/getStocks';
+import {getStocks} from '../../../services/Stocks.js';
 
 function PieCharts(){
 
@@ -24,8 +24,8 @@ function PieCharts(){
     async function fetchStocks() {
       try {
         const data = await getStocks();
-        const stocksData = data.data;
-        setStockData(stocksData);
+        const stocks = data.data;
+        setStockData(stocks);
       } catch (error) {
         console.log(error);
       }
