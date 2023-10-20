@@ -11,6 +11,8 @@ export function useStockContext() {
 const StockProvider = ({ children }) => {
     const [stocks, setStocks] = useState([]);
     const [trades, setTrades] = useState([]);
+    const [selectedYear, setSelectedYear] = useState("2023");
+    const uniqueYears = [...new Set(trades.map(trade => new Date(trade.date).getFullYear()))];
 
     useEffect(() => {
         async function fetchData() {
@@ -27,6 +29,12 @@ const StockProvider = ({ children }) => {
         fetchData();
     }, []);
 
+    // Filter Stocks By Year
+
+    function filterTradessByYear(year) {
+        return trades.filter(trade => new Date(trade.date).getFullYear() === parseInt(year));
+    }
+
     // Calculate Trade Values By Stock Id (Total for each one)
 
     function tradeValuesByStockId(stockId) {
@@ -41,110 +49,241 @@ const StockProvider = ({ children }) => {
         return { totalTotal };
     }
 
+    //__________________________________________________________________________________________________//
+
+    // Calculate Total Values of All Trades receiving all trades or filtered trades by year
+
+    function calcTtradeValue(trades_) {
+
+        let allTradeValue = 0;
+
+        trades_.map(trade => {
+            allTradeValue += parseFloat(trade.total);
+        });
+        return allTradeValue;
+    }
+
     // Calculate Total Values of All Trades
 
-    function totalTradeValues() {
-
-        let TotalValuesTrades = 0;
-
-        trades.forEach(trade => {
-            TotalValuesTrades += parseFloat(trade.total);
-        });
-        return TotalValuesTrades;
+    function totalTradeValuesAll() {
+        return calcTtradeValue(trades);
     }
 
-    // Calculate Total of Stocks Sold
+    // Calculate Total Values of All Trades YEAR
 
-    function stocksSold() {
+    function totalTradeValuesYear() {
+        const filteredTrades = filterTradessByYear(selectedYear);
+        return calcTtradeValue(filteredTrades);
+    }
 
-        let totalStocksSold = 0;
+    //__________________________________________________________________________________________________//
 
-        const tradeFilter = trades.filter(trade => trade.state === 0);
+    // Calculate Total of Stocks Sold receiving all trades or filtered trades by year
+
+    function calcStocksSold(trades_) {
+
+        let allStocksSold = 0;
+
+        const tradeFilter = trades_.filter(trade => trade.state === 0);
 
         tradeFilter.forEach(trade => {
-            totalStocksSold += parseFloat(trade.sell_price);
+            allStocksSold += parseFloat(trade.sell_price);
         });
-        return totalStocksSold;
+        return allStocksSold;
     }
 
-    // Calculate Transaction Value
+    // Calculate Total Values of All Trades Sold
 
-    function transactionValue() {
-        return stocksSold(trades) + totalTradeValues(trades);
+    function totalTradeSoldAll() {
+        return calcStocksSold(trades);
     }
+
+    // Calculate Total Values of All Trades YEAR
+
+    function totalTradeSoldYear() {
+        const filteredTrades = filterTradessByYear(selectedYear);
+        return calcStocksSold(filteredTrades);
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Transaction Value All
+
+    function transactionValueAll() {
+        return totalTradeSoldAll() + totalTradeValuesAll();
+    }
+
+    // Calculate Transaction Value Year
+
+    function transactionValueYear() {
+        return totalTradeSoldYear() + totalTradeValuesYear();
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Total investement All
+
+    function totalInvestementAll() {
+
+        return totalTradeValuesAll() - totalTradeSoldAll() + maisValiasAll() + dividendsAll();
+    }
+
+    // Calculate Total investement Year
+
+    function totalInvestementYear() {
+
+        return totalTradeValuesYear() - totalTradeSoldYear() + maisValiasYear() + dividendsYear();
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Investment of own capital All
+
+    function investmentOwnCapitalAll() {
+
+        return totalInvestementAll() - maisValiasAll() - dividendsAll();
+    }
+
+    // Calculate Investment of own capital Year
+
+    function investmentOwnCapitalYear() {
+
+        return totalInvestementYear() - maisValiasYear() - dividendsYear();
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Investment Capital Gain All
+
+    function investmentCapitalGainAll() {
+
+        return maisValiasAll() + dividendsAll();
+    }
+
+    // Calculate Investment Capital Gain Year
+
+    function investmentCapitalGainYear() {
+
+        return maisValiasYear() + dividendsYear();
+    }
+
+    //__________________________________________________________________________________________________//
 
     // Calculate "Mais Valias"
 
-    function maisValias() {
+    function calcMaisValias(trades_) {
 
         let gains = 0;
 
-        trades.map(trade => {
+        trades_.map(trade => {
             trade.sell_price === null && (trade.sell_price = parseFloat(trade.total));
             gains += (parseFloat(trade.sell_price) - parseFloat(trade.total))
         });
         return gains
     }
 
-    // Calculate dividends
+    // Calculate "Mais Valias" All
 
-    function dividends() {
-
-        let dividends = 0;
-
-        trades.map(trade => {
-            trade.dividends === null && (trade.dividends = 0);
-            dividends += parseFloat(trade.dividends);
-        });
-        return dividends;
+    function maisValiasAll() {
+        return calcMaisValias(trades);
     }
 
-    // Calculate TAX
+    // Calculate "Mais Valias" Year
 
-    function tax() {
+    function maisValiasYear() {
+        const filteredTrades = filterTradessByYear(selectedYear);
+        return calcMaisValias(filteredTrades);
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate TAX 
+
+    function calcTax(trades_) {
         let tax = 0;
 
-        trades.map(trade => {
+        trades_.map(trade => {
             trade.tax === null && (trade.tax = 0);
             tax += parseFloat(trade.tax);
         });
         return tax;
     }
 
-    // Calculate Total investement
+    // Calculate Tax All
 
-    function totalInvestement() {
-
-        return totalTradeValues() - stocksSold() + maisValias() + dividends();
+    function taxAll() {
+        return calcTax(trades);
     }
 
-    // Calculate Investment of own capital
+    // Calculate Tax Year
 
-    function investmentOwnCapital() {
-
-        return totalInvestement() - maisValias() - dividends();
+    function taxYear() {
+        const filteredTrades = filterTradessByYear(selectedYear);
+        return calcTax(filteredTrades);
     }
 
-    // Calculate Investment Capital Gain
 
-    function investmentCapitalGain() {
+    //__________________________________________________________________________________________________//
 
-        return maisValias() + dividends();
+    // Calculate dividends 
+
+    function caclDividends(trades_) {
+
+        let dividends = 0;
+
+        trades_.map(trade => {
+            trade.dividends === null && (trade.dividends = 0);
+            dividends += parseFloat(trade.dividends);
+        });
+        return dividends;
     }
 
-    // Calculate Total investment profitability
+    // Calculate dividends All
 
-    function totalInvestmentProfitability() {
-
-        return (dividends() + maisValias()) / totalInvestement();
+    function dividendsAll() {
+        return caclDividends(trades);
     }
 
-    // Calculate Own Capital Profitability
+    // Calculate dividends Year
 
-    function ownCapitalProfitability() {
-
-        return (dividends() + maisValias()) / investmentOwnCapital();
+    function dividendsYear() {
+        const filteredTrades = filterTradessByYear(selectedYear);
+        return caclDividends(filteredTrades);
     }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Total investment profitability All
+
+    function totalInvestmentProfitabilityAll() {
+
+        return (dividendsAll() + maisValiasAll()) / totalInvestementAll();
+    }
+
+    // Calculate Total investment profitability Year
+
+    function totalInvestmentProfitabilityYear() {
+
+        return (dividendsYear() + maisValiasYear()) / totalInvestementYear();
+    }
+
+    //__________________________________________________________________________________________________//
+
+    // Calculate Own Capital Profitability All
+
+    function ownCapitalProfitabilityAll() {
+
+        return (dividendsAll() + maisValiasAll()) / investmentOwnCapitalAll();
+    }
+
+    // Calculate Own Capital Profitability Year
+
+    function ownCapitalProfitabilityYear() {
+
+        return (dividendsYear() + maisValiasYear()) / investmentOwnCapitalYear();
+    }
+
+    //__________________________________________________________________________________________________//
 
     return (
         <StockContext.Provider value={{
@@ -153,17 +292,31 @@ const StockProvider = ({ children }) => {
             trades,
             setTrades,
             tradeValuesByStockId,
-            totalTradeValues,
-            stocksSold,
-            transactionValue,
-            totalInvestement,
-            investmentOwnCapital,
-            investmentCapitalGain,
-            maisValias,
-            tax,
-            dividends,
-            totalInvestmentProfitability,
-            ownCapitalProfitability,
+            totalTradeValuesAll,
+            totalTradeValuesYear,
+            totalTradeSoldAll,
+            totalTradeSoldYear,
+            transactionValueAll,
+            transactionValueYear,
+            maisValiasAll,
+            maisValiasYear,
+            dividendsAll,
+            dividendsYear,
+            totalInvestementAll,
+            totalInvestementYear,
+            investmentOwnCapitalAll,
+            investmentOwnCapitalYear,
+            investmentCapitalGainAll,
+            investmentCapitalGainYear,
+            taxAll,
+            taxYear,
+            totalInvestmentProfitabilityAll,
+            totalInvestmentProfitabilityYear,
+            ownCapitalProfitabilityAll,
+            ownCapitalProfitabilityYear,
+            uniqueYears,
+            setSelectedYear,
+            selectedYear,
         }}>
             {children}
         </StockContext.Provider>
