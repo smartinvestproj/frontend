@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import './dashboardBody.css';
 import MyStocks from '../myStocks/MyStocks.jsx';
 import DashboardGraph from '../../dashboard/dashboardBody/DashboardGraph.jsx';
-import getStocks from '../../../services/getStocks';
-import getTrades from '../../../services/getTrades';
+import {getStocks} from '../../../services/Stocks.js';
+import {getTrades} from '../../../services/Trades.js';
 
 export default function DashboardBody() {
   const scrl = useRef(null);
@@ -75,7 +75,7 @@ export default function DashboardBody() {
                 </div>
             </div>
                     <i onClick={() => slide(+150)} className='stocks-arrow fi fi-rr-angle-small-right'></i>
-                    <DashboardGraph/>
+                    <DashboardGraph tradesData={originalTrades} stocksData={originalStocks}/>
         </div>
         </>
     );

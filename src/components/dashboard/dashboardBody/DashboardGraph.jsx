@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./dashboardGraph.css";
 import Chart from "chart.js/auto";
-import getTrades from "../../../services/getTrades";
+import { getTrades } from "../../../services/Trades.js";
 
 const monthNames = [
   "January",
@@ -40,10 +40,10 @@ const data = {
   ],
 };
 
-function PortfolioPage() {
+export default function PortfolioPage({props}) {
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("All"); // Estado para controlar o período
-  const [trades, setTrades] = useState([]);
+    const [trades, setTrades] = useState([]);
 
   useEffect(() => {
     async function fetchTradeData() {
@@ -374,5 +374,3 @@ function PortfolioPage() {
     </main>
   );
 }
-
-export default PortfolioPage;
