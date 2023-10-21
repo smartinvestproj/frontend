@@ -1,0 +1,96 @@
+.table-edit-stock {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  border: none;
+
+  .label-total {
+    padding-left: 40px;
+    text-align: right;
+  }
+
+  .date-picker{
+    font-size: 1.3rem !important;
+  }
+}
+
+.table-edit-stock input {
+  background: none;
+  border: none;
+  text-align: center;
+  font-family: var(--primary-font);
+  border-bottom: 1px var(--gold-color) solid;
+  font-size: 1.3rem;
+  width: 200px;
+  padding: 0;
+}
+
+.table-edit-stock td {
+  height: 45px;
+}
+
+.table-edit-stock td:nth-child(even) {
+  width: 30%;
+}
+
+.input-number::-webkit-inner-spin-button,
+.input-number::-webkit-outer-spin-button,
+.input-number::-webkit-clear-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.table-edit-stock select {
+  border-color: var(--boxes-color);
+  border-bottom: 1px var(--gold-color) solid;
+  background-color: var(--boxes-color);
+  width: 200px;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.edit-stock-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 50px;
+}
+
+.edit-stock-header h2 {
+  font-weight: lighter;
+  font-size: 2rem;
+}
+
+.edit-stock-plus {
+  font-size: 3rem;
+  position: relative;
+  padding-left: 78%;
+}
+
+.edit-button {
+  border: 2px var(--gold-color) solid;
+  background: none;
+  height: 48px;
+  width: 150px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+}
+
+.edit-button:hover {
+  cursor: pointer;
+}
+
+.edit-stock-hr {
+  border-color: var(--gold-color);
+}
+
+.edit-button-div {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}

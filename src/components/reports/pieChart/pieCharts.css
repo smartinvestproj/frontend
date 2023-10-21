@@ -1,0 +1,10 @@
+.pieChart-container{
+    height: 300px;
+    width: 300px;
+}
+
+.pieChart-header{
+    color: var(--gold-color);
+    text-align: center;
+    font-size: 20px;
+}

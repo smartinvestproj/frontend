@@ -1,23 +1,20 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/dashboard.jsx";
-import Portfolio from "./pages/portfolio.jsx";
-import StockManagement from "./pages/StockManagement.jsx";
-import Login from "./pages/Login.jsx";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./components/sidebar/sidebar.jsx";
+import Heading from "./components/heading/heading.jsx";
+import { StockProvider } from "./context/stockContext.jsx";
 
-function App(){
-  
-    return(
-        <BrowserRouter>
-            <Routes>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/" element={<Dashboard/>}/>
-                <Route path="/portfolio" element={<Portfolio/>}/>
-                <Route path="/stockManagement" element={<StockManagement/>}/>
-            </Routes>
-        </BrowserRouter>
-        
+export default function App() {
+
+    return (
+        <StockProvider>
+            <div className="container">
+                <Sidebar />
+                <div className="content">
+                    <Heading />
+                    <Outlet />
+                </div>
+            </div>
+        </StockProvider>
     )
 }
-
-export default App;

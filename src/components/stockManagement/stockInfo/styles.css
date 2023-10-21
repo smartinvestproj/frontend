@@ -1,0 +1,128 @@
+.ReactModal__Overlay {
+    background-color: rgba(44, 41, 43, 0.7) !important;
+    position: absolute;
+    top: 50%;
+  }
+  
+  .table-info {
+    table-layout: fixed;
+    width: 100%;
+    min-height: 300px;
+      border-collapse: collapse;
+  
+    .name {
+      text-align: left;
+      font-weight: lighter;
+      font-size: 2rem;
+    }
+  
+    .date {
+      text-align: left;
+      font-weight: lighter;
+      color: #888;
+    }
+  
+    .symbol {
+      text-align: right;
+      font-weight: lighter;
+      font-size: 1.5rem;
+      color: var(--gold-color);
+    }
+  }
+  
+  .table-info thead{
+    border-bottom: 1px solid var(--gold-color);
+  }
+  
+  .table-info tr {
+    height: 70px;
+  }
+  
+  .table-info td {
+    padding-bottom: 2%;
+    font-size: 1.5rem;
+  }
+  
+  .table-info td:nth-child(3) {
+    text-align: right;
+  }
+  
+  .table-info td:nth-child(1) {
+    text-align: left;
+  }
+  
+  .edit {
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: right;
+  }
+  
+  .editIcon {
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+  }
+  
+  .edit:hover {
+    cursor: pointer;
+  }
+  
+  .buttons {
+    display: flex;
+    height: 8vh;
+    width: 500px;
+  }
+  
+  .buttons button {
+    background-color: transparent;
+    border-style: none;
+    font-size: 1.5rem;
+    font-weight: lighter;
+    width: 600px;
+  }
+  
+  .buttons button:hover {
+    cursor: pointer;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+  }
+  
+  .buttons-container hr {
+    border-color: var(--gold-color);
+  }
+  
+  .arrow-green-span {
+    display: inline-block;
+    background-color: var(--green-color);
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    box-shadow: 2px 3px 5px black;
+  }
+  
+  .arrow-red-span {
+    display: inline-block;
+    background-color: var(--red-color);
+    border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    box-shadow: 2px 3px 5px black;
+  }
+  
+  .arrow-green {
+    rotate: -45deg;
+    position: relative;
+    top: 7px;
+  }
+  
+  .arrow-red {
+    rotate: 45deg;
+    position: relative;
+    top: 7px;
+  }

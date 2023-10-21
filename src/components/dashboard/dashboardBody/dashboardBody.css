@@ -1,0 +1,81 @@
+.my-portolio-h1{
+    visibility: visible;
+}
+.graph{
+    margin-top: -80px;
+    margin-left: -100px;
+}
+
+.dashboardBody-mystocks-container{
+    background-color: var(--boxes-color);
+    height: 150px;
+    border-radius: 20px;
+    margin-top: 30px;
+    margin-left: 50px;
+    box-shadow: 7px 7px 5px var(--shadow-box-color);
+    max-width: 1460px;
+    width: 1460px;
+    background-image:
+      linear-gradient(to right, #1d1d1d, rgba(0,128,128,0) 200px),
+      linear-gradient(to left , #1d1d1d, rgba(0,128,128,0) 200px);
+}
+
+.dashboardBody-mystocks-container:hover{
+    background-image:
+      linear-gradient(to right, #0f0f0f, rgba(0,128,128,0) 200px),
+      linear-gradient(to left , #0f0f0f, rgba(0,128,128,0) 200px);
+}
+
+.my-stocks-label{
+    margin-left: 20px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.my-stocks-item{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    height: 3px;
+    width: 0px;
+    border: 1px solid #d5d5d5;
+    border-radius: 3px;
+  }
+.my-stocks-item::after{
+    left: 0; right: 0;
+    top: 0; bottom: 0;
+}
+
+.stocks-arrow{
+    color: var(--gold-color);
+    align-self: center;
+    font-size: 30px;
+    position: absolute;
+    left: 1770px;
+    transform: translateY(-220%);
+}
+
+.stocks-arrow-left{
+    color: var(--gold-color);
+    align-self: center;
+    font-size: 30px;
+    position: absolute;
+    left: 338px;
+    transform: translateY(10%);
+}
+
+.stocks-arrow:hover{
+    font-size: 32px;
+    transition: 0.2s;
+    transform: translateY(-224%);
+}
+
+.stocks-arrow-left:hover{
+    font-size: 32px;
+    transition: 0.2s;
+    transform: translateY(2%);
+}

@@ -1,0 +1,90 @@
+.title-container{
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+
+  .portfolio-title{
+    font-size: 35px;
+    color: var(--gold-color);
+    font-family: var(--primary-font);
+  }
+
+  .portfolio-container{
+    margin: 20px;
+  }
+  
+  hr{
+    border: 1px solid var(--gold-color);
+    width: 100%;
+  }
+  
+  .table-container {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+  
+  .table-container th {
+    background-color: #333;
+  }
+    
+  .table-container td {
+    background-color: #535353;
+    font-size: 20px;
+  }
+  
+  .table-container th{
+    border-left: 1px solid #333; 
+    border-right: 1px solid #333;
+    padding: 10px;
+    height: 70px;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .teste td{
+    border-left: 1px solid #333; 
+    border-right: 1px solid #333;
+    padding: 10px;
+    height: 70px;
+    text-align: center;
+    width: 150px;
+  }
+  .table-container th:first-child, td:first-child {
+    border-left: none;
+  }
+  
+  .table-container th:last-child, td:last-child {
+    border-right: none;
+  }
+  
+  .gold {
+    color: var(--gold-color);
+  }
+  
+  .title-select-container{ 
+    display: flex; 
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+  }
+  
+  .select-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .select-year {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #333333;
+    outline: none;
+  }
+  
+  .left-title{
+  margin: 0;
+  }

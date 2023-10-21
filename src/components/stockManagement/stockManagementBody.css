@@ -1,0 +1,136 @@
+.modal-content {
+    background-color: rgb(51, 51, 51);
+    margin: 10% auto;
+    max-width: 800px;
+    min-width: 800px;
+    min-height: 460px;
+    padding: 30px;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 2px #000000;
+  }
+  
+  .modal-content-stock-info {
+    background-color: rgb(51, 51, 51);
+    margin: 10% auto;
+    max-width: 450px;
+    min-height: 460px;
+    padding: 30px;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 2px #000000;
+  }
+  .stock-management-title{
+    font-size: 35px;
+    color: var(--gold-color);
+    font-family: var(--primary-font);
+  }
+
+  .title-hr {
+    border: 1px solid var(--gold-color);
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .table-stock {
+      table-layout: fixed;
+      border-collapse: collapse;
+      
+    .name {
+          text-align: left;
+          font-weight: lighter;
+          font-size: 2rem;
+          position: relative;
+      }
+    
+    .symbol {
+          color: var(--gold-color);
+      width: 90%;
+      }
+  
+    .price, .single-price {
+          font-size: 1.5rem;
+          text-align: end;
+      }
+  
+    .date {
+          text-align: left;
+          font-weight: lighter;
+          font-size: 1.5rem;
+      }
+
+  }
+  
+  .table-stock .stock-row {
+    cursor: pointer;
+    height: 80px;
+  }
+  
+  .table-stock .last-td-border {
+      border-bottom: 1px solid var(--gold-color);
+  }
+  
+  .trade-row td {
+    height: 50px;
+    cursor: pointer;
+  }
+  
+  .trade-row .td-border {
+    border-bottom: 1px solid var(--boxes-color);
+  }
+  
+  
+  .trade-row td:nth-child(1) {
+    border: none;
+  }
+  
+  .button-placement {
+      display: flex;
+      justify-content: end;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .stock-button {
+      display: flex;
+      justify-content: end;
+      min-width: 235px;
+      width: 250px;
+      background-color: transparent;
+      border-style: none;
+      font-size: 150%;
+      align-items: center;
+      gap: 5%;
+      font-family: var(--primary-font);
+  }
+  
+  .icon {
+      max-width: 50px;
+      min-width: 50px;
+      height: 50px;
+      background-color: var(--gold-color);
+      border-radius: 100%;
+  }
+  
+  .plus {
+      font-size: 250%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      bottom: 9px;
+  }
+  
+  .stock-button,
+  .icon :hover {
+      cursor: pointer;
+  }
+
+  .stock-management-container{
+    margin-top: 20px;
+    margin-left: 20px;
+  }

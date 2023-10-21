@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import LoginPage from '../components/LoginPage.jsx'
+import React from 'react';
+import LoginComponent from '../components/login/LoginComponent';
 
-
-function Login() {
+export default function Login() {
 
   return (
-    <LoginPage/>
+    <LoginComponent/>
   );
 }
-
-export default Login;
