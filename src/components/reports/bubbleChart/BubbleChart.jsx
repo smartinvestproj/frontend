@@ -45,12 +45,12 @@ export default function BubbleChart() {
 
   const data = {
     datasets: tradeData.map((trade, idx) => {
-      console.log(format(new Date(trade.created_at), 'yyyy-MM-dd'))
+      console.log(format(new Date(trade.date), 'yyyy-MM-dd'))
 
       return {
         label: trade.stock.name,
         data: [{
-          x: format(new Date(trade.created_at), 'yyyy-MM-dd'),
+          x: format(new Date(trade.date), 'yyyy-MM-dd'),
           y: trade.total,
           r: trade.quantity,
         }],
