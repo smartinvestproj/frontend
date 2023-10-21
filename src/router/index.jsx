@@ -2,8 +2,9 @@ import App from "../App.jsx";
 import Dashboard from "../pages/dashboard.jsx";
 import Portfolio from "../pages/portfolio.jsx";
 import StockManagement from "../pages/StockManagement.jsx";
-// import Login from "../pages/Login.jsx";
+import Login from "../pages/Login.jsx";
 import Reports from "../pages/Reports.jsx";
+import RegisterPage from "../components/login/register.jsx";
 
 const routes = [
     {
@@ -26,6 +27,14 @@ const routes = [
             {
                 path: "/reports",
                 element: <Reports />,
+            },
+            {
+                path: "/register",
+                element: <RegisterPage />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
             },
         ]
     }
