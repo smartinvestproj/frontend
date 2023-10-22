@@ -58,38 +58,11 @@ export default function PortfolioPage({ props }) {
     fetchTradeData();
   }, []);
 
-  function maisValias(trades) {
-    let gains = trades.map((trade) => {
-      trade.sell_price === null && (trade.sell_price = parseFloat(trade.total));
-      return parseFloat(trade.sell_price) - parseFloat(trade.total);
-    });
-    return gains;
-  }
-
-  function totalTradeValues(trades) {
-    const tradeFilter = trades.filter((trade) => trade.state === 1);
-    let TotalValuesTrades = tradeFilter.map((trade) => {
-      return parseFloat(trade.total);
-    });
-
-    return TotalValuesTrades;
-  }
-
-  function stocksSold(trades) {
-    const tradeFilter = trades.filter((trade) => trade.state === 0);
-    const totalStocksSold = tradeFilter.map((stock) => {
-      return parseFloat(stock.total);
-    });
-
-    return totalStocksSold;
-  }
-
   function calculateAll(trades) {
     const results = trades.map((trade) => {
       const totalTrades = parseFloat(trade.total);
-      const stocksSoldValue = parseFloat(trade.total);
-      const maisValia =
-        parseFloat(trade.sell_price || trade.total) - totalTrades;
+      const stocksSoldValue = parseFloat(trade.sell_price);
+      const maisValia = stocksSoldValue - totalTrades;
       const dividends = parseFloat(trade.dividends);
 
       const total = totalTrades - stocksSoldValue + maisValia + dividends;
@@ -157,35 +130,31 @@ export default function PortfolioPage({ props }) {
       };
     } else if (newPeriod === "1 month") {
       const currentDate = new Date();
+      const oneMonthAgo = new Date(currentDate);
+      oneMonthAgo.setMonth(currentDate.getMonth() - 1);
+
       const monthLabels = [];
       const monthData = [];
 
       const lastMonthTrades = calculateAll(trades).filter((trade) => {
         const tradeDate = new Date(trade.tradeDate);
-        const oneMonthAgo = new Date(currentDate);
-        oneMonthAgo.setDate(currentDate.getDate() - 30);
-
-        tradeDate.setHours(
-          oneMonthAgo.getHours(),
-          oneMonthAgo.getMinutes(),
-          oneMonthAgo.getSeconds()
-        );
-
         return tradeDate >= oneMonthAgo && tradeDate < currentDate;
       });
 
-      for (let i = 31; i > 0; i--) {
+      for (let i = 30; i >= 0; i--) {
+        // Altere o limite de 31 para 30 para representar os últimos 30 dias.
         const date = new Date(currentDate);
         date.setDate(currentDate.getDate() - i);
         const day = date.getDate();
         monthLabels.push(day);
       }
 
-      console.log(lastMonthTrades);
-
       for (const day of monthLabels) {
         const totalForDay = lastMonthTrades
-          .filter((trade) => new Date(trade.tradeDate).getDate() === day)
+          .filter((trade) => {
+            const tradeDate = new Date(trade.tradeDate);
+            return tradeDate.getDate() === day;
+          })
           .reduce((acc, trade) => acc + trade.total, 0);
         monthData.push(totalForDay);
       }
@@ -292,39 +261,45 @@ export default function PortfolioPage({ props }) {
       const currentDate = new Date();
       const twelveMonthsAgo = new Date(currentDate);
       twelveMonthsAgo.setMonth(currentDate.getMonth() - 12);
-    
+
       const yearLabels = [];
       const yearData = [];
-    
+
       const last12MonthsTrades = calculateAll(trades).filter((trade) => {
         const tradeDate = new Date(trade.tradeDate);
         return tradeDate >= twelveMonthsAgo && tradeDate <= currentDate;
       });
-    
+
       for (let i = 12; i > 0; i--) {
         const date = new Date(currentDate);
         date.setMonth(currentDate.getMonth() - i);
         const month = date.getMonth();
         const monthName = monthNames[month];
-        yearLabels.push(monthName);
+        yearLabels.push({ label: monthName, year: date.getFullYear() });
       }
-    
-      for (const month of yearLabels) {
+
+      for (const label of yearLabels) {
         const totalForMonth = last12MonthsTrades
           .filter((trade) => {
             const tradeDate = new Date(trade.tradeDate);
             return (
-              tradeDate.getMonth() === monthNames.indexOf(month) &&
-              tradeDate.getFullYear() === currentDate.getFullYear()
+              tradeDate.getMonth() === monthNames.indexOf(label.label) &&
+              tradeDate.getFullYear() === label.year
             );
           })
           .reduce((acc, trade) => acc + trade.total, 0);
-    
+
         yearData.push(totalForMonth);
       }
-    
+
+      console.log(yearData);
+
+      trades.map((trade) => {
+        console.log(trade);
+      });
+
       newData = {
-        labels: yearLabels,
+        labels: yearLabels.map((label) => label.label),
         datasets: [
           {
             label: "",
@@ -335,7 +310,7 @@ export default function PortfolioPage({ props }) {
           },
         ],
       };
-    }else if (newPeriod === "All") {
+    } else if (newPeriod === "All") {
       let minDate = new Date();
       const currentDate = new Date();
       let allLabels = [];
