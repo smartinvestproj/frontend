@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import "chartjs-adapter-date-fns";
 
-
 export default function BubbleChart() {
   const [tradeData, setTradeData] = useState([]);
 
@@ -42,7 +41,6 @@ export default function BubbleChart() {
     '#34495E'
   ];
   
-
   const data = {
     datasets: tradeData.map((trade, idx) => {
       console.log(format(new Date(trade.date), 'yyyy-MM-dd'))
@@ -54,7 +52,7 @@ export default function BubbleChart() {
           y: trade.total,
           r: trade.quantity,
         }],
-        backgroundColor: backgroundColor[idx % 20],
+        backgroundColor: backgroundColor[idx % backgroundColor.length],
       };
     }),
     

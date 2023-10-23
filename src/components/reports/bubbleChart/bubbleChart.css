@@ -4,4 +4,7 @@
     flex-direction: column;
     text-align: center;
     margin-bottom: 80px;
+    background-color: #333333;
+    border-radius: 20px;
+    padding: 20px;
 }

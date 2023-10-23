@@ -27,19 +27,6 @@ const dayNames = [
   "Saturday",
 ];
 
-const data = {
-  labels: [],
-  datasets: [
-    {
-      label: "",
-      data: [],
-      backgroundColor: ["rgb(217,83,79)"],
-      borderColor: ["rgb(217,83,79)"],
-      borderWidth: 2,
-    },
-  ],
-};
-
 export default function PortfolioPage({ props }) {
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("All");
@@ -142,7 +129,6 @@ export default function PortfolioPage({ props }) {
       });
 
       for (let i = 30; i >= 0; i--) {
-        // Altere o limite de 31 para 30 para representar os últimos 30 dias.
         const date = new Date(currentDate);
         date.setDate(currentDate.getDate() - i);
         const day = date.getDate();
@@ -312,7 +298,6 @@ export default function PortfolioPage({ props }) {
       };
     } else if (newPeriod === "All") {
       let minDate = new Date();
-      const currentDate = new Date();
       let allLabels = [];
       let AllData = calculateAll(trades);
       const values = AllData.map((trade) => trade.total);
@@ -324,6 +309,14 @@ export default function PortfolioPage({ props }) {
         }
         allLabels.push(date.toLocaleDateString("pt-PT"));
       });
+
+      if(trades.length > 7) {
+        updatePeriod("3 months");
+      } else if(trades.length > 15) {
+        updatePeriod("6 months");
+      } else if(trades.length > 30) {
+        updatePeriod("1 year");
+      }
 
       newData = {
         labels: allLabels,
