@@ -45,7 +45,8 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		fetchData();
 	}, []);
 
-	const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
+	const [brokerOptions, setBrokerOptions] = useState(['', 'XTB', 'Degiro', 'Trading 212']);
+	const [newOption, setNewOption] = useState('');
 	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
 	let total = ''
@@ -110,6 +111,13 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		});
 		setFormErrors({})
 	};
+
+	const handleAddOption = () => {
+		if (newOption.trim() !== '' && !brokerOptions.includes(newOption)) {
+		  setBrokerOptions([...brokerOptions, newOption]);
+		  setNewOption('');
+		}
+	  };	
 
 
 	function handleTotalChange(event) {
@@ -190,13 +198,7 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 							<tr>
 								<td><label htmlFor="broker">Broker</label></td>
 								<td>
-									<select name="broker" value={formData.broker} className="custom-select" onChange={handleInputChange}>
-										{brokerOptions.map((broker, index) => (
-											<option key={index} value={broker}>
-												{broker}
-											</option>
-										))}
-									</select>
+									<input type="text" value={formData.broker} name='broker' onChange={handleInputChange} />
 									{formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}
 								</td>
 								<td><label htmlFor="exchange_rate">Exchange Rate</label></td>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
-import {getStocks, createOrUpdateStock} from '../../../services/Stocks.js';
-import {getTradeById, createOrUpdateTrade}  from '../../../services/Trades.js';
+import { getStocks, createOrUpdateStock } from '../../../services/Stocks.js';
+import { getTradeById, createOrUpdateTrade } from '../../../services/Trades.js';
 
 export default function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
   const initialValues = {
@@ -14,7 +14,6 @@ export default function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage 
     exchange_rate: '',
     quantity: '',
   }
-  
 
   const [name, setName] = useState('');
   const [symbol, setSymbol] = useState('');
@@ -89,8 +88,6 @@ export default function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage 
     }
     setFormErrors({})
   };
-
-  const brokerOptions = ['', 'XTB', 'Degiro', 'Trading 212'];
   const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
   let total = ''
@@ -108,7 +105,7 @@ export default function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage 
     if (symbol.length < 3) {
       errors.symbol = 'Please enter a symbol';
     }
-    if (name.length < 4) {
+    if (name.length < 1) {
       errors.name = 'Please enter a name';
     }
     if (!currency) {
@@ -244,13 +241,7 @@ export default function AddStock({ tradeId, setModalIsOpen, setShouldReloadPage 
                 <tr>
                   <td><label htmlFor="broker">Broker</label></td>
                   <td>
-                    <select name="broker" value={broker} className="custom-select" onChange={handleInputChange}>
-                      {brokerOptions.map((broker, index) => (
-                        <option key={index} value={broker}>
-                          {broker}
-                        </option>
-                      ))}
-                    </select>
+                    <input type="text" value={broker} name='broker' onChange={handleInputChange} />
                     {formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}
                   </td>
                   <td><label htmlFor="exchange_rate">Exchange Rate</label></td>

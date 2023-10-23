@@ -64,10 +64,10 @@ export default function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		event.preventDefault();
 
 		const errors = {};
-		if (formData.sell_price <= 0) {
+		if (formData.sell_price = 0) {
       errors.sell_price = 'Please enter a valid Sell Price';
     }
-		if (formData.tax <= 0) {
+		if (formData.tax < 0) {
       errors.tax = 'Please enter a valid tax';
     }
 		if (Object.keys(errors).length > 0) {

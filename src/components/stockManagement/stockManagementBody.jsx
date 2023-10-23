@@ -5,6 +5,7 @@ import TradeRow from './tradeRow';
 import ModalComponent from './modalComponent';
 import {getStocks} from '../../services/Stocks.js';
 import {getTrades} from '../../services/Trades.js';
+// import { useStockContext } from "../../context/stockContext";
 import './stockManagementBody.css';
 import '../stockManagement/addStock/styles.css';
 import '../stockManagement/stockInfo/styles.css';
