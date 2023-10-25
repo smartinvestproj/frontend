@@ -8,4 +8,11 @@
 .row-one-charts{
     display: flex;
     justify-content: center;
+    margin-bottom: -50px;
+}
+
+.row-two-charts{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
 }

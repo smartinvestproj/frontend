@@ -1,19 +1,21 @@
 import React from "react";
 import "../components/reports/reports.css";
 import PieCharts from "../components/reports/pieChart/pieChart.jsx";
-import BubbleChart from "../components/reports/bubbleChart/BubbleChart.jsx";
+import BubbleChart from '../components/reports/bubbleChart/bubbleChart.jsx';
+import BarChart from "../components/reports/barChart/BarChart";
 
-function Portfolio() {
+export default function Portfolio() {
   return (
     <>
     <div className="reports-container">
       <div className="row-one-charts">
         <BubbleChart />
+      </div >
+      <div className="row-two-charts">
+        <BarChart />
+        <PieCharts />
       </div>
-      <PieCharts />
     </div>
   </>
   );
 }
-
-export default Portfolio;

@@ -4,6 +4,7 @@ import Portfolio from "../pages/portfolio.jsx";
 import StockManagement from "../pages/StockManagement.jsx";
 import Login from "../pages/Login.jsx";
 import Reports from "../pages/Reports.jsx";
+import Historic from "../pages/Historic.jsx";
 
 const routes = [
     {
@@ -30,6 +31,10 @@ const routes = [
             {
                 path: "/login",
                 element: <Login/>,
+            },
+            {
+                path: "/historic",
+                element: <Historic/>,
             }
         ]
     }

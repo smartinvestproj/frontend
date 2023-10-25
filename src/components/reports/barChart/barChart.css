@@ -1,10 +1,12 @@
-.pieChart-container{
+.barChart-container{
+    text-align: center;
     background-color: #333333;
     border-radius: 20px;
     padding: 20px;
+    width: 730px;
 }
 
-.pieChart-header{
+.barChart-header{
     color: var(--gold-color);
     text-align: center;
     font-size: 20px;

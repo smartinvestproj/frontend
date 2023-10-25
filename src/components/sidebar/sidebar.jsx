@@ -30,7 +30,8 @@ export default function Sidebar() {
   return (
     <div className='sidebar'>
       <div className='sidebar-img'>
-        <img className='sidebar-img' src={logo} alt="logo" />
+      <Link to="/" className='sidebar-li'><i class="fi fi-rr-time-past"></i><img className='sidebar-img' src={logo} alt="logo" /></Link>
+        
       </div>
       <div onClick={openModal} className='totalInvestment-box-container'>
         <div>
@@ -50,6 +51,9 @@ export default function Sidebar() {
         </li>
         <li>
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>
+        </li>
+        <li>
+          <Link to="/historic" className='sidebar-li'><i class="fi fi-rr-time-past"></i>Historic</Link>
         </li>
       </div>
       {modalIsOpen && <MainCapitalModal closeModal={closeModal} openModal={openModal} />}

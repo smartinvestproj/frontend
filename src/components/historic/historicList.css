@@ -1,0 +1,29 @@
+.historic-container{
+    list-style-type: none;
+    font-size: 18px;
+    
+}
+
+.historic-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.historic-row p{
+    font-family: var(--primary-font);
+    margin-right: 20px;
+}
+
+.id-colored{
+    color: var(--gold-color)
+}
+
+.state-sold{
+    color: var(--red-color);
+}
+
+.state-portfolio
+{
+    color: var(--green-color);
+}
