@@ -55,7 +55,7 @@
   
   .results {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     border-radius: 15px;
     border-bottom: 1px solid black;
     padding: 25px;
@@ -68,11 +68,14 @@
     max-width: 500px;
   }
   
-  .result-symbol,
-  .result-percentage {
+  .result-symbol {
     font-size: 12px;
+    margin-left: 10px;
   }
-  
-  .result-value {
-    margin-left: 250px;
+
+  .link
+  {
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
   }

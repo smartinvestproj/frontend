@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useStockContext } from "../../../context/stockContext";
+import { Link } from "react-router-dom";
 import './searchBar.css'
 
 function SearchBar() {
@@ -21,6 +22,7 @@ function SearchBar() {
     setSearchResults(filteredResults);
   };
 
+
   return (
     <div>
       <div className="search-container">
@@ -38,10 +40,10 @@ function SearchBar() {
           <ul style={{ listStyle: "none" }}>
             {searchResults.map((result, index) => (
               <li key={index} className="results">
-                <span className="result-name">{result.name}</span>
-                <span className="result-symbol">{result.symbol}</span>
-                <span className="result-value">{result.value}</span>
-                <span className="result-percentage" style={{ color: "red" }}>{result.percentage}</span>
+                <Link to="/stockManagement" className="link">
+                  <span className="result-name">{result.name}</span>
+                  <span className="result-symbol">{result.symbol}</span>
+                </Link>
               </li>
             ))}
           </ul>

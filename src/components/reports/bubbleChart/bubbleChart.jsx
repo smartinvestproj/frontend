@@ -6,7 +6,7 @@ import "./bubbleChart.css";
 
 
 export default function BubbleChart() {
-  const { trades } = useStockContext();
+  const { trades, filterTradesByState } = useStockContext();
 
   const backgroundColor = [
     '#0668E1',
@@ -28,8 +28,10 @@ export default function BubbleChart() {
     '#34495E'
   ];
 
+  const filteredTrades = filterTradesByState();
+
   const data = {
-    datasets: trades.map((trade, idx) => {
+    datasets: filteredTrades.map((trade, idx) => {
 
       return {
         label: trade.stock.name,
