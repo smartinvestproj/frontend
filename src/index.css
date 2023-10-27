@@ -1,7 +1,7 @@
-:root{
+:root {
   font-family: var(--primary-font);
   color-scheme: light dark;
-  --gold-color : #C6A653;
+  --gold-color: #C6A653;
   --background-color: #242424;
   --boxes-color: #333333;
   --red-color: #D9534F;
@@ -9,7 +9,36 @@
   --text-placeholder: #B3B3B3;
   --shadow-box-color: #1a1a1a;
   --primary-font: 'Raleway';
-  --secondary-font: 'Montserrat' ;
+  --secondary-font: 'Montserrat';
   --numbers-font: 'Montserrat';
   background-color: var(--background-color);
+}
+
+input {
+  font-family: var(--primary-font);
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+label {
+  font-family: var(--secondary-font);
+  margin-right: 10px;
+}
+
+h1 {
+  font-family: var(--primary-font);
+  font-weight: lighter;
+}
+
+h2 {
+  font-family: var(--primary-font);
+  color: var(--gold-color);
+  font-weight: lighter;
+}
+
+* {
+  font-family: var(--primary-font);
 }

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import ModalComponent from "../modalComponent";
 import SellModal from '../sellModal';
-import {createOrUpdateTrade, getTradeById} from '../../../services/Trades.js';
-
+import { createOrUpdateTrade, getTradeById } from '../../../services/Trades.js';
 
 export default function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 
@@ -27,7 +26,7 @@ export default function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage
 	}
 
 	const [formData, setFormData] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
+	const [formErrors, setFormErrors] = useState({});
 
 	useEffect(() => {
 		async function fetchData() {
@@ -64,17 +63,17 @@ export default function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		event.preventDefault();
 
 		const errors = {};
-		if (formData.sell_price = 0) {
-      errors.sell_price = 'Please enter a valid Sell Price';
-    }
+		if (formData.sell_price < 0) {
+			errors.sell_price = 'Please enter a valid Sell Price';
+		}
 		if (formData.tax < 0) {
-      errors.tax = 'Please enter a valid tax';
-    }
+			errors.tax = 'Please enter a valid tax';
+		}
 		if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
-    }
-		
+			setFormErrors(errors);
+			return;
+		}
+
 		try {
 			formData.state = 0;
 			await createOrUpdateTrade(formData);
@@ -124,25 +123,25 @@ export default function SellStock({ tradeId, setModalIsOpen, setShouldReloadPage
 							<tbody>
 								<tr>
 									<td>EUR</td>
-									<td><b>€{formData.price}</b></td>
+									<td>€{formData.price}</td>
 									<td></td>
 									<td></td>
 								</tr>
 								<tr>
 									<td>Exchange Rate</td>
-									<td><b>{formData.exchange_rate}</b></td>
+									<td>{formData.exchange_rate}</td>
 									<td></td>
 									<td></td>
 								</tr>
 								<tr>
 									<td>Quantity </td>
-									<td><b>{formData.quantity}</b></td>
+									<td>{formData.quantity}</td>
 									<td></td>
 									<td></td>
 								</tr>
 								<tr>
 									<td>Total </td>
-									<td><b>{total}</b></td>
+									<td>{total}</td>
 									<td className='tax'><label htmlFor="sell_price">Sell Price</label> &emsp;</td>
 									<td><input type='number' name='sell_price' step=".01" className='input-number' onChange={handleInputChange}></input>{formErrors.sell_price && <label className='error-label'><br />{formErrors.sell_price}</label>}</td>
 								</tr>

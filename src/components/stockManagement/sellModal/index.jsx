@@ -16,10 +16,10 @@ export default function SellModal({ setModalIsOpen, setShouldReloadPage }) {
   
     return (
       <div>
-        <h2 className="title-sell-modal">Confirm Action</h2>
+        <h2 className="title-sell-modal">Confirm action</h2>
         <hr className="hr-sell-modal" />
         <div className="button-place">
-          <button className="button margin-right" onClick={addToPortfolio}>Add To Portfolio</button>
+          <button className="button margin-right" onClick={addToPortfolio}>Add to portfolio</button>
           <button className="button" onClick={withdraw}>Withdraw</button>
         </div>
       </div>

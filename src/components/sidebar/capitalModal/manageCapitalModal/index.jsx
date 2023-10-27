@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from 'react-modal';
-import { getCapital, createOrUpdateCapital, deleteCapital } from "../../../../services/Capitals.js";
+import { getCapital, deleteCapital } from "../../../../services/Capitals.js";
 import './styles.css'
 import EditCapitalModal from "../editCapital/index.jsx";
 
@@ -51,12 +51,6 @@ export default function ManageCapitalModal() {
     refreshPage();
   };
 
-  const handleEditCapital = (capital) => {
-    console.log("Edit Capital");
-    createOrUpdateCapital(capital);
-    closeModal();
-  };
-
   const removeCapital = (capitalId) => {
     const newCapitals = capitals.filter((capital) => capital.id !== capitalId);
     setCapitals(newCapitals);
@@ -80,8 +74,8 @@ export default function ManageCapitalModal() {
         <ol className="capitals-list">
           {capitals.map((capital, index) => (
             <li className="capital-row" key={index}>
-              <label className="date-of-investment">Date of Investment</label><input type="date" value={capital.date} disabled />
-              <label className="value-capital">Value</label><input type="number" value={capital.value} disabled />
+              <label className="date-of-investment">Date of Investment : {capital.date}</label>
+              <label className="value-capital">Value: {capital.value}€</label>
               <button className='capital-submit-button manage-btn' onClick={() => {
                 setEditingCapital(capital.id);
                 setEditModalIsOpen(true);

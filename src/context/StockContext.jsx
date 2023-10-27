@@ -35,6 +35,12 @@ const StockProvider = ({ children }) => {
         return trades.filter(trade => new Date(trade.date).getFullYear() === parseInt(year));
     }
 
+    // Filter Trades By State
+    
+    function filterTradesByState() {
+        return trades.filter(trade => trade.state === 1);
+    }
+
     // Calculate Trade Values By Stock Id (Total for each one)
 
     function tradeValuesByStockId(stockId) {
@@ -284,6 +290,7 @@ const StockProvider = ({ children }) => {
     }
 
     //__________________________________________________________________________________________________//
+    
 
     return (
         <StockContext.Provider value={{
@@ -317,6 +324,7 @@ const StockProvider = ({ children }) => {
             uniqueYears,
             setSelectedYear,
             selectedYear,
+            filterTradesByState
         }}>
             {children}
         </StockContext.Provider>

@@ -5,41 +5,32 @@ import ModalComponent from '../modalComponent';
 import AddStock from '../addStock';
 import SellStock from '../sellStock';
 import EditStock from '../editStock';
-import {getTradeById} from '../../../services/Trades.js';
+import { getTradeById } from '../../../services/Trades.js';
 import './styles.css';
 
 export default function StockInfo({ tradeId, setShouldReloadPage }) {
-
-  console.log('tradeId', tradeId)
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [chooseModal, setChooseModal] = useState(false);
   const modalType1 = "modal-content";
-
   const sellButton = useRef(null);
   const buyButton = useRef(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   const [trades, setTrades] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      if (!tradeId) {
-        return
-      }
       try {
         const tradeResponse = await getTradeById(tradeId);
-        console.log('tradeResponse', tradeResponse.data)
-        setTrades(tradeResponse.data);
 
+        setTrades(tradeResponse.data);
         setIsLoading(false);
       } catch (error) {
         console.error(error);
       }
     }
-
     fetchData();
   }, []);
-
-  const [chooseModal, setChooseModal] = useState(false);
 
   function handleBuyStock() {
     setModalIsOpen(true);
@@ -56,16 +47,9 @@ export default function StockInfo({ tradeId, setShouldReloadPage }) {
     setChooseModal('edit');
   }
 
-  if (isLoading) {
-    return <div>Loading Trade...</div>;
-  }
-
-  if (!trades) {
-    return null;
-  }
-
-  return (
-
+  return isLoading ? 
+  <div>Loading Trade...</div> 
+  : (
     <div>
       <table className='table-info'>
         <thead>
@@ -79,22 +63,22 @@ export default function StockInfo({ tradeId, setShouldReloadPage }) {
           <tr>
             <td>EUR</td>
             <td></td>
-            <td><b>€{trades.price}</b></td>
+            <td>€{trades.price}</td>
           </tr>
           <tr>
             <td>Exchange Rate</td>
             <td></td>
-            <td><b>{trades.exchange_rate}</b></td>
+            <td>{trades.exchange_rate}</td>
           </tr>
           <tr>
             <td>Quantity</td>
             <td></td>
-            <td><b>{trades.quantity}</b></td>
+            <td>{trades.quantity}</td>
           </tr>
           <tr>
             <td>Total</td>
             <td></td>
-            <td><b>{trades.total}</b></td>
+            <td>{trades.total}</td>
           </tr>
           <tr>
             <td>Broker</td>

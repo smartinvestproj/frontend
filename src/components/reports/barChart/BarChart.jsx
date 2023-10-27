@@ -1,23 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import { useStockContext } from "../../../context/stockContext";
 import "./barChart.css";
-import { getTrades } from "../../../services/Trades.js";
 
 function BarChart() {
-  const [trades, setTrades] = useState([]);
-
-  useEffect(() => {
-    async function fetchTradeData() {
-      try {
-        const data = await getTrades();
-        const trades = data.data;
-        setTrades(trades);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchTradeData();
-  }, []);
+  const { trades } = useStockContext();
 
   const backgroundColor = [
     "#0668E1",

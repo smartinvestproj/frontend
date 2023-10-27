@@ -76,12 +76,12 @@
   width: 150px;
   border-radius: 10px;
   font-size: 1.5rem;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: lighter;
 }
 
 .edit-button:hover {
   cursor: pointer;
+  background-color: var(--gold-color);
 }
 
 .edit-stock-hr {

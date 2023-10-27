@@ -57,15 +57,15 @@ export default function PortfolioTable() {
                 </thead>
                 <tbody>
                     <tr className="teste">
-                        <td>{totalTradeValuesAll()}€</td>
-                        <td>{totalTradeSoldAll()}€</td>
-                        <td>{transactionValueAll()}€</td>
-                        <td>{totalInvestementAll()}€</td>
-                        <td>{investmentOwnCapitalAll()}€</td>
-                        <td>{investmentCapitalGainAll()}€</td>
-                        <td>{maisValiasAll()}€</td>
-                        <td>{taxAll()}€</td>
-                        <td>{dividendsAll()}€</td>
+                        <td>{totalTradeValuesAll().toFixed(2)}€</td>
+                        <td>{totalTradeSoldAll().toFixed(2)}€</td>
+                        <td>{transactionValueAll().toFixed(2)}€</td>
+                        <td>{totalInvestementAll().toFixed(2)}€</td>
+                        <td>{investmentOwnCapitalAll().toFixed(2)}€</td>
+                        <td>{investmentCapitalGainAll().toFixed(2)}€</td>
+                        <td>{maisValiasAll().toFixed(2)}€</td>
+                        <td>{taxAll().toFixed(2)}€</td>
+                        <td>{dividendsAll().toFixed(2)}€</td>
                         <td style={{ color: totalInvestmentProfitabilityAll() > 0 ? '#22B573' : '#D9534F' }}>
                             {totalInvestmentProfitabilityAll().toFixed(2)}%
                         </td>
@@ -133,14 +133,14 @@ export default function PortfolioTable() {
                 </thead>
                 <tbody>
                     <tr className="teste">
-                        <td>{totalTradeValuesYear()}€</td>
-                        <td>{totalTradeSoldYear()}€</td>
-                        <td>{transactionValueYear()}€</td>
-                        <td>{totalInvestementYear()}€</td>
-                        <td>{investmentOwnCapitalYear()}€</td>
-                        <td>{investmentCapitalGainYear()}€</td>
-                        <td>{maisValiasYear()}€</td>
-                        <td>{taxYear()}€</td>
+                        <td>{totalTradeValuesYear().toFixed(2)}€</td>
+                        <td>{totalTradeSoldYear().toFixed(2)}€</td>
+                        <td>{transactionValueYear().toFixed(2)}€</td>
+                        <td>{totalInvestementYear().toFixed(2)}€</td>
+                        <td>{investmentOwnCapitalYear().toFixed(2)}€</td>
+                        <td>{investmentCapitalGainYear().toFixed(2)}€</td>
+                        <td>{maisValiasYear().toFixed(2)}€</td>
+                        <td>{taxYear().toFixed(2)}€</td>
                         <td>{dividendsYear()}€</td>
                         <td style={{ color: totalInvestmentProfitabilityYear() > 0 ? '#22B573' : '#D9534F' }}>
                             {totalInvestmentProfitabilityYear().toFixed(2)}%

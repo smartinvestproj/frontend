@@ -1,39 +1,9 @@
-import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import "./pieCharts.css";
-import { getTrades } from "../../../services/Trades.js";
-import { getStocks } from "../../../services/Stocks.js";
+import { useStockContext } from "../../../context/stockContext";
 
 function PieCharts() {
-  const [tradeData, setTradeData] = useState([]);
-  const [stockData, setStockData] = useState([]);
-
-  useEffect(() => {
-    const fetchTrades = async () => {
-      const tradesData = await getTrades();
-      setTradeData(tradesData.data);
-    };
-
-    fetchTrades();
-  }, []);
-
-  console.log("Trade Data is: ", tradeData);
-  useEffect(() => {
-    async function fetchStocks() {
-      try {
-        const data = await getStocks();
-        const stocks = data.data;
-        setStockData(stocks);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchStocks();
-  }, []);
-
-  if (tradeData === null) {
-    return <div>Loading...</div>;
-  }
+  const { trades } = useStockContext();
 
   const backgroundColor = [
     "#0668E1",
@@ -55,7 +25,7 @@ function PieCharts() {
     "#34495E",
   ];
 
-  const pieData = tradeData.map((trade, idx) => {
+  const pieData = trades.map((trade, idx) => {
     if (trade.state === 1) {
       return {
         stock: trade.stock.name,
@@ -65,7 +35,7 @@ function PieCharts() {
     }
     return null;
   }).filter(Boolean);
-  
+
   const data = {
     labels: pieData.map((item) => item.stock),
     datasets: [
@@ -76,7 +46,6 @@ function PieCharts() {
       },
     ],
   };
-  
 
   return (
     <div className="pieChart-container">

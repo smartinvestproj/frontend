@@ -102,7 +102,10 @@
     width: 45px;
     height: 45px;
     margin-right: 10px;
-    box-shadow: 2px 3px 5px black;
+  }
+
+  .arrow-green-span:hover {
+    background-color: #158a4c;
   }
   
   .arrow-red-span {
@@ -112,7 +115,10 @@
     width: 45px;
     height: 45px;
     margin-right: 10px;
-    box-shadow: 2px 3px 5px black;
+  }
+
+  .arrow-red-span:hover {
+    background-color: #a93535;
   }
   
   .arrow-green {

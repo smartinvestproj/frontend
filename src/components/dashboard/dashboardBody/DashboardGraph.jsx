@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./dashboardGraph.css";
 import Chart from "chart.js/auto";
-import { getTrades } from "../../../services/Trades.js";
+import { useStockContext } from "../../../context/stockContext";
+import "./dashboardGraph.css";
 
 const monthNames = [
   "January",
@@ -27,32 +27,16 @@ const dayNames = [
   "Saturday",
 ];
 
-export default function PortfolioPage({ props }) {
+export default function PortfolioPage() {
+  const { trades, totalTradeValuesAll } = useStockContext();
   const chartRef = useRef(null);
   const [period, setPeriod] = useState("All");
-  const [trades, setTrades] = useState([]);
 
-  useEffect(() => {
-    async function fetchTradeData() {
-      try {
-        const data = await getTrades();
-        const trades = data.data;
-        setTrades(trades);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchTradeData();
-  }, []);
 
   function calculateAll(trades) {
     const results = trades.map((trade) => {
-      const totalTrades = parseFloat(trade.total);
-      const stocksSoldValue = parseFloat(trade.sell_price);
-      const maisValia = stocksSoldValue - totalTrades;
-      const dividends = parseFloat(trade.dividends);
 
-      const total = totalTrades - stocksSoldValue + maisValia + dividends;
+      const total = totalTradeValuesAll();
 
       return {
         tradeId: trade.id,
@@ -91,8 +75,6 @@ export default function PortfolioPage({ props }) {
         const dayName = dayNames[dayOfWeek];
         weekLabels.push(dayName);
       }
-
-      console.log(lastWeekTrades);
 
       for (const day of weekLabels) {
         const totalForDay = lastWeekTrades
@@ -278,12 +260,6 @@ export default function PortfolioPage({ props }) {
         yearData.push(totalForMonth);
       }
 
-      console.log(yearData);
-
-      trades.map((trade) => {
-        console.log(trade);
-      });
-
       newData = {
         labels: yearLabels.map((label) => label.label),
         datasets: [
@@ -379,10 +355,7 @@ export default function PortfolioPage({ props }) {
           <h1 className="my-portolio-h1">My Portfolio</h1>
         </div>
         <div className="money">
-          <h1>€2346,67</h1>
-          <div className="profit">
-            <p>-10,4%</p>
-          </div>
+          <h1>€ {totalTradeValuesAll()}</h1>
         </div>
         <div className="updateButtons">
           <button onClick={() => updatePeriod("1 week")}>1 week</button>

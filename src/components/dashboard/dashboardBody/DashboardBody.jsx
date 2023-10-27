@@ -5,7 +5,11 @@ import DashboardGraph from './DashboardGraph.jsx';
 import { useStockContext } from '../../../context/stockContext';
 
 export default function DashboardBody() {
-  const { stocks, tradeValuesByStockId } = useStockContext();
+  const { stocks, tradeValuesByStockId, filterTradesByState } = useStockContext();
+
+  const stocksWithNoState1Trades = stocks.filter(stock => {
+    return filterTradesByState().some(trade => trade.stock.id === stock.id);
+  });
 
   const scrl = useRef(null);
   const slide = (shift) => {
@@ -19,12 +23,12 @@ export default function DashboardBody() {
           <h3 className='my-stocks-label'>My Stocks</h3>
           <i onClick={() => slide(-150)} className='stocks-arrow-left fi fi-rr-angle-small-left'></i>
           <div ref={scrl} className="my-stocks-item">
-            {stocks.map((stock, index) => (
+            {stocksWithNoState1Trades.map((trade, index) => (
               <MyStocks
                 key={index}
-                symbol={stock.symbol}
-                name={stock.name}
-                total={tradeValuesByStockId(stock.id).totalTotal + "€"}
+                symbol={trade.symbol}
+                name={trade.name}
+                total={tradeValuesByStockId(trade.id).totalTotal + "€"}
               />
             ))}
           </div>

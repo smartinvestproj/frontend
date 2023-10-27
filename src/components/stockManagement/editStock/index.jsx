@@ -4,32 +4,28 @@ import './styles.css';
 
 export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage }) {
 
-	const initialValues = {
+	const [trade, setTrade] = useState({
 		name: '',
 		symbol: '',
 		currency: '',
-		broker: '',
-		date: '',
 		price: '',
+		broker: '',
 		exchange_rate: '',
+		date: '',
 		quantity: '',
 		dividends: '',
 		total: '',
-	}
-
-	const [formData, setFormData] = useState(initialValues);
+	});
 	const [formErrors, setFormErrors] = useState({});
 	const [loading, setLoading] = useState(true);
+	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
 
 	useEffect(() => {
 		async function fetchData() {
-			if (!tradeId) {
-				return
-			}
 			try {
 				const tradeResponse = await getTradeById(tradeId);
 				if (tradeResponse.data?.stock) {
-					setFormData({
+					setTrade({
 						name: tradeResponse.data.stock.name || '',
 						symbol: tradeResponse.data.stock.symbol || '',
 						currency: tradeResponse.data.stock.currency || '',
@@ -41,17 +37,11 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 				console.error(error);
 			}
 		}
-
 		fetchData();
 	}, []);
 
-	const [brokerOptions, setBrokerOptions] = useState(['', 'XTB', 'Degiro', 'Trading 212']);
-	const [newOption, setNewOption] = useState('');
-	const currencyOptions = ['', 'EUR', 'USD', 'GBP', 'JPY'];
-
 	let total = ''
-	total = parseFloat(formData.price) * parseFloat(formData.quantity);
-	total = total.toFixed(2);
+	total = (parseFloat(trade.price) * parseFloat(trade.quantity)).toFixed(2);
 
 	if (isNaN(total)) {
 		total = '';
@@ -61,22 +51,22 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		event.preventDefault();
 
 		const errors = {};
-		if (!formData.price) {
+		if (!trade.price) {
 			errors.price = 'Please enter a price';
 		}
-		if (!formData.broker) {
+		if (!trade.broker) {
 			errors.broker = 'Please select a broker';
 		}
-		if (!formData.exchange_rate) {
+		if (!trade.exchange_rate) {
 			errors.exchange_rate = 'Please enter a exchange_rate';
 		}
-		if (!formData.date) {
+		if (!trade.date) {
 			errors.date = 'Please select a date';
 		}
-		if (!formData.quantity) {
+		if (!trade.quantity) {
 			errors.quantity = 'Please enter a quantity';
 		}
-		if (!formData.dividends) {
+		if (!trade.dividends) {
 			errors.dividends = 'Please enter a dividend'
 		}
 		if (total > 9999999) {
@@ -88,10 +78,11 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 		}
 
 		try {
-			createOrUpdateTrade(formData);
-
+			createOrUpdateTrade(trade);
 			if (setShouldReloadPage) {
-				setShouldReloadPage(true);
+				const timer = setTimeout(() => {
+					setShouldReloadPage(true);
+				}, 900);
 			}
 
 			setModalIsOpen(false);
@@ -99,68 +90,40 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 			console.error('Error:', error);
 			alert('Error. Please try again.');
 		}
-
 		setModalIsOpen(false);
 	}
 
 	function handleInputChange(event) {
 		const { name, value } = event.target;
-		setFormData({
-			...formData,
+		setTrade({
+			...trade,
 			[name]: value,
 		});
 		setFormErrors({})
 	};
 
-	const handleAddOption = () => {
-		if (newOption.trim() !== '' && !brokerOptions.includes(newOption)) {
-		  setBrokerOptions([...brokerOptions, newOption]);
-		  setNewOption('');
-		}
-	  };	
-
-
 	function handleTotalChange(event) {
 		const { name, value } = event.target;
-		setFormData({
-			...formData,
+		setTrade({
+			...trade,
 			total: value,
 		});
 		setFormErrors({});
 	}
 
-
-
 	useEffect(() => {
-		setFormData({
-			name: '',
-			symbol: '',
-			currency: '',
-			broker: '',
-			date: '',
-			tax: '',
-			dividends: '',
-			total: '',
-		});
-	}, []);
-
-	useEffect(() => {
-		if (!isNaN(formData.price) && !isNaN(formData.quantity)) {
-			const total = (parseFloat(formData.price) * parseFloat(formData.quantity)).toFixed(2);
-			setFormData({
-				...formData,
+		if (!isNaN(trade.price) && !isNaN(trade.quantity)) {
+			const total = (parseFloat(trade.price) * parseFloat(trade.quantity)).toFixed(2);
+			setTrade({
+				...trade,
 				total: total,
 			});
 		}
-	}, [formData.price, formData.quantity]);
+	}, [trade.price, trade.quantity]);
 
-
-	if (loading) {
-		return <div>Loading Trade...</div>;
-	}
-
-	return (
-
+	return loading ?
+	<div>Loading Trade...</div>
+	: (
 		<div>
 			<div className="edit-stock-header">
 				<h2>Edit Stock</h2>
@@ -170,16 +133,13 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 			<div>
 				<form className="modal-form">
 					<table className='table-edit-stock'>
-						<thead>
-
-						</thead>
 						<tbody>
 							<tr>
 								<td><label htmlFor="symbol">Symbol</label></td>
-								<td><input type='text' name='symbol' value={formData.symbol} onChange={handleInputChange} disabled></input>{formErrors.symbol && <label className='error-label'><br />{formErrors.symbol}</label>}</td>
+								<td><input type='text' name='symbol' value={trade.symbol} onChange={handleInputChange} disabled></input>{formErrors.symbol && <label className='error-label'><br />{formErrors.symbol}</label>}</td>
 								<td><label htmlFor="currency">Currency</label></td>
 								<td>
-									<select name="currency" value={formData.currency} className="custom-select" onChange={handleInputChange} disabled>
+									<select name="currency" value={trade.currency} className="custom-select" onChange={handleInputChange} disabled>
 										{currencyOptions.map((currency, index) => (
 											<option key={index} value={currency}>
 												{currency}
@@ -191,44 +151,37 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 							</tr>
 							<tr>
 								<td><label htmlFor="name">Name</label></td>
-								<td><input type='text' name='name' value={formData.name} onChange={handleInputChange} disabled>{formErrors.name && <label className='error-label'><br />{formErrors.name}</label>}</input></td>
+								<td><input type='text' name='name' value={trade.name} onChange={handleInputChange} disabled>{formErrors.name && <label className='error-label'><br />{formErrors.name}</label>}</input></td>
 								<td><label htmlFor="price">Price</label></td>
-								<td><input type='number' step=".01" name='price' value={formData.price} className='input-number' onChange={handleInputChange}></input>{formErrors.price && <label className='error-label'><br />{formErrors.price}</label>}</td>
+								<td><input type='number' step=".01" name='price' value={trade.price} className='input-number' onChange={handleInputChange}></input>{formErrors.price && <label className='error-label'><br />{formErrors.price}</label>}</td>
 							</tr>
 							<tr>
 								<td><label htmlFor="broker">Broker</label></td>
 								<td>
-									<input type="text" value={formData.broker} name='broker' onChange={handleInputChange} />
+									<input type="text" value={trade.broker} name='broker' onChange={handleInputChange} />
 									{formErrors.broker && <label className='error-label'><br />{formErrors.broker}</label>}
 								</td>
 								<td><label htmlFor="exchange_rate">Exchange Rate</label></td>
-								<td><input type='number' step=".01" name='exchange_rate' value={formData.exchange_rate} className='input-number' onChange={handleInputChange}></input>{formErrors.exchange_rate && <label className='error-label'><br />{formErrors.exchange_rate}</label>}</td>
+								<td><input type='number' step=".01" name='exchange_rate' value={trade.exchange_rate} className='input-number' onChange={handleInputChange}></input>{formErrors.exchange_rate && <label className='error-label'><br />{formErrors.exchange_rate}</label>}</td>
 							</tr>
 							<tr>
 								<td><label htmlFor="date">Date</label></td>
 								<td>
-									<input
-										type="date"
-										name="date"
-										value={formData.date}
-										onChange={handleInputChange}
-										className='date-picker'
-									/>
+									<input type="date" name="date" value={trade.date} onChange={handleInputChange} className='date-picker' />
 									{formErrors.date && <label className='error-label'><br />{formErrors.date}</label>}
 								</td>
 								<td><label htmlFor="quantity">Quantity</label></td>
-								<td><input type='number' step=".01" name='quantity' value={formData.quantity} className='input-number' onChange={handleInputChange}></input>{formErrors.quantity && <label className='error-label'><br />{formErrors.quantity}</label>}</td>
+								<td><input type='number' step=".01" name='quantity' value={trade.quantity} className='input-number' onChange={handleInputChange}></input>{formErrors.quantity && <label className='error-label'><br />{formErrors.quantity}</label>}</td>
 							</tr>
 							<tr>
 								<td><label htmlFor="dividend">Dividend</label></td>
-								<td><input type='number' step=".01" name='dividends' value={formData.dividends} className='input-number' onChange={handleInputChange}></input>{formErrors.dividends && <label className='error-label'><br />{formErrors.dividends}</label>}</td>
+								<td><input type='number' step=".01" name='dividends' value={trade.dividends} className='input-number' onChange={handleInputChange}></input>{formErrors.dividends && <label className='error-label'><br />{formErrors.dividends}</label>}</td>
 								<td><label htmlFor="total">Total</label></td>
 								<td>
 									<label name='total' onChange={handleTotalChange} value={total} className='label-total'>{total}</label>
-									<input type='hidden' step=".01" name='total' value={formData.total} className='input-number' onChange={handleTotalChange} disabled></input>
+									<input type='hidden' step=".01" name='total' value={trade.total} className='input-number' onChange={handleTotalChange} disabled></input>
 									{formErrors.total && <label className='error-label'><br />{formErrors.total}</label>}
 								</td>
-
 							</tr>
 						</tbody>
 					</table>
@@ -238,5 +191,5 @@ export default function EditStock({ tradeId, setModalIsOpen, setShouldReloadPage
 				</form>
 			</div>
 		</div >
-	);
+		);
 }

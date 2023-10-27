@@ -13,7 +13,3 @@
     margin: 0 10px;
     width: 130px;
 }
-
-.btn-capital-container button:hover{
-    background-color: var(--boxes-color);
-}

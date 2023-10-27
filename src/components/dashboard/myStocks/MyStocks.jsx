@@ -1,7 +1,6 @@
 import React from 'react';
 import './myStocks.css';
 
-
 export default function MyStocks({symbol, name, total}){
 
     return(

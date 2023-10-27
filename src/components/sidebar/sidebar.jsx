@@ -9,7 +9,7 @@ export default function Sidebar() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [value, setValue] = useState('');
-  
+
   useEffect(() => {
     const fetchCapitalTotalValue = async () => {
       const capitalTotalValue = await getCapitalTotalValue();
@@ -30,8 +30,7 @@ export default function Sidebar() {
   return (
     <div className='sidebar'>
       <div className='sidebar-img'>
-      <Link to="/" className='sidebar-li'><i class="fi fi-rr-time-past"></i><img className='sidebar-img' src={logo} alt="logo" /></Link>
-        
+        <Link to="/" className='sidebar-li'><i className="fi fi-rr-time-past"></i><img className='sidebar-img' src={logo} alt="logo" /></Link>
       </div>
       <div onClick={openModal} className='totalInvestment-box-container'>
         <div>
@@ -44,16 +43,16 @@ export default function Sidebar() {
       <div className='sidebar-ul'>
         <Link to="/"><li><i className="fi fi-rr-apps"></i>Dashboard</li></Link>
         <li>
-          <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
+          <Link to="/stockManagement" className='sidebar-li'><i className="fi fi-rr-money-check-edit"></i>Stock management</Link>
         </li>
         <li>
-          <Link to="/stockManagement" className='sidebar-li'><i className="fi fi-rr-money-check-edit"></i>Stock management</Link>
+          <Link to="/portfolio" className='sidebar-li'><i className="fi fi-rr-wallet"></i>Portfolio</Link>
         </li>
         <li>
           <Link to="/reports" className='sidebar-li'><i className="fi fi-rr-document"></i>Reports</Link>
         </li>
         <li>
-          <Link to="/historic" className='sidebar-li'><i class="fi fi-rr-time-past"></i>Historic</Link>
+          <Link to="/historic" className='sidebar-li'><i className="fi fi-rr-time-past"></i>Historic</Link>
         </li>
       </div>
       {modalIsOpen && <MainCapitalModal closeModal={closeModal} openModal={openModal} />}

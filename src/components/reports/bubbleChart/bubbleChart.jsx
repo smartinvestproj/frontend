@@ -1,25 +1,12 @@
 import { Bubble } from "react-chartjs-2";
-import "./bubbleChart.css";
-import {getTrades} from "../../../services/Trades.js";
-import { useEffect, useState } from "react";
+import { useStockContext } from "../../../context/stockContext";
 import { format } from "date-fns";
 import "chartjs-adapter-date-fns";
+import "./bubbleChart.css";
+
 
 export default function BubbleChart() {
-  const [tradeData, setTradeData] = useState([]);
-
-  useEffect(() => {
-    async function fetchTradeData() {
-      try {
-        const data = await getTrades();
-        const trades = data.data;
-        setTradeData(trades);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchTradeData();
-  }, []);
+  const { trades } = useStockContext();
 
   const backgroundColor = [
     '#0668E1',
@@ -40,10 +27,9 @@ export default function BubbleChart() {
     '#F39C12',
     '#34495E'
   ];
-  
+
   const data = {
-    datasets: tradeData.map((trade, idx) => {
-      console.log(format(new Date(trade.date), 'yyyy-MM-dd'))
+    datasets: trades.map((trade, idx) => {
 
       return {
         label: trade.stock.name,
@@ -55,19 +41,18 @@ export default function BubbleChart() {
         backgroundColor: backgroundColor[idx % backgroundColor.length],
       };
     }),
-    
   };
 
-  const  options = {
+  const options = {
     scales: {
-        x: {
-            type: 'time',
-            time: {
-                unit: 'day'
-            }
+      x: {
+        type: 'time',
+        time: {
+          unit: 'day'
         }
+      }
     }
-}
+  }
 
   return (
     <div className="bubbles-container">

@@ -1,20 +1,3 @@
-.historic-container{
-    list-style-type: none;
-    font-size: 18px;
-    
-}
-
-.historic-row{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-}
-
-.historic-row p{
-    font-family: var(--primary-font);
-    margin-right: 20px;
-}
-
 .id-colored{
     color: var(--gold-color)
 }
@@ -26,4 +9,42 @@
 .state-portfolio
 {
     color: var(--green-color);
+}
+
+.table-container-historic {
+    width: 100%;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    border-collapse: collapse;
+}
+
+.table-container-historic thead {
+    background-color: #333;
+    color: var(--gold-color);
+}
+
+.table-container-historic th {
+    padding: 10px;
+    height: 70px;
+    text-align: center;
+    border: 1px solid transparent; 
+    border-left: none; 
+    border-right: none; 
+}
+
+.table-container-historic td{
+    padding: 10px;
+    height: 70px;
+    text-align: center;
+    border: 0.5px solid #333; 
+    border-left: none; 
+    border-right: none; 
+}
+
+.teste-historic {
+    background-color: #535353;
+}
+
+.teste-historic:hover {
+    background-color: #3b3b3b;
 }
