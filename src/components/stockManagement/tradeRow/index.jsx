@@ -1,6 +1,6 @@
 export default function TradeRow({ trades, stockId, openStockInfo }) {
 
-  const filteredTrades = trades.filter((trade) => trade.stock.id === stockId);
+  const filteredTrades = trades.filter((trade) => trade.stock.id === stockId && trade.state === 1);
 
   filteredTrades.sort((a, b) => {
     const dateA = new Date(a.date);

@@ -47,7 +47,7 @@ const StockProvider = ({ children }) => {
 
         let totalTotal = 0;
 
-        const tradeFilter = trades.filter(trade => trade.stock.id === stockId);
+        const tradeFilter = trades.filter(trade => trade.stock.id === stockId && trade.state === 1);
 
         tradeFilter.map(trade => {
             totalTotal += parseFloat(trade.total);
