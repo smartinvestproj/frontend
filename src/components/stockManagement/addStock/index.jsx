@@ -5,8 +5,19 @@ import { createOrUpdateTrade } from '../../../services/Trades.js';
 import { useStockContext } from "../../../context/stockContext";
 
 export default function AddStock({ setModalIsOpen, setShouldReloadPage }) {
+  const initialValues = {
+    symbol: '',
+    name: '',
+    currency: '',
+    price: '',
+    broker: '',
+    exchange_rate: '',
+    date: '',
+    quantity: '',
+  };
+
   const { stocks } = useStockContext();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -53,6 +64,7 @@ export default function AddStock({ setModalIsOpen, setShouldReloadPage }) {
         name: formData.name,
         currency: formData.currency,
       };
+
 
       const stockResponse = matchingStock ? matchingStock : await createOrUpdateStock(stockData);
 
